@@ -13,9 +13,6 @@ class Router {
         $method = $request->getMetodo();
 
         $params = $request->getParametros();
-
-        // los archivos estan en camelCase pero las clases siempre arrancan en mayuscula, entonces pasamos el primer caracter del controller_str a mayus
-        $controller_str = ucfirst($controller_str);
         
         $objeto = "Controllers\\" . $controller_str;
         $controller = new $objeto();

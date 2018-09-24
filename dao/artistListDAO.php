@@ -11,8 +11,6 @@ class ArtistListDAO extends SingletonDAO implements IDAO {
     function __construct()
     {
         $this->datos = array();
-
-        echo 'qwqweqwwqe';
     }
 
     public function create($instance)

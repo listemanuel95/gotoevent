@@ -25,7 +25,7 @@ class Request
             Si el arreglo tiene datos, tomo como controlador el primer elemento.
         */
         if(empty($array_url)) {
-            $this->controller = 'PaginaPrincipal';
+            $this->controller = 'Index';
         } else {
             $this->controller = array_shift($array_url);
         }
