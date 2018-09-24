@@ -81,10 +81,19 @@
             <h1 class="h1-seo">GoToEvent</h1>
             <h3>VENDEMO TICKE</h3>
             </div>
-            <h6 class="category category-absolute">HECHO X LOS PIBE
-            <a href="http://invisionapp.com/" target="_blank">
-                <img src="./assets/img/invision-white-slim.png" class="invision-logo" />
-            </a>
+            <h6 class="category category-absolute">
+            <a href="https://www.github.com/dunkansdk" target="_blank">
+				<i class="fab fa-github"></i> Dunkan
+            </a>&emsp;
+            <a href="https://www.github.com/listemanuel95" target="_blank">
+				<i class="fab fa-github"></i> Bone
+            </a>&emsp;
+            <a href="https://www.github.com/zavilon" target="_blank">
+				<i class="fab fa-github"></i> Nacho
+            </a>&emsp;
+            <a href="https://www.github.com/natanga" target="_blank">
+				<i class="fab fa-github"></i> Natu
+			</a>&emsp;
         </div>
 	</div>
 	<div class="main">
@@ -134,18 +143,23 @@
 		<nav>
 		<ul>
 			<li>
-			<a href="https://www.creative-tim.com">
-				Creative Tim
+			<a href="https://www.github.com/dunkansdk" target="_blank">
+				<i class="fab fa-github"></i> Dunkan
 			</a>
 			</li>
 			<li>
-			<a href="http://presentation.creative-tim.com">
-				About Us
+			<a href="https://www.github.com/listemanuel95" target="_blank">
+				<i class="fab fa-github"></i> Bone
 			</a>
 			</li>
 			<li>
-			<a href="http://blog.creative-tim.com">
-				Blog
+			<a href="https://www.github.com/zavilon" target="_blank">
+				<i class="fab fa-github"></i> Nacho
+            </a>
+            </li>
+            <li>
+			<a href="https://www.github.com/natanga" target="_blank">
+				<i class="fab fa-github"></i> Natu
 			</a>
 			</li>
 		</ul>
@@ -154,9 +168,7 @@
 		&copy;
 		<script>
 			document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-		</script>, Designed by
-		<a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-		<a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+		</script>
 		</div>
 	</div>
 	</footer>
