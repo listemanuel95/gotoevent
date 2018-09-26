@@ -7,7 +7,7 @@
 	<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>
-		GoToEvent - Nombre Original !!
+		Mangueras Musmanno Venta de Tickets
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
@@ -26,7 +26,7 @@
 	<div class="container">
 	<div class="navbar-translate">
 		<a class="navbar-brand" href="https://demos.creative-tim.com/now-ui-kit/index.html" rel="tooltip" title="Diseñado por los pibes" data-placement="bottom" target="_blank">
-		GoToEvent
+		Mangueras Musmanno Venta de Tickets
 		</a>
 		<button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-bar top-bar"></span>
@@ -44,10 +44,10 @@
 		</li>
 		<li class="nav-item dropdown">
 			<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
-			<i class="now-ui-icons design_app"></i>
-			<p>LOGIN</p>
+			<i class="fa fa-sign-in-alt design_app"></i>
+			<p>&ensp;LOGIN</p>
 			</a>
-			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1">
+			<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink1">
             <form class="px-4 py-3">
                 <div class="form-group">
                     <label for="exampleDropdownFormEmail1">Email address</label>
@@ -62,7 +62,7 @@
                 </div>
             </form>
 			<a class="dropdown-item" target="_blank" href="https://demos.creative-tim.com/now-ui-kit/docs/1.0/getting-started/introduction.html">
-				<i class="now-ui-icons design_bullet-list-67"></i> ACA CON FB
+				<i class="fab fa-facebook fa-2x design_bullet-list-67"></i> &ensp;ACA CON FB
 			</a>
 			</div>
 		</li>
@@ -78,7 +78,7 @@
         <div class="container">
             <div class="content-center brand">
             <img class="n-logo" src="./assets/img/now-logo.png" alt="">
-            <h1 class="h1-seo">GoToEvent</h1>
+            <h1 class="h1-seo">Mangueras Musmanno Venta de Tickets</h1>
             <h3>VENDEMO TICKE</h3>
             </div>
             <h6 class="category category-absolute">

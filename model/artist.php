@@ -15,12 +15,12 @@ class Artist {
         $this->id = $id;
     }
 
-    public function getName()
+    public function get_name()
     {
         return $this->name;
     }
 
-    public function getGenre()
+    public function get_genre()
     {
         return $this->genre;
     }
@@ -30,12 +30,12 @@ class Artist {
         return $this->id;
     }
 
-    public function setName($n)
+    public function set_name($n)
     {
         $this->name = $n;
     }
 
-    public function setGenre($g)
+    public function set_genre($g)
     {
         $this->genre = $g;
     }
