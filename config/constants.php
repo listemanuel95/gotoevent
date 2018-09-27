@@ -10,7 +10,7 @@ define("BASE", $base[1]);
 define('HOST', "localhost");
 define('USER', "root");
 define('PASS', "");
-define('DB', "test");
+define('DB', "gotoevent");
 
 ?>
 

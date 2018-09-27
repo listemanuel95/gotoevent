@@ -2,22 +2,21 @@
 
 namespace controllers;
 
-use model\Artist as Artist;
-use dao\ArtistDBDAO as ArtistDBDAO;
+use model\Site as Site;
+use dao\SiteDBDAO as SiteDBDAO;
 
 class EventController {
 
     public function index()
     {
+        $lugares = array();
+
+        $sitedao = SiteDBDAO::get_instance();
+        $lugaresDB = $sitedao->retrieve_all();
+
         require(ROOT . '/views/addevent.php');
     }
 
-    // PARA TESTEAR
-    public function saveartist()
-    {
-        $test = ArtistDBDAO::get_instance();
-        $test->create(new Artist('asd', 'qwe'));
-    }
 }
 
 ?>
