@@ -41,7 +41,7 @@ class Request
         }
         
         // Capturo el metodo de petición y lo guardo en una variable
-        $metodoRequest = $this->getMetodoRequest();
+        $metodoRequest = $this->get_request_method();
 
         /*
          * Si el método es GET, en caso de que el arreglo llegue con datos, 
@@ -59,7 +59,7 @@ class Request
         }
     }
 
-    public static function getInstance()
+    public static function get_instance()
     {
         static $inst = null;
         if ($inst === null) {
@@ -69,22 +69,22 @@ class Request
         return $inst;
     }
         
-    public static function getMetodoRequest()
+    public static function get_request_method()
     {
         return $_SERVER['REQUEST_METHOD'];
     }
     
-    public function getControladora() 
+    public function get_controller() 
     {
         return $this->controller;
     }
     
-    public function getMetodo() 
+    public function get_method() 
     {
         return $this->method;
     }
     
-    public function getParametros() 
+    public function get_params() 
     {
         return $this->params;
     }

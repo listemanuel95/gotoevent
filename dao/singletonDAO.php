@@ -13,7 +13,7 @@ abstract class SingletonDAO
         throw new Exception("Cannot unserialize singleton");
     }
 
-    public static function getInstance()
+    public static function get_instance()
     {
         $cls = get_called_class();
 

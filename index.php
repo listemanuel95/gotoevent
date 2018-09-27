@@ -1,6 +1,6 @@
 <?php
 
-require_once "config/constantes.php";
+require_once "config/constants.php";
 require_once "config/autoload.php";
 
 require_once "config/request.php";
@@ -14,6 +14,6 @@ use config\Request 	as Request;
 
 Autoload::start();
 //session_start();
-Router::direccionar(new Request());
+Router::redirect(new Request());
 
 ?>

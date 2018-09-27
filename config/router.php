@@ -7,12 +7,12 @@ class Router {
      * Se encarga de direccionar a la pagina solicitada
      * @param Request
      */
-    public static function direccionar(Request $request) 
+    public static function redirect(Request $request) 
     {
-        $controller_str = $request->getControladora() . 'Controller';
-        $method = $request->getMetodo();
+        $controller_str = $request->get_controller() . 'Controller';
+        $method = $request->get_method();
 
-        $params = $request->getParametros();
+        $params = $request->get_params();
         
         $objeto = "Controllers\\" . $controller_str;
         $controller = new $objeto();
