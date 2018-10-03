@@ -66,6 +66,7 @@
 	</div>
 </nav>
 <!-- End Navbar -->
+
 <div class="wrapper">
 	<div class="page-header clear-filter" filter-color="orange">
         <div class="page-header-image" data-parallax="true" style="background-image:url('./assets/img/header.jpg');">
@@ -132,7 +133,7 @@
             </div>
         </div>
 	</div>
-	
+
 	<footer class="footer" data-background-color="black">
 	<div class="container">
 		<nav>

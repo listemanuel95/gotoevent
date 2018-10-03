@@ -41,7 +41,16 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
                 $statement = $conn->prepare("SELECT * FROM sites");
                 $statement->execute();
 
-                return $statement->fetchAll();
+                // hay que devolver objetos!!!
+                $resultados = $statement->fetchAll();
+
+                // esto voy a devolver                
+                $ret = array();
+
+                foreach($resultados as $site)
+                    $ret[] = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['id']);
+
+                return $ret;
             } catch (PDOException $e) { // TODO: excepciones mas copadas
                 echo "ERROR " . $e->getMessage();
             }

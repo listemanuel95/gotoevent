@@ -40,66 +40,71 @@
 	<div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
 		<ul class="navbar-nav">
 		<li class="nav-item dropdown">
-			<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
-			<i class="fa fa-sign-in-alt design_app"></i>
-			<p>&ensp;LOGIN</p>
-			</a>
-			<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink1">
-            <form class="px-4 py-3">
-                <div class="form-group">
-                    <label for="exampleDropdownFormEmail1">Mail</label>
-                    <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="exampleDropdownFormPassword1">Contraseña</label>
-                    <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-                </div>
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary">Ingresar</button>
-                </div>
-				<p class="text-center">¿No tenés cuenta? <a href="#" style="color:orange;">Registrate</a></p>
-            </form>
-			<a class="dropdown-item" target="_blank" href="https://demos.creative-tim.com/now-ui-kit/docs/1.0/getting-started/introduction.html">
-				<i class="fab fa-facebook fa-2x design_bullet-list-67"></i> &ensp;ACA CON FB
-			</a>
-			</div>
+			<p>&ensp;Bienvenido, MANGUERAS MUSMANNO</p>
 		</li>
 		</ul>
 	</div>
 	</div>
 </nav>
 <!-- End Navbar -->
+
 <div class="wrapper">
-	<div class="page-header clear-filter" filter-color="orange">
+	<div class="page-header page-header-small clear-filter" filter-color="orange">
         <div class="page-header-image" data-parallax="true" style="background-image:url('./assets/img/header.jpg');">
         </div>
         <div class="container">
-            <div class="row">
-                
-                <div class="col-4"></div>
-                <div class="col-4 text-center">
-                    <h2>Agregar Evento</h2>
-                    <form>
-                        <input type="text" class="form-control" style="background-color:white;" placeholder="Nombre de Evento..." name="nombre-evento">
-                        <br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="desc-evento"></textarea>
-                    
-                        <br><h3>Calendario de Evento</h3>
-                        <input type="text" class="form-control date-picker" style="background-color:white;" value="27/09/2018" data-datepicker-color="primary">
-                        <br><input type="text" class="form-control" style="background-color:white;" placeholder="LA HORA PONELA A LO MACHO DESPUES LO ARREGLAMOS">
-                        <br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="calendar-desc"></textarea>
-                    
-                        <br><h3>Lugar</h3>
-                        <select class="form-control" style="background-color:white;">
-                            <?php foreach($lugaresDB as $lugar) { ?>
-                                <option value="<?php echo $lugar['establishment']; ?>"><?php echo $lugar['establishment']; ?></option>
-                            <?php } ?>
-                        </select> 
-                    </form>
-                </div>
-                <div class="col-4"></div>
-            </div>
+            <div class="content-center brand">
+            <img class="n-logo" src="./assets/img/now-logo.png" alt="">
+            <h1 class="h1-seo">Carga de Eventos</h1>
+        </div>
         </div>
 	</div>
+
+    <div class="main">
+        <div class="section section-basic" id="basic-elements">
+            <div class="container">
+            	<div class="row">
+	                <div class="col-4"></div>
+	                <div class="col-4 text-center">
+	                    <h2 class="title">Agregar Evento</h2>
+	                    <form>
+	                        <input type="text" class="form-control" style="background-color:white;" placeholder="Nombre de Evento..." name="nombre-evento">
+	                        <br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="desc-evento"></textarea>
+
+	                        <br><h5 class="title">Categoría</h5>
+	                        <select class="form-control" style="background-color:white;">
+	                            <?php foreach($categoriasDB as $categoria) { ?>
+	                                <option value="<?php echo $categoria->get_name(); ?>"><?php echo $categoria->get_name(); ?></option>
+	                            <?php } ?>
+	                        </select>
+	                    
+	                        <br><h3 class="title">Calendario de Evento</h3>
+	                        <input type="text" class="form-control date-picker" style="background-color:white;" value="27/09/2018" data-datepicker-color="primary">
+	                        <br><input type="text" class="form-control" style="background-color:white;" placeholder="LA HORA PONELA A LO MACHO DESPUES LO ARREGLAMOS">
+	                        <br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="calendar-desc"></textarea>
+	                    
+	                        <br><h5 class="title">Lugar</h5>
+	                        <select class="form-control" style="background-color:white;">
+	                            <?php foreach($lugaresDB as $lugar) { ?>
+	                                <option value="<?php echo $lugar->get_establishment(); ?>"><?php echo $lugar->get_establishment(); ?></option>
+	                            <?php } ?>
+	                        </select>
+
+	                        <br><h5 class="title">Artista</h5>
+	                        <select class="form-control" style="background-color:white;">
+	                            <?php foreach($artistasDB as $artista) { ?>
+	                                <option value="<?php echo $artista->get_name(); ?>"><?php echo $artista->get_name(); ?></option>
+	                            <?php } ?>
+	                        </select>
+
+	                        <br><button type="submit" class="btn btn-primary">Agregar</button> 
+	                    </form>
+	                </div>
+	                <div class="col-4"></div>
+	            </div>
+            </div>
+        </div>
+    </div>
 	
 	<footer class="footer" data-background-color="black">
 	<div class="container">
@@ -136,6 +141,7 @@
 	</div>
 	</footer>
 </div>
+
 <!--   Core JS Files   -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>

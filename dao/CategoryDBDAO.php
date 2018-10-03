@@ -2,13 +2,13 @@
 
 namespace dao;
 
-use model\Artist as Artist;
+use model\Category as Category;
 
-class ArtistDBDAO extends SingletonDAO implements IDAO {
+class CategoryDBDAO extends SingletonDAO implements IDAO {
 
     public function create($instance)
     {
-        if($instance instanceof Artist)
+        if($instance instanceof Category)
         {
             $conn = new Connection();
             $conn = $conn->get_connection();
@@ -38,22 +38,22 @@ class ArtistDBDAO extends SingletonDAO implements IDAO {
         if($conn != null)
         {
             try {
-                $statement = $conn->prepare("SELECT A.id, A.name, G.genre_name FROM artists AS A JOIN genres AS G ON A.genre_id = G.id");
+                $statement = $conn->prepare("SELECT * FROM event_categories");
                 $statement->execute();
 
                 $results = $statement->fetchAll();
+            
                 $ret = array();
-                
-                foreach($results as $art)
-                    $ret[] = new Artist($art['name'], $art['genre_name'], $art['id']);
+                foreach($results as $cat)
+                    $ret[] = new Category($cat['name'], $cat['id']);
 
                 return $ret;
             } catch (PDOException $e) { // TODO: excepciones mas copadas
                 echo "ERROR " . $e->getMessage();
             }
         }
-        
     }
+
 }
 
 ?>
