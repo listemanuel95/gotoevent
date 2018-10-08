@@ -15,9 +15,48 @@ class CategoryDBDAO extends SingletonDAO implements IDAO {
         }
     }
 
-    public function retrieve($instance)
+    public function retrieve($instance) // por nombre
     {
+        if($instance instanceof Category)
+        {
+            $conn = new Connection();
+            $conn = $conn->get_connection();
 
+            if($conn != null)
+            {
+                try {
+                    $name = $instance->get_name();
+                    $statement = $conn->prepare("SELECT * FROM `event_categories` WHERE `name` = '$name'");
+                    $statement->execute();
+                    $cat = $statement->fetch();
+                    $ret = new Category($cat['name'], $cat['id']);
+                    
+                    return $ret;
+                } catch (PDOException $e) { // TODO: excepciones mas copadas
+                    echo "ERROR " . $e->getMessage();
+                }
+            }
+        }
+    }
+
+    public function retrieve_by_id($id)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $statement = $conn->prepare("SELECT * FROM `event_categories` WHERE `id` = '$id'");
+                $statement->execute();
+                $cat = $statement->fetch();
+                $ret = new Category($cat['name'], $cat['id']);
+                
+                return $ret;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
     }
 
     public function update($instance)

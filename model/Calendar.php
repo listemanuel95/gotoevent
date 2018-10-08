@@ -8,12 +8,16 @@ class Calendar {
     private $desc;
     private $date;
     private $time;
+    private $site;
+    private $event;
     
-    public function __construct($desc, $date, $time, $id = null)
+    public function __construct($desc, $date, $time, $site, $event, $id = null)
     {
         $this->desc = $desc;
         $this->date = $date;
         $this->time = $time;
+        $this->site = $site;
+        $this->event = $event;
         $this->id = $id;
     }
 
@@ -37,6 +41,16 @@ class Calendar {
         return $this->time;
     }
 
+    public function get_event()
+    {
+        return $this->event();
+    }
+
+    public function get_site()
+    {
+        return $this->site;
+    }
+    
 }
 
 ?>

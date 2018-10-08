@@ -14,6 +14,7 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css"
     <!-- CSS Files -->
 	<link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
@@ -78,31 +79,31 @@
 							--
 							-->
 							
-							<form>
+							<form action="event/add" method="post">
 								<input type="text" class="form-control" style="background-color:white;" placeholder="Nombre de Evento..." name="nombre-evento">
 								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="desc-evento"></textarea>
 
 								<br><h5 class="title">Categoría</h5>
-								<select class="form-control" style="background-color:white;">
+								<select class="form-control" style="background-color:white;" name="event-category">
 									<?php foreach($categoriasDB as $categoria) { ?>
 										<option value="<?php echo $categoria->get_name(); ?>"><?php echo $categoria->get_name(); ?></option>
 									<?php } ?>
 								</select>
 							
 								<br><h3 class="title">Calendario de Evento</h3>
-								<input type="text" class="form-control date-picker" style="background-color:white;" value="27/09/2018" data-datepicker-color="primary">
-								<br><input type="text" class="form-control" style="background-color:white;" placeholder="LA HORA PONELA A LO MACHO DESPUES LO ARREGLAMOS">
+								<input type="text" class="form-control date-picker" style="background-color:white;" value="27/09/2018" data-datepicker-color="primary" name="calendar-date">
+								<br><input type="text" class="form-control" style="background-color:white;" placeholder="LA HORA PONELA A LO MACHO DESPUES LO ARREGLAMOS" name="calendar-time">
 								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="calendar-desc"></textarea>
 							
 								<br><h5 class="title">Lugar</h5>
-								<select class="form-control" style="background-color:white;">
+								<select class="form-control" style="background-color:white;" name="calendar-site">
 									<?php foreach($lugaresDB as $lugar) { ?>
-										<option value="<?php echo $lugar->get_establishment(); ?>"><?php echo $lugar->get_establishment(); ?></option>
+										<option value="<?php echo $lugar->getID(); ?>"><?php echo $lugar->get_establishment(); ?></option>
 									<?php } ?>
 								</select>
 
 								<br><h5 class="title">Artista</h5>
-								<select class="form-control" style="background-color:white;">
+								<select class="form-control" style="background-color:white;" name="calendar-artist">
 									<?php foreach($artistasDB as $artista) { ?>
 										<option value="<?php echo $artista->get_name(); ?>"><?php echo $artista->get_name(); ?></option>
 									<?php } ?>
@@ -135,7 +136,7 @@
 					</a>
 					</li>
 					<li>
-					<a href="https://www.github.com/zavilon" target="_blank">
+					<a href="https://www.github.com/nacho95" target="_blank">
 						<i class="fab fa-github"></i> Nacho
 					</a>
 					</li>
@@ -160,6 +161,8 @@
 
 	<!--   Core JS Files   -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="./assets/js/plugins/moment.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
 	<script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->

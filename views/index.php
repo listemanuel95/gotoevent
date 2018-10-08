@@ -88,7 +88,7 @@
 				<a href="https://www.github.com/listemanuel95" target="_blank">
 					<i class="fab fa-github"></i> Bone
 				</a>&emsp;
-				<a href="https://www.github.com/zavilon" target="_blank">
+				<a href="https://www.github.com/nacho95" target="_blank">
 					<i class="fab fa-github"></i> Nacho
 				</a>&emsp;
 				<a href="https://www.github.com/natanga" target="_blank">
@@ -160,7 +160,7 @@
 					</a>
 					</li>
 					<li>
-					<a href="https://www.github.com/zavilon" target="_blank">
+					<a href="https://www.github.com/nacho95" target="_blank">
 						<i class="fab fa-github"></i> Nacho
 					</a>
 					</li>

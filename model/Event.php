@@ -7,12 +7,14 @@ class Event {
     private $id;
     private $name;
     private $desc;
+    private $cat;
 
-    public function __construct($name, $desc, $id = null)
+    public function __construct($name, $desc, $cat, $id = null)
     {
         $this->id = $id;
         $this->name = $name;
         $this->desc = $desc;
+        $this->cat = $cat;
     }
 
     public function getID()
@@ -28,6 +30,11 @@ class Event {
     public function get_desc()
     {
         return $this->desc;
+    }
+
+    public function get_category()
+    {
+        return $this->cat;
     }
     
 }
