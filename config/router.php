@@ -9,7 +9,8 @@ class Router {
      */
     public static function redirect(Request $request) 
     {
-        $controller_str = $request->get_controller() . 'Controller';
+        // Dunkan was here
+        $controller_str = ucfirst($request->get_controller()) . 'Controller';
         $method = $request->get_method();
 
         $params = $request->get_params();

@@ -1,15 +1,29 @@
 <?php 
-namespace config;
 
-class Autoload
-{
-	public static function start()
+	namespace config;
+
+	class Autoload
 	{
-		spl_autoload_register(function($instance) {
-			$ruta = ROOT . str_replace("\\", "/", $instance) . ".php";
-			include_once($ruta);
-		});
+
+		/**
+		 * 
+		 * directory[0] = carpeta
+		 * directory[1] = archivo.php
+		 * 
+		 */
+		public static function start()
+		{
+			spl_autoload_register(function($instance) {
+
+				// Dunkan was here
+
+				$directory = explode('\\', $instance);
+
+				$path = ROOT . strToLower($directory[0]) . '/' . $directory[1] . '.php';
+				include_once($path);
+
+			});
+		}
 	}
-}
 
 ?>
