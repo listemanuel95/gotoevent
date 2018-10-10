@@ -65,7 +65,7 @@ class EventController {
                 $calendario_objeto = new Calendar($desc, $fecha, $hora, $cal_lugar, $cal_evento);
                 $calendardao->create($calendario_objeto);
             } catch (\Exception $e) {
-                echo 'error?';
+                echo 'error?'; // aca habria que mostrar un mensaje de error y ¿redireccionar?
             }
     
         } else {
