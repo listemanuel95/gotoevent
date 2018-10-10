@@ -13,7 +13,7 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
 
     public function create($instance)
     {
-        if($instance instanceof Site)
+        if($instance instanceof Calendar)
         {
             if($instance->get_event() instanceof Event && $instance->get_event()->getID() != null
                 && $instance->get_site() instanceof Site && $instance->get_site()->getID() != null)
@@ -49,12 +49,10 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
                     }
                 }
             } else {
-                //throw new Exception("ERROR al guardar evento");
-                echo 'hpña';
+                throw new \Exception("ERROR al guardar evento");
             }
         }  else {
-            //throw new Exception("ERROR al guardar evento");
-            echo 'qwe2';
+            throw new \Exception("ERROR al guardar evento");
         }
     }
 

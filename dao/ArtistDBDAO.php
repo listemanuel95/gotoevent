@@ -12,6 +12,8 @@ class ArtistDBDAO extends SingletonDAO implements IDAO {
         {
             $conn = new Connection();
             $conn = $conn->get_connection();
+        } else {
+            throw new \Exception("Error en create Artist");
         }
     }
 

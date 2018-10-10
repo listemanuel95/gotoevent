@@ -32,6 +32,8 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
                     echo "ERROR " . $e->getMessage();
                 }
             }
+        } else {
+            throw new \Exception("Error en retrieve Site");
         }
     }
 

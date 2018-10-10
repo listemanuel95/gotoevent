@@ -43,7 +43,7 @@ class Calendar {
 
     public function get_event()
     {
-        return $this->event();
+        return $this->event;
     }
 
     public function get_site()

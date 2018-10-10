@@ -38,10 +38,10 @@ class EventDBDAO extends SingletonDAO implements IDAO {
                     }
                 }
             } else {
-                throw new Exception("ERROR al guardar evento");
+                throw new \Exception("ERROR al guardar evento");
             }
         }  else {
-            throw new Exception("ERROR al guardar evento");
+            throw new \Exception("ERROR al guardar evento");
         }
     }
 
@@ -70,6 +70,8 @@ class EventDBDAO extends SingletonDAO implements IDAO {
                     echo "ERROR " . $e->getMessage();
                 }
             }
+        } else {
+            return new \Exception("Error en retrieve Event");
         }
     }
 

@@ -12,6 +12,8 @@ class CategoryDBDAO extends SingletonDAO implements IDAO {
         {
             $conn = new Connection();
             $conn = $conn->get_connection();
+        } else {
+            throw new \Exception("Error en create category");
         }
     }
 
@@ -36,6 +38,8 @@ class CategoryDBDAO extends SingletonDAO implements IDAO {
                     echo "ERROR " . $e->getMessage();
                 }
             }
+        } else {
+            throw new \Exception("Error en retrieve Category");
         }
     }
 
