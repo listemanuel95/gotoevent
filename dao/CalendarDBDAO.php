@@ -9,7 +9,7 @@ use model\Event as Event;
 use dao\EventDBDAO as EventDBDAO;
 use dao\SiteDBDAO as SiteDBDAO;
 
-class EventDBDAO extends SingletonDAO implements IDAO {
+class CalendarDBDAO extends SingletonDAO implements IDAO {
 
     public function create($instance)
     {
@@ -49,10 +49,12 @@ class EventDBDAO extends SingletonDAO implements IDAO {
                     }
                 }
             } else {
-                throw new Exception("ERROR al guardar evento");
+                //throw new Exception("ERROR al guardar evento");
+                echo 'hpña';
             }
         }  else {
-            throw new Exception("ERROR al guardar evento");
+            //throw new Exception("ERROR al guardar evento");
+            echo 'qwe2';
         }
     }
 
