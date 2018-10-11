@@ -12,9 +12,22 @@ class CategoryDBDAO extends SingletonDAO implements IDAO {
         {
             $conn = new Connection();
             $conn = $conn->get_connection();
+
+            try {
+                $name = $instance->get_name();
+                $statement = $conn->prepare("INSERT INTO `event_categories` (`name`) VALUES('$name')");
+                $statement->execute();
+
+                return true;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+
         } else {
             throw new \Exception("Error en create category");
         }
+
+        return false;
     }
 
     public function retrieve($instance) // por nombre
@@ -41,6 +54,8 @@ class CategoryDBDAO extends SingletonDAO implements IDAO {
         } else {
             throw new \Exception("Error en retrieve Category");
         }
+
+        return null;
     }
 
     public function retrieve_by_id($id)

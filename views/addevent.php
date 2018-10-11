@@ -18,8 +18,7 @@
     <!-- CSS Files -->
 	<link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="./assets/demo/demo.css" rel="stylesheet" />
+	<link href="./assets/css/animate.css" rel="stylesheet" />
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -83,8 +82,8 @@
 								<input type="text" class="form-control" style="background-color:white;" placeholder="Nombre de Evento..." name="nombre-evento">
 								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="desc-evento"></textarea>
 
-								<br><h5 class="title">Categoría</h5>
-								<select class="form-control" style="background-color:white;" name="event-category">
+								<br><h5 class="title">Categoría <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-category" title="Agregar Categoría"></i></a></h5>
+								<select class="form-control" style="background-color:white;" name="event-category" id="categories-select">
 									<?php foreach($categoriasDB as $categoria) { ?>
 										<option value="<?php echo $categoria->get_name(); ?>"><?php echo $categoria->get_name(); ?></option>
 									<?php } ?>
@@ -159,9 +158,32 @@
 	</div>
 	<!-- End Wrapper -->
 
+	<!-- MODALS PARA AGREGAR COSAS -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-add-category">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Nueva Categoría</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="category/index" id="add-category-form">
+					<div class="modal-body">
+						<input type="text" class="form-control" placeholder="Nombre..." name="nombre">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Guardar</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- FIN MODALS PARA AGREGAR COSAS -->
+
 	<!--   Core JS Files   -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript" src="./assets/js/plugins/moment.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
 	<script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
@@ -171,6 +193,7 @@
 	<script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 	<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
 	<script src="./assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="./assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
 	<!--  Plugin for the HourPicker -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 	<!--  Google Maps Plugin    -->
@@ -181,6 +204,72 @@
 		$(document).ready(function() {
 		// the body of this function is in assets/js/now-ui-kit.js
 			//nowuiKit.initSliders();
+
+			// modal de nueva categoria
+			$('#add-category').on('click', function() {
+				$('#modal-add-category').modal('show');
+			});
+
+			// form del modal de categorias
+			$("#add-category-form").submit(function(e) {
+				var form = $(this);
+				var url = form.attr('action');
+
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: form.serialize(),
+					success: function(data)
+					{
+						$('#modal-add-category').modal('hide');
+
+						// sacamos espacios y saltos de linea para comparar
+						var data_sanitized = data.replace(/ /g,'');
+						data_sanitized = data_sanitized.replace(/\n|\r/g, "");
+
+						if(data_sanitized.localeCompare("ajax_error") == 0)
+						{
+							// la categoria ya existia
+							$.notify({
+							message: 'Categoria ya existente' 
+							}, {
+								type: 'danger',
+								placement: {
+									from: "top",
+									align: "center"
+								}
+							});
+						} else {
+							$.notify({
+								message: 'Categoria Agregada' 
+							}, {
+								type: 'success',
+								placement: {
+									from: "top",
+									align: "center"
+								}
+							});
+
+							// actualizamos las categorias
+							var arr = form.serialize().split('=');
+							$('#categories-select').append('<option value="' + decodeURI(arr[1]) + '">' + decodeURI(arr[1]) + '</option>');
+						}
+
+					}, error: function() {
+						$.notify({
+							message: 'Error al conectar' 
+						}, {
+							type: 'danger',
+							placement: {
+								from: "top",
+								align: "center"
+							}
+						});
+					}
+				});
+
+				e.preventDefault(); // para que no se mande el formulario
+			});
 		});
 
 		function scrollToDownload() {
