@@ -8,10 +8,10 @@ class Artist {
     private $name;
     private $genre;
 
-    public function __construct($n, $g, $id = null)
+    public function __construct($name, $genre, $id = null)
     {
-        $this->name = $n;
-        $this->genre = $g;
+        $this->name = $name;
+        $this->genre = $genre;
         $this->id = $id;
     }
 
@@ -28,16 +28,6 @@ class Artist {
     public function getID()
     {
         return $this->id;
-    }
-
-    public function set_name($n)
-    {
-        $this->name = $n;
-    }
-
-    public function set_genre($g)
-    {
-        $this->genre = $g;
     }
 }
 

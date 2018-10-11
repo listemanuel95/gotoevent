@@ -101,8 +101,8 @@
 									<?php } ?>
 								</select>
 
-								<br><h5 class="title">Artista</h5>
-								<select class="form-control" style="background-color:white;" name="calendar-artist">
+								<br><h5 class="title">Artista <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-artist" title="Agregar Artista"></i></a></h5>
+								<select class="form-control" style="background-color:white;" name="calendar-artist" id="artists-select">
 									<?php foreach($artistasDB as $artista) { ?>
 										<option value="<?php echo $artista->get_name(); ?>"><?php echo $artista->get_name(); ?></option>
 									<?php } ?>
@@ -159,6 +159,7 @@
 	<!-- End Wrapper -->
 
 	<!-- MODALS PARA AGREGAR COSAS -->
+	<!-- Start category modal -->
 	<div class="modal fade" tabindex="-1" role="dialog" id="modal-add-category">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -180,6 +181,36 @@
 			</div>
 		</div>
 	</div>
+	<!-- End category modal -->
+	<!-- Start artist modal -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-add-artist">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Nuevo Artista</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="artist/index" id="add-artist-form">
+					<div class="modal-body">
+						<input type="text" class="form-control" placeholder="Nombre..." name="nombre">
+						<br>
+						<select class="form-control" style="background-color:white;" name="genero">
+							<?php foreach($generosDB as $genero) { ?>
+								<option value="<?php echo $genero->get_name(); ?>"><?php echo $genero->get_name(); ?></option>
+							<?php } ?>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Guardar</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End artist modal -->
 	<!-- FIN MODALS PARA AGREGAR COSAS -->
 
 	<!--   Core JS Files   -->
@@ -187,6 +218,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
 	<script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+	<script src="./assets/js/pages/add-event.js" type="text/javascript"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 	<script src="./assets/js/plugins/bootstrap-switch.js"></script>
 	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
@@ -201,77 +233,6 @@
 	<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
 	<script src="./assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
 	<script>
-		$(document).ready(function() {
-		// the body of this function is in assets/js/now-ui-kit.js
-			//nowuiKit.initSliders();
-
-			// modal de nueva categoria
-			$('#add-category').on('click', function() {
-				$('#modal-add-category').modal('show');
-			});
-
-			// form del modal de categorias
-			$("#add-category-form").submit(function(e) {
-				var form = $(this);
-				var url = form.attr('action');
-
-				$.ajax({
-					type: "POST",
-					url: url,
-					data: form.serialize(),
-					success: function(data)
-					{
-						$('#modal-add-category').modal('hide');
-
-						// sacamos espacios y saltos de linea para comparar
-						var data_sanitized = data.replace(/ /g,'');
-						data_sanitized = data_sanitized.replace(/\n|\r/g, "");
-
-						if(data_sanitized.localeCompare("ajax_error") == 0)
-						{
-							// la categoria ya existia
-							$.notify({
-							message: 'Categoria ya existente' 
-							}, {
-								type: 'danger',
-								placement: {
-									from: "top",
-									align: "center"
-								}
-							});
-						} else {
-							$.notify({
-								message: 'Categoria Agregada' 
-							}, {
-								type: 'success',
-								placement: {
-									from: "top",
-									align: "center"
-								}
-							});
-
-							// actualizamos las categorias
-							var arr = form.serialize().split('=');
-							$('#categories-select').append('<option value="' + decodeURI(arr[1]) + '">' + decodeURI(arr[1]) + '</option>');
-						}
-
-					}, error: function() {
-						$.notify({
-							message: 'Error al conectar' 
-						}, {
-							type: 'danger',
-							placement: {
-								from: "top",
-								align: "center"
-							}
-						});
-					}
-				});
-
-				e.preventDefault(); // para que no se mande el formulario
-			});
-		});
-
 		function scrollToDownload() {
 			if ($('.section-download').length != 0) {
 				$("html, body").animate({

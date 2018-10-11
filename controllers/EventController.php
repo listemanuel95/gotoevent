@@ -17,6 +17,9 @@ use dao\EventDBDAO as EventDBDAO;
 use model\Calendar as Calendar;
 use dao\CalendarDBDAO as CalendarDBDAO;
 
+use model\Genre as Genre;
+use dao\GenreDBDAO as GenreDBDAO;
+
 class EventController {
 
     public function index()
@@ -32,6 +35,9 @@ class EventController {
 
             $artdao = ArtistDBDAO::get_instance();
             $artistasDB = $artdao->retrieve_all();
+
+            $gendao = GenreDBDAO::get_instance();
+            $generosDB = $gendao->retrieve_all();
         } catch (Exception $e) {
             echo 'error?';
         }
