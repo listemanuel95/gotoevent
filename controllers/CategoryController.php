@@ -28,7 +28,7 @@ class CategoryController {
                 }
                
             } catch (Exception $e) {
-                echo 'excepcion !!!!';
+                echo '[Controller->Category] ' . $e->getMessage();
             }
             
         } else {

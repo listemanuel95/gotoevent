@@ -14,7 +14,6 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css"
     <!-- CSS Files -->
 	<link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
@@ -94,8 +93,8 @@
 								<br><input type="text" class="form-control" style="background-color:white;" placeholder="LA HORA PONELA A LO MACHO DESPUES LO ARREGLAMOS" name="calendar-time">
 								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="calendar-desc"></textarea>
 							
-								<br><h5 class="title">Lugar</h5>
-								<select class="form-control" style="background-color:white;" name="calendar-site">
+								<br><h5 class="title">Lugar <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-site" title="Agregar lugar"></i></a></h5>
+								<select class="form-control" style="background-color:white;" name="calendar-site" id="site-select">
 									<?php foreach($lugaresDB as $lugar) { ?>
 										<option value="<?php echo $lugar->getID(); ?>"><?php echo $lugar->get_establishment(); ?></option>
 									<?php } ?>
@@ -211,11 +210,38 @@
 		</div>
 	</div>
 	<!-- End artist modal -->
+	<!-- Start site modal -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-add-site">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Nuevo lugar</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="site/index" id="add-site-form">
+					<div class="modal-body">
+						<!-- Estaria bueno hacer esto con una libreria que cargue ciudades reales, 'estandares' -->
+						<input type="text" class="form-control" style="padding: 10px" placeholder="Ciudad.." name="city">
+						<input type="text" class="form-control" style="padding: 10px"placeholder="Provincia.." name="province">
+						<input type="text" class="form-control" style="padding: 10px"placeholder="Direccion.." name="address">
+						<input type="text" class="form-control" style="padding: 10px"placeholder="Establecimiento" name="establishment">
+
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Guardar</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End site modal -->
 	<!-- FIN MODALS PARA AGREGAR COSAS -->
 
 	<!--   Core JS Files   -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
 	<script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 	<script src="./assets/js/pages/add-event.js" type="text/javascript"></script>

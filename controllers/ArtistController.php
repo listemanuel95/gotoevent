@@ -18,8 +18,6 @@ class ArtistController {
                 $artistdao = ArtistDBDAO::get_instance();
                 $genredao = GenreDBDAO::get_instance();
 
-                //echo 'entre aca';
-
                 // Si ya existe no lo agregamos 
                 $query = $artistdao->retrieve_by_name($name);
 
@@ -31,7 +29,7 @@ class ArtistController {
                 }
                
             } catch (Exception $e) {
-                echo 'excepcion !!!!';
+                echo '[Controller->Artist] ' . $e->getMessage();
             }
             
         } else {

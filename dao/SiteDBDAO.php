@@ -8,7 +8,32 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
 
     public function create($instance)
     {
+        if($instance instanceof Site)
+        {
+            $conn = new Connection();
+            $conn = $conn->get_connection();
 
+            try {
+                $statement = $conn->prepare("INSERT INTO `sites` (`city`, `province`, `address`, `establishment`) 
+                    VALUES (:city, :province, :address, :establishment)");
+
+                $statement->bindValue(':city', $instance->get_city());
+                $statement->bindValue(':province', $instance->get_province());
+                $statement->bindValue(':address', $instance->get_address());
+                $statement->bindValue(':establishment', $instance->get_establishment());
+
+                $statement->execute();
+
+                return true;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+
+        } else {
+            throw new \Exception("Error en create category");
+        }
+
+        return false;
     }
 
     public function retrieve($instance)
@@ -21,8 +46,8 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
             if($conn != null)
             {
                 try {
-                    $id = $instance->getID();
-                    $statement = $conn->prepare("SELECT * FROM `sites` WHERE `id` = '$id'");
+                    $establishment = $instance->get_establishment();
+                    $statement = $conn->prepare("SELECT * FROM `sites` WHERE `establishment` = '$establishment'");
                     $statement->execute();
                     $site = $statement->fetch();
                     $ret = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['id']);
