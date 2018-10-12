@@ -15,7 +15,7 @@ class CategoryDBDAO extends SingletonDAO implements IDAO {
 
             try {
                 $name = $instance->get_name();
-                $statement = $conn->prepare("INSERT INTO `event_categories` (`name`) VALUES('$name')");
+                $statement = $conn->prepare("INSERT INTO `event_categories` (`name`) VALUES ('$name')");
                 $statement->execute();
 
                 return true;

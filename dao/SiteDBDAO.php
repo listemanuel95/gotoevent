@@ -62,7 +62,7 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
         }
     }
 
-    public function retrieve_by_id($id)
+    public function retrieve_by_establishment($establishment)
     {
         $conn = new Connection();
         $conn = $conn->get_connection();
@@ -70,7 +70,7 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
         if($conn != null)
         {
             try {
-                $statement = $conn->prepare("SELECT * FROM `sites` WHERE `id` = '$id'");
+                $statement = $conn->prepare("SELECT * FROM `sites` WHERE `establishment` = '$establishment'");
                 $statement->execute();
                 $site = $statement->fetch();
                 $ret = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['id']);

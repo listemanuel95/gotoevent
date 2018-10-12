@@ -4,7 +4,6 @@ namespace dao;
 
 use model\Artist as Artist;
 use model\Genre as Genre;
-use dao\GenreDBDAO as GenreDBDAO;
 
 class ArtistDBDAO extends SingletonDAO implements IDAO {
 
@@ -16,9 +15,11 @@ class ArtistDBDAO extends SingletonDAO implements IDAO {
             $conn = $conn->get_connection();
 
             try {
-                $name = $instance->get_name();
-                $genre_id = $instance->get_genre()->getID();
-                $statement = $conn->prepare("INSERT INTO `artists` (`name`, `genre_id`) VALUES ('$name', '$genre_id')");
+                $statement = $conn->prepare("INSERT INTO `artists` (`name`, `genre_id`) VALUES (:name, :genre)");
+
+                $statement->bindValue(':name', $instance->get_name());
+                $statement->bindValue(':genre', $instance->get_genre()->getID());
+
                 $statement->execute();
                 
                 return true;
@@ -42,27 +43,17 @@ class ArtistDBDAO extends SingletonDAO implements IDAO {
         $conn = new Connection();
         $conn = $conn->get_connection();
 
-        $genredb = GenreDBDAO::get_instance();
-
         if($conn != null)
         {
             try {
-                $statement = $conn->prepare("SELECT * FROM `artists` WHERE `name` = '$name'");
+                $statement = $conn->prepare("SELECT `A`.`id` AS `a_id`, `A`.`name` AS `a_name`, `G`.`genre_name` AS `g_name` 
+                                             FROM `artists` AS `A` JOIN `genres` AS `G` ON `A`.`genre_id` = `G`.`id` 
+                                             WHERE `name` = '$name'");
                 $statement->execute();
                 $art = $statement->fetch();
 
-                if($art['id'] != null) {
-                    $genre = $genredb->retrieve_by_id($art['genre_id']);
-
-                    if($genre instanceof Genre && $genre->getID() != null)
-                        $ret = new Artist($art['name'], $genre, $art['id']);
-                    else
-                        throw new \Exception("Error al agarrar genero");
-
-                    return $ret;
-                } else {
-                    return false;
-                }
+                return new Artist($art['a_name'], new Genre($art['g_name']), $art['a_id']);
+                
             } catch (PDOException $e) { // TODO: excepciones mas copadas
                 echo "ERROR " . $e->getMessage();
             }
@@ -87,7 +78,8 @@ class ArtistDBDAO extends SingletonDAO implements IDAO {
         if($conn != null)
         {
             try {
-                $statement = $conn->prepare("SELECT A.id, A.name, G.genre_name FROM artists AS A JOIN genres AS G ON A.genre_id = G.id");
+                $statement = $conn->prepare("SELECT `A`.`id`, `A`.`name`, `G`.`genre_name` FROM `artists` AS `A` 
+                                             JOIN `genres` AS `G` ON `A`.`genre_id` = `G`.`id`");
                 $statement->execute();
 
                 $results = $statement->fetchAll();

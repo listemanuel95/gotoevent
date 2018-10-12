@@ -5,8 +5,6 @@ namespace dao;
 use model\Event as Event;
 use model\Category as Category;
 
-use dao\CategoryDBDAO as CategoryDBDAO;
-
 class EventDBDAO extends SingletonDAO implements IDAO {
 
     public function create($instance)
@@ -18,20 +16,19 @@ class EventDBDAO extends SingletonDAO implements IDAO {
                 // lo metemos en la BD con fritas
                 $conn = new Connection();
                 $conn = $conn->get_connection();
-        
-                $cat = $instance->get_category();
 
                 if($conn != null)
                 {
                     try {
-                        $c_id = $cat->getID();
-                        $e_desc = $instance->get_desc();
-                        $e_name = $instance->get_name();
+                        $statement = $conn->prepare("INSERT INTO `gigs` (`event_category_id`, `descr`, `name`) VALUES (
+                            :c_id, :e_desc, :e_name)");
 
-                        $statement = $conn->prepare("INSERT INTO gigs (event_category_id, descr, name) VALUES (
-                            '$c_id', '$e_desc', '$e_name')");
+                        $statement->bindValue(':c_id', $instance->get_category()->getID());
+                        $statement->bindValue(':e_desc', $instance->get_desc());
+                        $statement->bindValue(':e_name', $instance->get_name());
                             
                         $statement->execute();
+
                         return true;
                     } catch (PDOException $e) { // TODO: excepciones mas copadas
                         echo "ERROR " . $e->getMessage();
@@ -56,16 +53,14 @@ class EventDBDAO extends SingletonDAO implements IDAO {
             {
                 try {
                     $name = $instance->get_name();
-                    $statement = $conn->prepare("SELECT * FROM gigs WHERE name = '$name'");
+                    $statement = $conn->prepare("SELECT `G`.`id` AS `e_id`, `G`.`name` AS `e_name`, `G`.`descr` AS `e_descr`,
+                                                        `C`.`name` AS `c_name` FROM `gigs` AS `G` JOIN `event_categories` AS `C` 
+                                                        ON `G`.`event_category_id` = `C`.`id` WHERE `G`.`name` = '$name'");
                     $statement->execute();
 
                     $ret_event = $statement->fetch();
 
-                    /* como el objeto Evento recibe un objeto Categoria y aca solo tengo el ID
-                        me tengo que meter en el DAO de categorias para buscar un Objeto completo */
-                    $categorydao = CategoryDBDAO::get_instance();
-                    
-                    return new Event($ret_event['name'], $ret_event['descr'], $categorydao->retrieve_by_id($ret_event['event_category_id']), $ret_event['id']);
+                    return new Event($ret_event['e_name'], $ret_event['e_descr'], new Category($ret_event['c_name']), $ret_event['e_id']);
                 } catch (PDOException $e) { // TODO: excepciones mas copadas
                     echo "ERROR " . $e->getMessage();
                 }

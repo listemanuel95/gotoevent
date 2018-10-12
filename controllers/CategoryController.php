@@ -3,36 +3,34 @@
 namespace controllers;
 
 use model\Category as Category;
-
 use dao\CategoryDBDAO as CategoryDBDAO;
 
+/**
+ * Controladora usada solamente para insertar categorías vía peticiones AJAX, por eso no tiene método index()
+ */
 class CategoryController {
 
-    /* esta controladora solo se usa para cargar nuevas categorias (no dispara vistas)
-     entonces usamos el index directamente para eso */
-    public function index($name = null)
+    /**
+	 * Inserta una categoría a la base de datos vía una petición POST de AJAX (jQuery)
+	 */
+    public function ajax_insert($name = null)
     {
         if($name != null)
         {
             try {
                 $categorydao = CategoryDBDAO::get_instance();
 
-                // Si ya existe no agregamos un pingo
+                // si ya existe no la agregamos
                 $query = $categorydao->retrieve(new Category($name));
 
                 if($query->getID() != null) 
-                {
-                    echo "ajax_error";
-                } else {
+                    echo "ajax_error"; // los errores de AJAX los comparamos con esta string (no usamos la función error())
+                else
                     $query = $categorydao->create(new Category($name));
-                }
                
             } catch (Exception $e) {
                 echo '[Controller->Category] ' . $e->getMessage();
             }
-            
-        } else {
-            header("Location: index");
         }
     }
 

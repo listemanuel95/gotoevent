@@ -148,9 +148,6 @@ $(document).ready(function() {
             data: form.serialize(),
             success: function(data)
             {
-
-                alert(data);
-
                 // sacamos espacios y saltos de linea para comparar
                 var data_sanitized = data.replace(/ /g,'');
                 data_sanitized = data_sanitized.replace(/\n|\r/g, "");
@@ -177,9 +174,6 @@ $(document).ready(function() {
                             align: "center"
                         }
                     });
-
-                    //city = qweqwe & province = qweqweq & address = qweqwe & establishment = qweqwe
-                    alert(form.serialize());
 
                     // actualizamos las categorias
                     var parse = form.serialize().split('&');

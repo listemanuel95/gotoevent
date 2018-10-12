@@ -15,7 +15,8 @@ class GenreDBDAO extends singletonDAO implements IDAO {
 
             try {
                 $name = $instance->get_name();
-                $statement = $conn->prepare("INSERT INTO `genres` (`genre_name`) VALUES('$name')");
+                $statement = $conn->prepare("INSERT INTO `genres` (`genre_name`) VALUES ('$name')");
+                
                 $statement->execute();
 
                 return true;

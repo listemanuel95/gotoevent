@@ -96,7 +96,7 @@
 								<br><h5 class="title">Lugar <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-site" title="Agregar lugar"></i></a></h5>
 								<select class="form-control" style="background-color:white;" name="calendar-site" id="site-select">
 									<?php foreach($lugaresDB as $lugar) { ?>
-										<option value="<?php echo $lugar->getID(); ?>"><?php echo $lugar->get_establishment(); ?></option>
+										<option value="<?php echo $lugar->get_establishment(); ?>"><?php echo $lugar->get_establishment(); ?></option>
 									<?php } ?>
 								</select>
 
@@ -168,7 +168,7 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="category/index" id="add-category-form">
+				<form action="category/ajax_insert" id="add-category-form">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="Nombre..." name="nombre">
 					</div>
@@ -191,7 +191,7 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="artist/index" id="add-artist-form">
+				<form action="artist/ajax_insert" id="add-artist-form">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="Nombre..." name="nombre">
 						<br>
@@ -220,7 +220,7 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="site/index" id="add-site-form">
+				<form action="site/ajax_insert" id="add-site-form">
 					<div class="modal-body">
 						<!-- Estaria bueno hacer esto con una libreria que cargue ciudades reales, 'estandares' -->
 						<input type="text" class="form-control" style="padding: 10px" placeholder="Ciudad.." name="city">
