@@ -37,7 +37,7 @@
 		<div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
 			<ul class="navbar-nav">
 			<li class="nav-item dropdown">
-				<p>&ensp;Bienvenido, MANGUERAS MUSMANNO</p>
+				<p>&ensp;Bienvenido, MANGUERAS MUSMANNO </p>
 			</li>
 			</ul>
 		</div>
