@@ -18,6 +18,9 @@
 	<link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
 	<link href="./assets/css/animate.css" rel="stylesheet" />
+
+	<!-- Include the plugin's CSS and JS: -->
+	<link rel="stylesheet" href="./assets/css/bootstrap-multiselect.css" type="text/css"/>
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -101,12 +104,12 @@
 								</select>
 
 								<br><h5 class="title">Artista <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-artist" title="Agregar Artista"></i></a></h5>
-								<select class="form-control" style="background-color:white;" name="calendar-artist" id="artists-select">
+								<select class="form-control" multiple="multiple" style="background-color:white;" name="calendar-artist[]" id="artists-select">
 									<?php foreach($artistasDB as $artista) { ?>
 										<option value="<?php echo $artista->get_name(); ?>"><?php echo $artista->get_name(); ?></option>
 									<?php } ?>
 								</select>
-
+							
 								<br><button type="submit" class="btn btn-primary">Agregar</button> 
 							</form>
 						</div>
@@ -223,11 +226,11 @@
 				<form action="site/ajax_insert" id="add-site-form">
 					<div class="modal-body">
 						<!-- Estaria bueno hacer esto con una libreria que cargue ciudades reales, 'estandares' -->
-						<input type="text" class="form-control" style="padding: 10px" placeholder="Ciudad.." name="city">
-						<input type="text" class="form-control" style="padding: 10px"placeholder="Provincia.." name="province">
-						<input type="text" class="form-control" style="padding: 10px"placeholder="Direccion.." name="address">
-						<input type="text" class="form-control" style="padding: 10px"placeholder="Establecimiento" name="establishment">
-
+						<input type="text" class="form-control" placeholder="Ciudad..." name="city">
+						<br><input type="text" class="form-control" placeholder="Provincia..." name="province">
+						<br><input type="text" class="form-control" placeholder="Direccion..." name="address">
+						<br><input type="text" class="form-control" placeholder="Establecimiento..." name="establishment">
+						<br><input type="number" class="form-control" placeholder="Capacidad..." name="capacity" id="capacityInput">
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary">Guardar</button>
@@ -252,6 +255,7 @@
 	<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
 	<script src="./assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
 	<script src="./assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="./assets/js/plugins/bootstrap-multiselect.js"></script>
 	<!--  Plugin for the HourPicker -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 	<!--  Google Maps Plugin    -->

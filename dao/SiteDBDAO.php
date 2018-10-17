@@ -14,13 +14,14 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
             $conn = $conn->get_connection();
 
             try {
-                $statement = $conn->prepare("INSERT INTO `sites` (`city`, `province`, `address`, `establishment`) 
-                    VALUES (:city, :province, :address, :establishment)");
+                $statement = $conn->prepare("INSERT INTO `sites` (`city`, `province`, `address`, `establishment`, `capacity`) 
+                    VALUES (:city, :province, :address, :establishment, :capacity)");
 
                 $statement->bindValue(':city', $instance->get_city());
                 $statement->bindValue(':province', $instance->get_province());
                 $statement->bindValue(':address', $instance->get_address());
                 $statement->bindValue(':establishment', $instance->get_establishment());
+                $statement->bindValue(':capacity', $instance->get_capacity());
 
                 $statement->execute();
 
@@ -30,7 +31,7 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
             }
 
         } else {
-            throw new \Exception("Error en create category");
+            throw new \Exception("Error en create Site");
         }
 
         return false;
@@ -50,7 +51,7 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
                     $statement = $conn->prepare("SELECT * FROM `sites` WHERE `establishment` = '$establishment'");
                     $statement->execute();
                     $site = $statement->fetch();
-                    $ret = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['id']);
+                    $ret = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['capacity'], $site['id']);
                     
                     return $ret;
                 } catch (PDOException $e) { // TODO: excepciones mas copadas
@@ -73,7 +74,7 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
                 $statement = $conn->prepare("SELECT * FROM `sites` WHERE `establishment` = '$establishment'");
                 $statement->execute();
                 $site = $statement->fetch();
-                $ret = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['id']);
+                $ret = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['capacity'], $site['id']);
                 
                 return $ret;
             } catch (PDOException $e) { // TODO: excepciones mas copadas
@@ -114,7 +115,7 @@ class SiteDBDAO extends SingletonDAO implements IDAO {
                 $ret = array();
 
                 foreach($resultados as $site)
-                    $ret[] = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['id']);
+                    $ret[] = new Site($site['city'], $site['province'], $site['address'], $site['establishment'], $site['capacity'], $site['id']);
 
                 return $ret;
             } catch (PDOException $e) { // TODO: excepciones mas copadas

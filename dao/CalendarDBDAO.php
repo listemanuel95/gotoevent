@@ -33,6 +33,20 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
 
                         $statement->execute();
 
+                        $last_id = $conn->lastInsertID();
+
+                        // metemos los artistas en artists_in_calendars
+                        foreach($instance->get_artists() as $artist)
+                        {
+                            $statement = $conn->prepare("INSERT INTO `artists_in_calendars` (`id_artist`, `id_calendar`)
+                            VALUES (:id_a, :id_c)");
+
+                            $statement->bindValue(':id_a', $artist->getID());
+                            $statement->bindValue(':id_c', $last_id);
+
+                            $statement->execute();
+                        }
+
                         return true;
                     } catch (PDOException $e) { // TODO: excepciones mas copadas
                         echo "ERROR " . $e->getMessage();
@@ -48,7 +62,7 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
 
     public function retrieve($instance)
     {
-
+        
     }
 
     public function update($instance)

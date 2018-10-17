@@ -68,10 +68,10 @@ class EventController {
     /**
      * Método encargado de crear un evento. (En cuanto a vistas lo único que tendría que hacer es mostrar un mensaje de éxito y volver al index)
      */
-    public function add($nombre = null, $desc = null, $cat = null, $fecha = null, $hora = null, $desc_cal = null, $lugar = null, $artista = null)
+    public function add($nombre = null, $desc = null, $cat = null, $fecha = null, $hora = null, $desc_cal = null, $lugar = null, $artistas = null)
     {
         if($nombre != null && $desc != null && $cat != null && $fecha != null && $hora != null && $desc_cal != null
-            && $lugar != null && $artista != null)
+            && $lugar != null && $artistas != null)
         {
             // aca me llegan todos los datos, puedo cargar el evento en la BD
             try {
@@ -86,7 +86,12 @@ class EventController {
                 $cal_evento = $this->evtdao->retrieve($evento_a_guardar); // para que me de la ID
                 $cal_lugar = $this->sitedao->retrieve_by_establishment($lugar); // para que me de la ID
                 
-                $calendario_objeto = new Calendar($desc, $fecha, $hora, $cal_lugar, $cal_evento);
+                // guardamos OBJETOS ARTISTA en un arreglo para el constructor de Calendar
+                $array_artistas = array();
+                foreach($artistas as $art)
+                    $array_artistas[] = $this->artdao->retrieve_by_name($art);
+
+                $calendario_objeto = new Calendar($desc, $fecha, $hora, $cal_lugar, $cal_evento, $array_artistas);
                 $this->caldao->create($calendario_objeto);
 
             } catch (\Exception $e) {

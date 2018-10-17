@@ -8,15 +8,17 @@ class Site {
     private $city;
     private $province;
     private $address;
+    private $capacity;
     private $establishment;
 
-    public function __construct($city, $province, $address, $establishment, $id = null)
+    public function __construct($city, $province, $address, $establishment, $capacity, $id = null)
     {
         $this->id = $id;
         $this->city = $city;
         $this->province = $province;
         $this->address = $address;
         $this->establishment = $establishment;
+        $this->capacity = $capacity;
     }
 
     public function getID()
@@ -42,6 +44,11 @@ class Site {
     public function get_establishment()
     {
         return $this->establishment;
+    }
+
+    public function get_capacity()
+    {
+        return $this->capacity;
     }
 }
 

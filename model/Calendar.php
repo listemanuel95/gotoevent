@@ -10,15 +10,17 @@ class Calendar {
     private $time;
     private $site;
     private $event;
-    
-    public function __construct($desc, $date, $time, $site, $event, $id = null)
+    private $artists;
+
+    public function __construct($desc, $date, $time, $site, $event, $artists, $id = null)
     {
+        $this->id = $id;
         $this->desc = $desc;
         $this->date = $date;
         $this->time = $time;
         $this->site = $site;
         $this->event = $event;
-        $this->id = $id;
+        $this->artists = $artists;
     }
 
     public function getID() 
@@ -51,6 +53,10 @@ class Calendar {
         return $this->site;
     }
     
+    public function get_artists()
+    {
+        return $this->artists;
+    }
 }
 
 ?>
