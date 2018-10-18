@@ -113,10 +113,14 @@ $(document).ready(function() {
                         }
                     });
 
-                    // actualizamos las categorias
+                    // actualizamos los artistas en el select
                     var arr = form.serialize().split('&');
                     var nombre = arr[0].split('=');
+
                     $('#artists-select').append('<option value="' + decodeURI(nombre[1]) + '">' + decodeURI(nombre[1]) + '</option>');
+                    
+                    // actualizo el multiselect
+                    $('#artists-select').multiselect('rebuild');
                 }
 
             }, error: function() {

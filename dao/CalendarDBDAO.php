@@ -22,11 +22,14 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
                 if($conn != null)
                 {
                     try {
+                        // convierto el string a una fecha valida, sino lo toma como 00-00-0000
+                        $fecha_valida = date('Y-m-d', strtotime($instance->get_date()));
+
                         $statement = $conn->prepare("INSERT INTO `calendars` (`descr`, `day`, `hour`, `site_id`, `event_id`) VALUES (
                             :desc, :day, :hour, :site, :event)");
                             
                         $statement->bindValue(':desc', $instance->get_desc());
-                        $statement->bindValue(':day', $instance->get_date());
+                        $statement->bindValue(':day', $fecha_valida);
                         $statement->bindValue(':hour', $instance->get_time());
                         $statement->bindValue(':site', $instance->get_site()->getID());
                         $statement->bindValue(':event', $instance->get_event()->getID());

@@ -85,7 +85,7 @@ class EventController {
                 // ahora hay que guardar el calendario (TODO: VARIOS CALENDARIOS, NO SE COMO LO VAMOS A HACER JEJE XD)
                 $cal_evento = $this->evtdao->retrieve($evento_a_guardar); // para que me de la ID
                 $cal_lugar = $this->sitedao->retrieve_by_establishment($lugar); // para que me de la ID
-                
+
                 // guardamos OBJETOS ARTISTA en un arreglo para el constructor de Calendar
                 $array_artistas = array();
                 foreach($artistas as $art)
