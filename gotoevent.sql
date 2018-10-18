@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-10-2018 a las 19:13:52
+-- Tiempo de generación: 18-10-2018 a las 18:12:10
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -155,10 +155,10 @@ CREATE TABLE IF NOT EXISTS `seats` (
   `number` int(6) unsigned DEFAULT NULL,
   `prize` double DEFAULT NULL,
   `seat_type_id` int(11) NOT NULL,
-  `site_id` int(11) DEFAULT NULL,
+  `calendar_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `seat_type_id` (`seat_type_id`),
-  KEY `site_id` (`site_id`)
+  KEY `calendar_id` (`calendar_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -234,8 +234,8 @@ ALTER TABLE `gigs`
 -- Filtros para la tabla `seats`
 --
 ALTER TABLE `seats`
-  ADD CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`seat_type_id`) REFERENCES `seat_types` (`id`),
-  ADD CONSTRAINT `seats_ibfk_2` FOREIGN KEY (`site_id`) REFERENCES `sites` (`id`);
+  ADD CONSTRAINT `seats_ibfk_2` FOREIGN KEY (`calendar_id`) REFERENCES `calendars` (`id`),
+  ADD CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`seat_type_id`) REFERENCES `seat_types` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
