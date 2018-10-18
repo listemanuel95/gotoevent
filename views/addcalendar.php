@@ -74,9 +74,7 @@
 						<div class="col-4 text-center">
 							<h2 class="title">Agregar Calendarios de Evento</h2>
 							
-							<form action="../event/add_calendar" method="post">
-
-                                <!-- Hidden -->
+							<form action="../event/add_calendar" method="post" onsubmit="return validateCalendarForm(<?php echo count($plazasDB); ?>);" >
                                 <input type="hidden" name="id_evento" value="<?php echo $id_evento; ?>">
 
                                 <br><h5 class="title">Fecha y Hora</h5>
@@ -84,19 +82,39 @@
 								<br><input type="text" class="form-control" style="background-color:white;" placeholder="LA HORA PONELA A LO MACHO DESPUES LO ARREGLAMOS" name="calendar-time">
 								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="calendar-desc"></textarea>
 							
-								<br><h5 class="title">Lugar <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-site" title="Agregar lugar"></i></a></h5>
+								<br><h5 class="title">Lugar (capacidad máxima) <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-site" title="Agregar lugar"></i></a></h5>
 								<select class="form-control" style="background-color:white;" name="calendar-site" id="site-select">
 									<?php foreach($lugaresDB as $lugar) { ?>
-										<option value="<?php echo $lugar->get_establishment(); ?>"><?php echo $lugar->get_establishment(); ?></option>
+										<option value="<?php echo $lugar->get_establishment();?>"><?php echo $lugar->get_establishment() . ' (' . $lugar->get_capacity() . ')';?></option>
 									<?php } ?>
 								</select>
 
                                 <br><h5 class="title">Plazas </h5>
-								<select class="form-control" style="background-color:white;" name="calendar-site" id="site-select">
-									<?php foreach($plazasDB as $plaza) { ?>
-                                        <option value="<?php echo $plaza->getID(); ?>"><?php echo $plaza->get_type(); ?></option>
-									<?php } ?>
-								</select>
+								<div class="row">
+									<div class="col-6">
+										<b>Tipo de Plaza</b>
+									</div>
+									<div class="col-3">
+										<b>Cantidad</b>
+									</div>
+									<div class="col-3">
+										<b>Precio</b>
+									</div>
+								</div><br>
+								<?php for($i = 0; $i < count($plazasDB); $i++) { ?>
+									<div class="row">
+										<div class="col-6">
+											<label for="plaza_<?php echo $plazasDB[$i]->getID(); ?>"><?php echo $plazasDB[$i]->get_type(); ?></label>
+										</div>
+										<div class="col-3">
+											<input type="hidden" value="<?php echo $plazasDB[$i]->getID(); ?>" name="calendar-plaza-id[]">
+											<input type="number" value="0" id="plaza<?php echo $i; ?>" name="calendar-plaza[]" class="form-control number-input">
+										</div>
+										<div class="col-3">
+											<input type="number" value="0" id="plaza<?php echo $i; ?>" name="calendar-plaza-price[]" class="form-control number-input">
+										</div>
+									</div>
+								<?php } ?>
 
 								<br><h5 class="title">Artista <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-artist" title="Agregar Artista"></i></a></h5>
 								<select class="form-control" multiple="multiple" style="background-color:white;" name="calendar-artist[]" id="artists-select">
@@ -225,7 +243,7 @@
 						<br><input type="text" class="form-control" placeholder="Provincia..." name="province">
 						<br><input type="text" class="form-control" placeholder="Direccion..." name="address">
 						<br><input type="text" class="form-control" placeholder="Establecimiento..." name="establishment">
-						<br><input type="number" class="form-control" placeholder="Capacidad..." name="capacity" id="capacityInput">
+						<br><input type="number" class="form-control number-input" placeholder="Capacidad..." name="capacity">
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary">Guardar</button>

@@ -5,6 +5,9 @@ namespace controllers;
 use model\Site as Site;
 use dao\SiteDBDAO as SiteDBDAO;
 
+use model\Seat as Seat;
+use dao\SeatDBDAO as SeatDBDAO;
+
 use model\SeatType as SeatType;
 use dao\SeatTypeDBDAO as SeatTypeDBDAO;
 
@@ -50,6 +53,7 @@ class EventController {
         $this->evtdao = EventDBDAO::get_instance();
         $this->caldao = CalendarDBDAO::get_instance();
         $this->plazdao = SeatTypeDBDAO::get_instance();
+        $this->plazasdao = SeatDBDAO::get_instance();
     }
 
     /**
@@ -105,16 +109,14 @@ class EventController {
         }
     }
 
-    public function add_calendar($id_evt = null, $fecha = null, $hora = null, $desc_cal = null, $lugar = null, $artistas = null)
+    public function add_calendar($id_evt = null, $fecha = null, $hora = null, $desc_cal = null, $lugar = null, $plazas_id = null, $plazas = null, $plazas_precio = null, $artistas = null)
     {
-        if($id_evt != null && $fecha != null && $hora != null && $desc_cal != null && $lugar != null && $artistas != null)
+        if($id_evt != null && $fecha != null && $hora != null && $desc_cal != null && $lugar != null && $plazas_id != null && $plazas != null && $plazas_precio != null && $artistas != null)
         {
             try {
                 // guardamos el calendario
                 $cal_evento = $this->evtdao->retrieve_by_id($id_evt);
                 $cal_lugar = $this->sitedao->retrieve_by_establishment($lugar); // para que me de la ID
-
-                echo 'LUGAR: ' .$lugar;
 
                 // guardamos OBJETOS ARTISTA en un arreglo para el constructor de Calendar
                 $array_artistas = array();
@@ -122,7 +124,24 @@ class EventController {
                     $array_artistas[] = $this->artdao->retrieve_by_name($art);
 
                 $calendario_objeto = new Calendar($desc_cal, $fecha, $hora, $cal_lugar, $cal_evento, $array_artistas);
-                $this->caldao->create($calendario_objeto);
+                $last_id = $this->caldao->create($calendario_objeto); // el create de calendarios devuelve la ultima ID
+
+                // una vez cargado el calendario cargamos las plazas con el ID de ese calendario
+                
+                for($j = 0; $j < count($plazas_id); $j++)
+                {
+                    for($i = 0; $i < (int) $plazas[$j]; $i++)
+                    {
+                        $number = $plazas_id[$j] . '-' . $i;
+                        $precio = $plazas_precio[$j];
+                        $type = $this->plazdao->retrieve_by_id($plazas_id[$j]);
+                        $calendar = new Calendar($desc_cal, $fecha, $hora, $cal_lugar, $cal_evento, $array_artistas, $last_id);
+        
+                        $plaza = new Seat($number, $precio, $type, $calendar);
+
+                        $this->plazasdao->create($plaza);
+                    }
+                }
 
             } catch (\Exception $e) {
                 echo '[Controller->Event] ' . $e->getMessage();

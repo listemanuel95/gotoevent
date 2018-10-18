@@ -2,25 +2,35 @@
 
 namespace dao;
 
-use model\SeatType as SeatType;
+use model\Seat as Seat;
 
-class SeatTypeDBDAO extends SingletonDAO implements IDAO {
+class SeatDBDAO extends SingletonDAO implements IDAO {
 
     public function create($instance)
     {
-        if($instance instanceof SeatType)
+        if($instance instanceof Seat)
         {
             $conn = new Connection();
             $conn = $conn->get_connection();
 
             try {
+                $statement = $conn->prepare("INSERT INTO `seats` (`number`, `price`, `seat_type_id`, `calendar_id`) VALUES (
+                    :number, :price, :s_id, :c_id)");
+                    
+                $statement->bindValue(':number', $instance->get_number());
+                $statement->bindValue(':price', $instance->get_price());
+                $statement->bindValue(':s_id', $instance->get_type()->getID());
+                $statement->bindValue(':c_id', $instance->get_calendar()->getID());
 
+                $statement->execute();
+
+                return true;
             } catch (PDOException $e) { // TODO: excepciones mas copadas
                 echo "ERROR " . $e->getMessage();
             }
 
         } else {
-            throw new \Exception("Error en create SeatType");
+            throw new \Exception("Error en create Seat");
         }
 
         return false;
@@ -43,7 +53,7 @@ class SeatTypeDBDAO extends SingletonDAO implements IDAO {
                 }
             }
         } else {
-            throw new \Exception("Error en retrieve SeatType");
+            throw new \Exception("Error en retrieve Seat");
         }
     }
 
@@ -57,28 +67,6 @@ class SeatTypeDBDAO extends SingletonDAO implements IDAO {
         
     }
 
-    public function retrieve_by_id($id)
-    {
-        $conn = new Connection();
-        $conn = $conn->get_connection();
-
-        if($conn != null)
-        {
-            try {
-
-                $statement = $conn->prepare("SELECT * FROM `seat_types` WHERE `id` = '$id'");
-                $statement->execute();
-
-                $r = $statement->fetch();
-
-                return new SeatType($r['type'], $r['id']);
-
-            } catch (PDOException $e) { // TODO: excepciones mas copadas
-                echo "ERROR " . $e->getMessage();
-            }
-        }    
-    }
-
     public function retrieve_all()
     {
         $conn = new Connection();
@@ -87,20 +75,6 @@ class SeatTypeDBDAO extends SingletonDAO implements IDAO {
         if($conn != null)
         {
             try {
-
-                $statement = $conn->prepare("SELECT * FROM `seat_types`");
-                $statement->execute();
-
-                // hay que devolver objetos!!!
-                $resultados = $statement->fetchAll();
-
-                // esto voy a devolver                
-                $ret = array();
-
-                foreach($resultados as $st)
-                    $ret[] = new SeatType($st['type'], $st['id']);
-
-                return $ret;
 
             } catch (PDOException $e) { // TODO: excepciones mas copadas
                 echo "ERROR " . $e->getMessage();

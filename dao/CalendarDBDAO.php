@@ -50,7 +50,7 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
                             $statement->execute();
                         }
 
-                        return true;
+                        return $last_id;
                     } catch (PDOException $e) { // TODO: excepciones mas copadas
                         echo "ERROR " . $e->getMessage();
                     }
@@ -65,7 +65,7 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
 
     public function retrieve($instance)
     {
-        
+
     }
 
     public function update($instance)

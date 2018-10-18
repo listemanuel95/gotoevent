@@ -182,7 +182,9 @@ $(document).ready(function() {
                     // actualizamos las categorias
                     var parse = form.serialize().split('&');
                     var establishment = parse[3].split('=');
-                    $('#site-select').append('<option value="' + decodeURI(establishment[1]) + '">' + decodeURI(establishment[1]) + '</option>');
+                    var capacity = parse[4].split('=');
+
+                    $('#site-select').append('<option value="' + decodeURI(establishment[1]) + '">' + decodeURI(establishment[1]) + ' (' + decodeURI(capacity[1]) + ')</option>');
                 }
 
             }, error: function() {
@@ -204,7 +206,7 @@ $(document).ready(function() {
     });
 
     // CAPACIDAD (INPUT)
-    $("#capacityInput").keydown(function (e) {
+    $(".number-input").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                 // Allow: Ctrl/cmd+A
@@ -227,3 +229,40 @@ $(document).ready(function() {
     // MULTISELECT DE ARTISTAS
     $('#artists-select').multiselect({enableFiltering: true});
 });
+
+function validateCalendarForm(cantPlazas)
+{
+    // buscar el lugar que esta seleccionado
+    var lugar = $("#site-select option:selected").text();
+
+    // parsear la capacidad
+    var capacityArr = lugar.split('(');
+
+    // la capacidad quedaria guardada en capacity[0]
+    var capacity = capacityArr[1].split(')');
+
+    // ahora corroboramos que la suma de plazas no sobrepase la capacidad
+    var sumaPlazas = 0;
+    
+    for(var i = 0; i < cantPlazas; i++)
+        sumaPlazas += parseInt($('#plaza' + i).val(), 10);
+
+    var ret = sumaPlazas <= parseInt(capacity[0], 10);
+
+    if(!ret)
+    {
+        $.notify({
+            message: 'Las plazas no pueden superar la capacidad del establecimiento, CAPO' 
+        }, {
+            type: 'danger',
+            placement: {
+                from: "top",
+                align: "center"
+            }
+        });
+
+        return false;
+    }
+
+    return true;
+}
