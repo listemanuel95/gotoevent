@@ -15,12 +15,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <!-- CSS Files -->
-	<link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-	<link href="./assets/css/animate.css" rel="stylesheet" />
+	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+	<link href="../assets/css/animate.css" rel="stylesheet" />
 
 	<!-- Include the plugin's CSS and JS: -->
-	<link rel="stylesheet" href="./assets/css/bootstrap-multiselect.css" type="text/css"/>
+	<link rel="stylesheet" href="../assets/css/bootstrap-multiselect.css" type="text/css"/>
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -37,7 +37,7 @@
 			<span class="navbar-toggler-bar bottom-bar"></span>
 			</button>
 		</div>
-		<div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
+		<div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../assets/img/blurred-image-1.jpg">
 			<ul class="navbar-nav">
 			<li class="nav-item dropdown">
 				<p>&ensp;Bienvenido, MANGUERAS MUSMANNO</p>
@@ -53,7 +53,7 @@
 
 		<!-- Start header -->
 		<div class="page-header page-header-small clear-filter" filter-color="orange">
-			<div class="page-header-image" data-parallax="true" style="background-image:url('./assets/img/header.jpg');">
+			<div class="page-header-image" data-parallax="true" style="background-image:url('../assets/img/header.jpg');">
 			</div>
 			<div class="container">
 				<div class="content-center brand">
@@ -72,16 +72,29 @@
 					<div class="row">
 						<div class="col-4"></div>
 						<div class="col-4 text-center">
-							<h2 class="title">Agregar Evento</h2>
+							<h2 class="title">Agregar Calendarios de Evento</h2>
 							
-							<form action="event/add" method="post">
-								<input type="text" class="form-control" style="background-color:white;" placeholder="Nombre de Evento..." name="nombre-evento">
-								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="desc-evento"></textarea>
+							<form action="../event/add_calendar" method="post">
 
-								<br><h5 class="title">Categoría <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-category" title="Agregar Categoría"></i></a></h5>
-								<select class="form-control" style="background-color:white;" name="event-category" id="categories-select">
-									<?php foreach($categoriasDB as $categoria) { ?>
-										<option value="<?php echo $categoria->get_name(); ?>"><?php echo $categoria->get_name(); ?></option>
+                                <!-- Hidden -->
+                                <input type="hidden" name="id_evento" value="<?php echo $id_evento; ?>">
+
+                                <br><h5 class="title">Fecha y Hora</h5>
+								<input type="text" class="form-control date-picker" style="background-color:white;" value="27/09/2018" data-datepicker-color="primary" name="calendar-date">
+								<br><input type="text" class="form-control" style="background-color:white;" placeholder="LA HORA PONELA A LO MACHO DESPUES LO ARREGLAMOS" name="calendar-time">
+								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="calendar-desc"></textarea>
+							
+								<br><h5 class="title">Lugar <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-site" title="Agregar lugar"></i></a></h5>
+								<select class="form-control" style="background-color:white;" name="calendar-site" id="site-select">
+									<?php foreach($lugaresDB as $lugar) { ?>
+										<option value="<?php echo $lugar->get_establishment(); ?>"><?php echo $lugar->get_establishment(); ?></option>
+									<?php } ?>
+								</select>
+
+								<br><h5 class="title">Artista <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-artist" title="Agregar Artista"></i></a></h5>
+								<select class="form-control" multiple="multiple" style="background-color:white;" name="calendar-artist[]" id="artists-select">
+									<?php foreach($artistasDB as $artista) { ?>
+										<option value="<?php echo $artista->get_name(); ?>"><?php echo $artista->get_name(); ?></option>
 									<?php } ?>
 								</select>
 							
@@ -146,7 +159,7 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="category/ajax_insert" id="add-category-form">
+				<form action="../category/ajax_insert" id="add-category-form">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="Nombre..." name="nombre">
 					</div>
@@ -169,7 +182,7 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="artist/ajax_insert" id="add-artist-form">
+				<form action="../artist/ajax_insert" id="add-artist-form">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="Nombre..." name="nombre">
 						<br>
@@ -198,7 +211,7 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="site/ajax_insert" id="add-site-form">
+				<form action="../site/ajax_insert" id="add-site-form">
 					<div class="modal-body">
 						<!-- Estaria bueno hacer esto con una libreria que cargue ciudades reales, 'estandares' -->
 						<input type="text" class="form-control" placeholder="Ciudad..." name="city">
@@ -220,23 +233,23 @@
 
 	<!--   Core JS Files   -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
-	<script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-	<script src="./assets/js/pages/add-event.js" type="text/javascript"></script>
+	<script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+	<script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../assets/js/pages/add-event.js" type="text/javascript"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-	<script src="./assets/js/plugins/bootstrap-switch.js"></script>
+	<script src="../assets/js/plugins/bootstrap-switch.js"></script>
 	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-	<script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+	<script src="../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 	<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-	<script src="./assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
-	<script src="./assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="./assets/js/plugins/bootstrap-multiselect.js"></script>
+	<script src="../assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="../assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../assets/js/plugins/bootstrap-multiselect.js"></script>
 	<!--  Plugin for the HourPicker -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 	<!--  Google Maps Plugin    -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
-	<script src="./assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
+	<script src="../assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
 	<script>
 		function scrollToDownload() {
 			if ($('.section-download').length != 0) {

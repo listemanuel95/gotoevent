@@ -53,10 +53,8 @@ class EventController {
     public function index()
     {
         try {
-            $lugaresDB = $this->sitedao->retrieve_all();
+
             $categoriasDB = $this->catdao->retrieve_all();
-            $artistasDB = $this->artdao->retrieve_all();
-            $generosDB = $this->gendao->retrieve_all();
 
         } catch (\Exception $e) {
             echo '[Controller->Event] ' . $e->getMessage();
@@ -68,10 +66,9 @@ class EventController {
     /**
      * Método encargado de crear un evento. (En cuanto a vistas lo único que tendría que hacer es mostrar un mensaje de éxito y volver al index)
      */
-    public function add($nombre = null, $desc = null, $cat = null, $fecha = null, $hora = null, $desc_cal = null, $lugar = null, $artistas = null)
+    public function add($nombre = null, $desc = null, $cat = null)
     {
-        if($nombre != null && $desc != null && $cat != null && $fecha != null && $hora != null && $desc_cal != null
-            && $lugar != null && $artistas != null)
+        if($nombre != null && $desc != null && $cat)
         {
             // aca me llegan todos los datos, puedo cargar el evento en la BD
             try {
@@ -79,20 +76,19 @@ class EventController {
                 $cat_aux = new Category($cat); 
                 $cat_objeto = $this->catdao->retrieve($cat_aux);
 
+                // guardamos el evento
                 $evento_a_guardar = new Event($nombre, $desc, $cat_objeto);
                 $this->evtdao->create($evento_a_guardar);
 
-                // ahora hay que guardar el calendario (TODO: VARIOS CALENDARIOS, NO SE COMO LO VAMOS A HACER JEJE XD)
-                $cal_evento = $this->evtdao->retrieve($evento_a_guardar); // para que me de la ID
-                $cal_lugar = $this->sitedao->retrieve_by_establishment($lugar); // para que me de la ID
+                // hago el retrieve para que me de la ID
+                $evt = $this->evtdao->retrieve($evento_a_guardar);
+                $id_evento = $evt->getID();
 
-                // guardamos OBJETOS ARTISTA en un arreglo para el constructor de Calendar
-                $array_artistas = array();
-                foreach($artistas as $art)
-                    $array_artistas[] = $this->artdao->retrieve_by_name($art);
+                $lugaresDB = $this->sitedao->retrieve_all();
+                $artistasDB = $this->artdao->retrieve_all();
+                $generosDB = $this->gendao->retrieve_all();
 
-                $calendario_objeto = new Calendar($desc, $fecha, $hora, $cal_lugar, $cal_evento, $array_artistas);
-                $this->caldao->create($calendario_objeto);
+                require(ROOT . '/views/addcalendar.php');
 
             } catch (\Exception $e) {
                 echo '[Controller->Event] ' . $e->getMessage(); // ¿redireccionar?
@@ -103,6 +99,32 @@ class EventController {
         }
     }
 
+    public function add_calendar($id_evt = null, $fecha = null, $hora = null, $desc_cal = null, $lugar = null, $artistas = null)
+    {
+        if($id_evt != null && $fecha != null && $hora != null && $desc_cal != null && $lugar != null && $artistas != null)
+        {
+            try {
+                // guardamos el calendario
+                $cal_evento = $this->evtdao->retrieve_by_id($id_evt);
+                $cal_lugar = $this->sitedao->retrieve_by_establishment($lugar); // para que me de la ID
+
+                echo 'LUGAR: ' .$lugar;
+
+                // guardamos OBJETOS ARTISTA en un arreglo para el constructor de Calendar
+                $array_artistas = array();
+                foreach($artistas as $art)
+                    $array_artistas[] = $this->artdao->retrieve_by_name($art);
+
+                $calendario_objeto = new Calendar($desc_cal, $fecha, $hora, $cal_lugar, $cal_evento, $array_artistas);
+                $this->caldao->create($calendario_objeto);
+
+            } catch (\Exception $e) {
+                echo '[Controller->Event] ' . $e->getMessage();
+            }
+        } else {
+            header("Location: ../index");
+        }
+    }
 }
 
 ?>

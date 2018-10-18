@@ -80,6 +80,26 @@ class EventDBDAO extends SingletonDAO implements IDAO {
         
     }
 
+    public function retrieve_by_id($id)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $statement = $conn->prepare("SELECT `G`.`id` AS `e_id`, `G`.`name` AS `e_name`, `G`.`descr` AS `e_descr`,
+                                                        `C`.`name` AS `c_name` FROM `gigs` AS `G` JOIN `event_categories` AS `C` 
+                                                        ON `G`.`event_category_id` = `C`.`id` WHERE `G`.`id` = '$id'");
+                $statement->execute();
+                $evt = $statement->fetch();
+
+                return new Event($evt['e_name'], $evt['e_descr'], new Category($evt['c_name']), $evt['e_id']);
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
 }
 
 ?>
