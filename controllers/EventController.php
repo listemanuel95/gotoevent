@@ -5,6 +5,9 @@ namespace controllers;
 use model\Site as Site;
 use dao\SiteDBDAO as SiteDBDAO;
 
+use model\SeatType as SeatType;
+use dao\SeatTypeDBDAO as SeatTypeDBDAO;
+
 use model\Category as Category;
 use dao\CategoryDBDAO as CategoryDBDAO;
 
@@ -33,6 +36,7 @@ class EventController {
     private $gendao;
     private $evtdao;
     private $caldao;
+    private $plazdao;
 
     /**
      * Obtenemos las instancias de los DAOs en el constructor y después las usamos como atributos
@@ -45,6 +49,7 @@ class EventController {
         $this->artdao = ArtistDBDAO::get_instance();
         $this->evtdao = EventDBDAO::get_instance();
         $this->caldao = CalendarDBDAO::get_instance();
+        $this->plazdao = SeatTypeDBDAO::get_instance();
     }
 
     /**
@@ -87,6 +92,7 @@ class EventController {
                 $lugaresDB = $this->sitedao->retrieve_all();
                 $artistasDB = $this->artdao->retrieve_all();
                 $generosDB = $this->gendao->retrieve_all();
+                $plazasDB = $this->plazdao->retrieve_all();
 
                 require(ROOT . '/views/addcalendar.php');
 

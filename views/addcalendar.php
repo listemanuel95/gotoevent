@@ -91,6 +91,13 @@
 									<?php } ?>
 								</select>
 
+                                <br><h5 class="title">Plazas </h5>
+								<select class="form-control" style="background-color:white;" name="calendar-site" id="site-select">
+									<?php foreach($plazasDB as $plaza) { ?>
+                                        <option value="<?php echo $plaza->getID(); ?>"><?php echo $plaza->get_type(); ?></option>
+									<?php } ?>
+								</select>
+
 								<br><h5 class="title">Artista <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-artist" title="Agregar Artista"></i></a></h5>
 								<select class="form-control" multiple="multiple" style="background-color:white;" name="calendar-artist[]" id="artists-select">
 									<?php foreach($artistasDB as $artista) { ?>
