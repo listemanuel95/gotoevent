@@ -26,7 +26,7 @@
 	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
 		<div class="container">
 		<div class="navbar-translate">
-			<a class="navbar-brand" href="https://demos.creative-tim.com/now-ui-kit/index.html" rel="tooltip" title="Diseñado por los pibes" data-placement="bottom" target="_blank">
+			<a class="navbar-brand" href="index" rel="tooltip" title="Diseñado por los pibes" data-placement="bottom">
 				Mangueras Musmanno Venta de Tickets
 			</a>
 			<button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,41 +103,34 @@
 			<!-- Start first section -->
 			<div class="section section-basic" id="basic-elements">
 				<div class="container">
-				<h3 class="title">Eventos</h3>
-				<h4>Buttons</h4>
-				<p class="category">Pick your style</p>
-				<div class="row">
-					<div class="col-md-10">
-					<button class="btn btn-primary" type="button">Default</button>
-					<button class="btn btn-primary btn-round" type="button">Round</button>
-					<button class="btn btn-primary btn-round" type="button">
-						<i class="now-ui-icons ui-2_favourite-28"></i> With Icon
-					</button>
-					<button class="btn btn-primary btn-icon btn-round" type="button">
-						<i class="now-ui-icons ui-2_favourite-28"></i>
-					</button>
-					<button class="btn btn-primary btn-simple btn-round" type="button">Simple</button>
+					<br><h2>Eventos Destacados</h2>
+					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+							<img class="d-block w-100" src="<?php echo $eventosDB[0]->get_image_link(); ?>" alt="<?php echo $eventosDB[0]->get_name();?>">
+							</div>
+							<div class="carousel-item">
+							<img class="d-block w-100" src="<?php echo $eventosDB[1]->get_image_link(); ?>" alt="<?php echo $eventosDB[1]->get_name();?>">
+							</div>
+							<div class="carousel-item">
+							<img class="d-block w-100" src="<?php echo $eventosDB[2]->get_image_link(); ?>" alt="<?php echo $eventosDB[2]->get_name();?>">
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
 					</div>
-				</div>
-				<p class="category">Pick your size</p>
-				<div class="row">
-					<div class="col-md-10">
-					<button class="btn btn-primary btn-sm">Small</button>
-					<button class="btn btn-primary">Regular</button>
-					<button class="btn btn-primary btn-lg">Large</button>
-					</div>
-				</div>
-				<p class="category">Pick your color</p>
-				<div class="row">
-					<div class="col-md-10">
-					<button class="btn">Default</button>
-					<button class="btn btn-primary">Primary</button>
-					<button class="btn btn-info">Info</button>
-					<button class="btn btn-success">Success</button>
-					<button class="btn btn-warning">Warning</button>
-					<button class="btn btn-danger">Danger</button>
-					<button class="btn btn-neutral">Neutral</button>
-					</div>
+					<br><h3>Todos los Eventos</h3>
 				</div>
 			</div>
 			<!-- End first section -->

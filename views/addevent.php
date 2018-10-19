@@ -28,7 +28,7 @@
 	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
 		<div class="container">
 		<div class="navbar-translate">
-			<a class="navbar-brand" href="https://demos.creative-tim.com/now-ui-kit/index.html" rel="tooltip" title="Diseñado por los pibes" data-placement="bottom" target="_blank">
+			<a class="navbar-brand" href="index" rel="tooltip" title="Diseñado por los pibes" data-placement="bottom">
 			Mangueras Musmanno Venta de Tickets
 			</a>
 			<button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,8 @@
 							<form action="event/add" method="post">
 								<input type="text" class="form-control" style="background-color:white;" placeholder="Nombre de Evento..." name="nombre-evento">
 								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="desc-evento"></textarea>
-
+								<h5 class="title">Imagen (link) </h5>
+								<br><input type="text" class="form-control" name="image-link">
 								<br><h5 class="title">Categoría <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-category" title="Agregar Categoría"></i></a></h5>
 								<select class="form-control" style="background-color:white;" name="event-category" id="categories-select">
 									<?php foreach($categoriasDB as $categoria) { ?>

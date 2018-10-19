@@ -10,11 +10,24 @@ use dao\EventDBDAO as EventDBDAO;
  */
 class IndexController {
 
+    private $eventdao;
+
+    /**
+     * Constructor para obtener los DAOs
+     */
+    public function __construct()
+    {
+        $this->eventdao = EventDBDAO::get_instance();
+    }
+
     /**
      *  Página de inicio
      */
     public function index()
     {
+
+        $eventosDB = $this->eventdao->retrieve_last();
+
         require(ROOT . '/views/index.php');
     }
 }

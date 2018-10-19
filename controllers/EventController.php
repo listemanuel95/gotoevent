@@ -75,9 +75,9 @@ class EventController {
     /**
      * Método encargado de crear un evento. (En cuanto a vistas lo único que tendría que hacer es mostrar un mensaje de éxito y volver al index)
      */
-    public function add($nombre = null, $desc = null, $cat = null)
+    public function add($nombre = null, $desc = null, $img = null, $cat = null)
     {
-        if($nombre != null && $desc != null && $cat)
+        if($nombre != null && $desc != null && $img != null && $cat != null)
         {
             // aca me llegan todos los datos, puedo cargar el evento en la BD
             try {
@@ -86,7 +86,7 @@ class EventController {
                 $cat_objeto = $this->catdao->retrieve($cat_aux);
 
                 // guardamos el evento
-                $evento_a_guardar = new Event($nombre, $desc, $cat_objeto);
+                $evento_a_guardar = new Event($nombre, $desc, $cat_objeto, $img);
                 $this->evtdao->create($evento_a_guardar);
 
                 // hago el retrieve para que me de la ID
