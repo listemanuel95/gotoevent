@@ -26,7 +26,7 @@ class IndexController {
     public function index()
     {
 
-        $eventosDB = $this->eventdao->retrieve_last();
+        $eventosDB = $this->eventdao->retrieve_all();
 
         require(ROOT . '/views/index.php');
     }

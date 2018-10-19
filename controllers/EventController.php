@@ -150,6 +150,18 @@ class EventController {
             header("Location: ../index");
         }
     }
+
+    public function details($event_id) 
+    {
+
+        $event = $this->evtdao->retrieve_by_id($event_id);
+
+        if($event instanceof Event)
+            require(ROOT . '/views/view_event.php');
+        else
+            header("Location: ../index");
+    }
+
 }
 
 ?>
