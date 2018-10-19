@@ -134,8 +134,12 @@
 					<div class="row">
 						<?php foreach($eventosDB as $evento) { ?>
 							<div class="col-sm-4">
-								<div class="card hover" style="width: 22rem;">
-									<a href="event/details/<?php echo $evento->getID(); ?>"><img class="card-img-top" src="<?php echo $evento->get_image_link(); ?>" alt="<?php echo $evento->get_name(); ?>"></a>
+								<div class="hovereffect" style="width: 22rem;">
+									<img class="img-responsive" src="<?php echo $evento->get_image_link(); ?>" alt="<?php echo $evento->get_name(); ?>">
+									<div class="overlay">
+										<h2><?php echo $evento->get_name(); ?></h2>
+										<a href="event/details/<?php echo $evento->getID(); ?>" class="info">Ver evento</a>
+									</div>
 								</div>
 							</div>
 						<?php } ?>
