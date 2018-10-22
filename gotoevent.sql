@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2018 a las 18:43:33
+-- Tiempo de generación: 22-10-2018 a las 19:46:04
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `artists_in_calendars` (
 --
 
 INSERT INTO `artists_in_calendars` (`id_artist`, `id_calendar`) VALUES
+(2, 23),
 (4, 20),
 (5, 21),
 (6, 22);
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `calendars` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `event_id` (`event_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Volcado de datos para la tabla `calendars`
@@ -92,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `calendars` (
 INSERT INTO `calendars` (`id`, `descr`, `day`, `hour`, `site_id`, `event_id`) VALUES
 (20, 'hola sy', '2019-01-11', '22:00:00', 6, 48),
 (21, 'asmndkma', '2018-12-21', '23:00:00', 1, 49),
-(22, 'asd', '2018-11-03', '22:00:00', 2, 50);
+(22, 'asd', '2018-11-03', '22:00:00', 2, 50),
+(23, 'OTROCALENDARIO', '2018-10-03', '23:00:00', 2, 49);
 
 -- --------------------------------------------------------
 

@@ -23,7 +23,7 @@
 <body class="index-page sidebar-collapse">
 
 	<!-- Start Navbar -->
-	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
+	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar" color-on-scroll="400">
 		<div class="container">
 		<div class="navbar-translate">
 			<a class="navbar-brand" href="../../index" rel="tooltip" title="Diseñado por los pibes" data-placement="bottom">
@@ -71,32 +71,7 @@
 	<!-- Start Wrapper -->
 	<div class="wrapper">
 
-		<!-- Start header -->
-		<div class="page-header clear-filter" filter-color="orange">
-			<div class="page-header-image" data-parallax="true" style="background-image:url('../../assets/img/header.jpg');">
-			</div>
-			<div class="container">
-				<div class="content-center brand">
-				<img class="n-logo" src="../../assets/img/now-logo.png" alt="">
-				<h1 class="h1-seo">Mangueras Musmanno Venta de Tickets</h1>
-				<h3>VENDEMO TICKE</h3>
-				</div>
-				<h6 class="category category-absolute">
-				<a href="https://www.github.com/dunkansdk" target="_blank">
-					<i class="fab fa-github"></i> Dunkan
-				</a>&emsp;
-				<a href="https://www.github.com/listemanuel95" target="_blank">
-					<i class="fab fa-github"></i> Bone
-				</a>&emsp;
-				<a href="https://www.github.com/nacho95" target="_blank">
-					<i class="fab fa-github"></i> Nacho
-				</a>&emsp;
-				<a href="https://www.github.com/natanga" target="_blank">
-					<i class="fab fa-github"></i> Natu
-				</a>&emsp;
-			</div>
-		</div>
-		<!-- End header -->
+		<img src="<?php echo $event->get_image_link(); ?>" style="width:100%;">
 
 		<!-- Start Main -->
 		<div class="main">
@@ -104,7 +79,34 @@
 			<div class="section section-basic" id="basic-elements">
 				<div class="container">
 					<br><h2><?php echo $event->get_name(); ?></h2>
-					
+					<p><b><?php echo $event->get_desc(); ?></b></p>
+					<hr><br>
+					<?php for($i = 0; $i < count($calendars); $i++) { ?>
+					<?php $calendar = $calendars[$i]; ?>
+					<h4>Fecha <?php echo $i + 1; ?></h4>
+						<div class="card">
+							<div class="row">
+								<div class="col-10">
+									<?php $hora = explode(":", $calendar->get_time()); ?>
+									<h5>&ensp;<?php echo $calendar->get_date() . ' - ' . $hora[0] . ":" . $hora[1]; ?></h5>
+									<h5>&ensp;Artistas: </h5>
+									<pre><?php var_dump($calendar->get_artists()); ?></pre>
+									<?php foreach($calendar->get_artists() as $artista) { ?>
+										<p><b><?php echo $artista->get_name(); ?></b></p>
+									<?php } ?>
+									<p><b>&ensp;<?php echo $calendar->get_site()->get_establishment() . " - " . 
+														$calendar->get_site()->get_address() . ", " .
+														$calendar->get_site()->get_city() . ", " .
+														$calendar->get_site()->get_province(); ?></b></p>
+									<p>&emsp;<?php echo $calendar->get_desc(); ?></p>
+								</div>
+
+								<div class="col-2 text-center">
+									<button class="btn btn-primary"><i class="fas fa-shopping-cart"></i>&ensp;Comprar</button>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
 				</div>
 			</div>
 			<!-- End first section -->

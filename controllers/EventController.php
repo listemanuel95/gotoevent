@@ -155,6 +155,7 @@ class EventController {
     {
 
         $event = $this->evtdao->retrieve_by_id($event_id);
+        $calendars = $this->caldao->retrieve_by_event($event);
 
         if($event instanceof Event)
             require(ROOT . '/views/view_event.php');

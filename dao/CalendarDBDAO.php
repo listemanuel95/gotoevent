@@ -5,6 +5,8 @@ namespace dao;
 use model\Calendar as Calendar;
 use model\Site as Site;
 use model\Event as Event;
+use model\Artist as Artist;
+use model\Genre as Genre;
 
 class CalendarDBDAO extends SingletonDAO implements IDAO {
 
@@ -60,6 +62,63 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
             }
         }  else {
             throw new \Exception("ERROR al guardar calendario 2");
+        }
+    }
+
+    public function retrieve_by_event($event)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+
+                $statement = $conn->prepare("SELECT `C`.`id` AS `c_id`, `C`.`descr` AS `c_descr`, `C`.`day` AS `c_day`,
+                                                    `C`.`hour` AS `c_hour`, `S`.`id` AS `s_id`, `S`.`city` AS `s_city`,
+                                                    `S`.`province` AS `s_province`, `S`.`address` AS `s_address`,
+                                                    `S`.`establishment` AS `s_establishment`, `S`.`capacity` AS `s_capacity`
+                                                    FROM `calendars` AS `C` JOIN `sites` AS `S` ON `C`.`site_id` = `S`.`id` WHERE `event_id` = :e_id");
+
+                $statement->bindValue(':e_id', $event->getID());                           
+                $statement->execute();
+
+                $resultados = $statement->fetchAll();
+
+                $calendarios = array();
+                foreach($resultados as $cal)
+                {
+                    // busco los artistas correspondientes a este calendario
+                    $new_statement = $conn->prepare("SELECT * FROM `artists_in_calendars` WHERE `id_calendar` = :c_id");
+                    $new_statement->bindValue(':c_id', $cal['c_id']);
+
+                    $new_statement->execute();
+
+                    $artistas = $new_statement->fetchAll();
+                   
+                    $array_artistas = array();
+
+                    // ESTO NO ANDA BIEN, HAY QUE ARREGLARLO
+                    foreach($artistas as $art)
+                    {
+                        // busco el genero del artista
+                        $otro_statement = $conn->prepare("SELECT `A`.`id` AS `id`, `A`.`name` AS `name`, `G`.`genre_name` AS `genre`, `G`.`id` AS `g_id` FROM `artists` AS `A` WHERE `A`.`id` = :a_id JOIN `genres` AS `G` ON `A`.`genre_id` = `G`.`id`");
+                        $otro_statement->bindValue(':a_id', $art['id_artist']);
+
+                        $otro_statement->execute();
+
+                        $resultado = $otro_statement->fetch();
+
+                        $array_artistas[] = new Artist($resultado['name'], new Genre($resultado['genre'], $resultado['g_id']), $resultado['id']);
+                    }
+
+                    $calendarios[] = new Calendar($cal['c_descr'], $cal['c_day'], $cal['c_hour'], new Site($cal['s_city'], $cal['s_province'], $cal['s_address'], $cal['s_establishment'], $cal['s_capacity'], $cal['s_id']), $event, $array_artistas, $cal['c_id']);
+                }
+
+                return $calendarios;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
         }
     }
 
