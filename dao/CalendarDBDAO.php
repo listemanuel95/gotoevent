@@ -7,6 +7,7 @@ use model\Site as Site;
 use model\Seat as Seat;
 use model\SeatType as SeatType;
 use model\Event as Event;
+use model\Category as Category;
 use model\Artist as Artist;
 use model\Genre as Genre;
 
@@ -146,6 +147,33 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
 
                 return $plazas;
 
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
+    public function retrieve_events_by_artist_id($id)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $statement = $conn->prepare("SELECT `G`.`id` AS `e_id`, `G`.`descr` AS `e_descr`, `G`.`name` AS `e_name`, `G`.`image_link` AS `e_img`, `GC`.`id` AS `c_id`, `GC`.`name` AS `c_name`
+                                            FROM `calendars` as `C` JOIN `gigs` AS `G` ON `C`.`event_id` = `G`.`id` JOIN `event_categories` AS `GC` ON `G`.`event_category_id` = `GC`.`id`
+                                            JOIN `artists_in_calendars` AS `AC` ON `AC`.`id_calendar` = `C`.`id` WHERE `AC`.`id_artist` = $id");
+                $statement->execute();
+
+                $evts = $statement->fetchAll();
+
+                $events = array();
+
+                foreach($evts as $evt)
+                    $events[] = new Event($evt['e_name'], $evt['e_descr'], new Category($evt['c_name']), $evt['e_img'], $evt['e_id']);
+
+                return $events;
             } catch (PDOException $e) { // TODO: excepciones mas copadas
                 echo "ERROR " . $e->getMessage();
             }

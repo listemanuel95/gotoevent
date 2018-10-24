@@ -153,7 +153,6 @@ class EventController {
 
     public function details($event_id) 
     {
-
         $event = $this->evtdao->retrieve_by_id($event_id);
         $calendars = $this->caldao->retrieve_by_event($event);
         $plaza_types = $this->plazdao->retrieve_all();
@@ -164,9 +163,12 @@ class EventController {
             header("Location: ../index");
     }
 
-    public function events_by_artist()
+    public function events_by_artist($id)
     {
-        
+        $events = $this->caldao->retrieve_events_by_artist_id($id);
+        $artista = $this->artdao->retrieve_by_id($id);
+
+        require(ROOT . '/views/events_by_artist.php');
     }
 
 }

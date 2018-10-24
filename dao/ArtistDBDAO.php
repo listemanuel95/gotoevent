@@ -60,6 +60,28 @@ class ArtistDBDAO extends SingletonDAO implements IDAO {
         }
     }
 
+    public function retrieve_by_id($id)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $statement = $conn->prepare("SELECT `A`.`id` AS `a_id`, `A`.`name` AS `a_name`, `G`.`genre_name` AS `g_name` 
+                                             FROM `artists` AS `A` JOIN `genres` AS `G` ON `A`.`genre_id` = `G`.`id` 
+                                             WHERE `A`.`id` = $id");
+                $statement->execute();
+                $art = $statement->fetch();
+
+                return new Artist($art['a_name'], new Genre($art['g_name']), $art['a_id']);
+                
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
     public function update($instance)
     {
 

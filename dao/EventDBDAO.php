@@ -102,11 +102,6 @@ class EventDBDAO extends SingletonDAO implements IDAO {
         }
     }
 
-    public function retrieve_by_artist_name()
-    {
-        
-    }
-
     /**
      * Devuelve los ultimos 3 eventos, porque pintó
      */

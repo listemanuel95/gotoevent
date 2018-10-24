@@ -91,7 +91,7 @@
 									<h5>&ensp;<?php echo $calendar->get_date() . ' - ' . $hora[0] . ":" . $hora[1]; ?></h5>
 									<p><b>&ensp;Artistas: 
 									<?php foreach($calendar->get_artists() as $artista) { ?>
-										<a href="#" target="_blank"><?php echo $artista->get_name() . ' '; ?></a>
+										<a href="../events_by_artist/<?php echo $artista->getID(); ?>" target="_blank"><?php echo $artista->get_name() . ' '; ?></a>
 									<?php } ?></p></b>
 									<p><b>&ensp;<?php echo $calendar->get_site()->get_establishment() . " - " . 
 														$calendar->get_site()->get_address() . ", " .
