@@ -89,11 +89,10 @@
 								<div class="col-10">
 									<?php $hora = explode(":", $calendar->get_time()); ?>
 									<h5>&ensp;<?php echo $calendar->get_date() . ' - ' . $hora[0] . ":" . $hora[1]; ?></h5>
-									<h5>&ensp;Artistas: </h5>
-									<pre><?php var_dump($calendar->get_artists()); ?></pre>
+									<p><b>&ensp;Artistas: 
 									<?php foreach($calendar->get_artists() as $artista) { ?>
-										<p><b><?php echo $artista->get_name(); ?></b></p>
-									<?php } ?>
+										<a href="#" target="_blank"><?php echo $artista->get_name() . ' '; ?></a>
+									<?php } ?></p></b>
 									<p><b>&ensp;<?php echo $calendar->get_site()->get_establishment() . " - " . 
 														$calendar->get_site()->get_address() . ", " .
 														$calendar->get_site()->get_city() . ", " .
@@ -102,7 +101,7 @@
 								</div>
 
 								<div class="col-2 text-center">
-									<button class="btn btn-primary"><i class="fas fa-shopping-cart"></i>&ensp;Comprar</button>
+									<button class="btn btn-primary btn-comprar" id="<?php echo $calendar->getID(); ?>"><i class="fas fa-shopping-cart"></i>&ensp;Comprar</button>
 								</div>
 							</div>
 						</div>
@@ -152,6 +151,30 @@
 	</div>
 	<!-- End Wrapper -->
 
+	<!-- MODAL DE COMPRA DE TICKETS -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-buy-ticket">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Comprar Entradas</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="" id="buy-tickets-form">
+					<div class="modal-body">
+						
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Confirmar</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL DE COMPRA DE TICKETS -->
+
 	<!--   Core JS Files   -->
 	<script src="../../assets/js/core/jquery.min.js" type="text/javascript"></script>
 	<script src="../../assets/js/core/popper.min.js" type="text/javascript"></script>
@@ -169,17 +192,21 @@
 	
 	<script>
 		$(document).ready(function() {
-		// the body of this function is in assets/js/now-ui-kit.js
-		nowuiKit.initSliders();
+			// the body of this function is in assets/js/now-ui-kit.js
+			//nowuiKit.initSliders();
+
+			$('.btn-comprar').on('click', function() {
+				$('#modal-buy-ticket').modal('show');
+			});
 		});
 
 		function scrollToDownload() {
 
-		if ($('.section-download').length != 0) {
-			$("html, body").animate({
-			scrollTop: $('.section-download').offset().top
-			}, 1000);
-		}
+			if ($('.section-download').length != 0) {
+				$("html, body").animate({
+				scrollTop: $('.section-download').offset().top
+				}, 1000);
+			}
 		}
 	</script>
 

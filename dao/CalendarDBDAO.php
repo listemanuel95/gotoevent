@@ -4,6 +4,8 @@ namespace dao;
 
 use model\Calendar as Calendar;
 use model\Site as Site;
+use model\Seat as Seat;
+use model\SeatType as SeatType;
 use model\Event as Event;
 use model\Artist as Artist;
 use model\Genre as Genre;
@@ -102,7 +104,7 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
                     foreach($artistas as $art)
                     {
                         // busco el genero del artista
-                        $otro_statement = $conn->prepare("SELECT `A`.`id` AS `id`, `A`.`name` AS `name`, `G`.`genre_name` AS `genre`, `G`.`id` AS `g_id` FROM `artists` AS `A` WHERE `A`.`id` = :a_id JOIN `genres` AS `G` ON `A`.`genre_id` = `G`.`id`");
+                        $otro_statement = $conn->prepare("SELECT `A`.`id` AS `id`, `A`.`name` AS `name`, `G`.`genre_name` AS `genre`, `G`.`id` AS `g_id` FROM `artists` AS `A` JOIN `genres` AS `G` ON `A`.`genre_id` = `G`.`id` WHERE `A`.`id` = :a_id");
                         $otro_statement->bindValue(':a_id', $art['id_artist']);
 
                         $otro_statement->execute();
@@ -116,6 +118,34 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
                 }
 
                 return $calendarios;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
+    public function retrieve_plazas($calendar)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $id = $calendar->getID();
+                $statement = $conn->prepare("SELECT `S`.`id` AS `s_id`, `S`.`number` AS `s_num`, `S`.`price` AS `s_price`, `ST`.`id` AS `type_id`, `ST`.`type` AS `type_name` 
+                                            FROM `seats` AS `S` JOIN `seat_types` AS `ST` ON `S`.`seat_type_id` = `ST`.`id` 
+                                            WHERE `calendar_id` = $id");
+                $statement->execute();
+
+                $resultados = $statement->fetchAll();
+                $plazas = array();
+
+                foreach($resultados as $res)
+                    $plazas[] = new Seat($res['s_num'], $res['s_price'], new SeatType($res['type_name'], $res['type_id']), $calendar, $res['s_id']);
+
+                return $plazas;
+
             } catch (PDOException $e) { // TODO: excepciones mas copadas
                 echo "ERROR " . $e->getMessage();
             }

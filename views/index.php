@@ -133,7 +133,7 @@
 					<br><h3>Todos los Eventos</h3>
 					<div class="row">
 						<?php foreach($eventosDB as $evento) { ?>
-							<div class="col-sm-4">
+							<div class="col-sm-4" style="padding-top:20px;">
 								<div class="hovereffect" style="width: 22rem;">
 									<img class="img-responsive" src="<?php echo $evento->get_image_link(); ?>" alt="<?php echo $evento->get_name(); ?>">
 									<div class="overlay">
@@ -207,7 +207,7 @@
 	<script>
 		$(document).ready(function() {
 		// the body of this function is in assets/js/now-ui-kit.js
-		nowuiKit.initSliders();
+			//nowuiKit.initSliders();
 		});
 
 		function scrollToDownload() {

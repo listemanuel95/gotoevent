@@ -157,6 +157,11 @@ class EventController {
         $event = $this->evtdao->retrieve_by_id($event_id);
         $calendars = $this->caldao->retrieve_by_event($event);
 
+        $plazas = array(); // mas que array lo uso como mapa, donde la ID corresponde al calendario
+
+        foreach($calendars as $cal)
+            $plazas[$cal->getID()] = $this->caldao->retrieve_plazas($cal);
+
         if($event instanceof Event)
             require(ROOT . '/views/view_event.php');
         else
