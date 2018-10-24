@@ -206,7 +206,7 @@
 						<br><input type="text" class="form-control" placeholder="Provincia..." name="province">
 						<br><input type="text" class="form-control" placeholder="Direccion..." name="address">
 						<br><input type="text" class="form-control" placeholder="Establecimiento..." name="establishment">
-						<br><input type="number" class="form-control" placeholder="Capacidad..." name="capacity" id="capacityInput">
+						<br><input type="number" class="form-control number-input" placeholder="Capacidad..." name="capacity" id="capacityInput">
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary">Guardar</button>

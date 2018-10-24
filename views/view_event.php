@@ -163,10 +163,18 @@
 				</div>
 				<form action="" id="buy-tickets-form">
 					<div class="modal-body">
-						
+						<label for="seat-type">Tipo de Entrada</label>
+						<select class="form-control" style="background-color:white;" name="seat-type">
+							<?php foreach($plaza_types as $plaza_type) { ?>
+								<option value="<?php echo $plaza_type->get_type(); ?>"><?php echo $plaza_type->get_type(); ?></option>
+							<?php } ?>
+						</select>
+
+						<br><label for="cantidad">Cantidad</label>
+						<input type="number" name="cantidad" class="form-control number-input" value="1">
 					</div>
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">Confirmar</button>
+						<button type="submit" class="btn btn-primary" id="btn-confirmar">Confirmar</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					</div>
 				</form>
@@ -197,6 +205,30 @@
 
 			$('.btn-comprar').on('click', function() {
 				$('#modal-buy-ticket').modal('show');
+			});
+
+			$('#btn-confirmar').on('click', function() {
+				alert("ESTO TODAVIA NO ESTA HECHO, HAY QUE HACER EL CARRITO Y CHEQUEAR QUE LA CANTIDAD INGRESADA ESTE DISPONIBLE EN LA BD.");
+			});
+
+			$(".number-input").keydown(function (e) {
+				// Allow: backspace, delete, tab, escape, enter and .
+				if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+						// Allow: Ctrl/cmd+A
+					(e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+						// Allow: Ctrl/cmd+C
+					(e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+						// Allow: Ctrl/cmd+X
+					(e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+						// Allow: home, end, left, right
+					(e.keyCode >= 35 && e.keyCode <= 39)) {
+							// let it happen, don't do anything
+							return;
+				}
+				// Ensure that it is a number and stop the keypress
+				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+					e.preventDefault();
+				}
 			});
 		});
 
