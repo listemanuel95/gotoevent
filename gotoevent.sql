@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2018 a las 19:46:04
+-- Tiempo de generación: 26-10-2018 a las 19:01:24
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `artists` (
   `genre_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_genre` (`genre_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `artists`
@@ -43,7 +43,10 @@ INSERT INTO `artists` (`id`, `name`, `genre_id`) VALUES
 (3, 'Megadeth', 3),
 (4, 'Pulse', 1),
 (5, 'OCONNOR', 3),
-(6, 'Turf', 1);
+(6, 'Turf', 1),
+(7, 'Jennifer Lopez', 2),
+(8, 'Romeo Santos', 3),
+(9, 'Divididos', 1);
 
 -- --------------------------------------------------------
 
@@ -56,17 +59,16 @@ CREATE TABLE IF NOT EXISTS `artists_in_calendars` (
   `id_calendar` int(11) NOT NULL,
   PRIMARY KEY (`id_artist`,`id_calendar`),
   KEY `id_calendar` (`id_calendar`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `artists_in_calendars`
 --
 
 INSERT INTO `artists_in_calendars` (`id_artist`, `id_calendar`) VALUES
-(2, 23),
-(4, 20),
-(5, 21),
-(6, 22);
+(6, 22),
+(8, 25),
+(9, 26);
 
 -- --------------------------------------------------------
 
@@ -84,17 +86,16 @@ CREATE TABLE IF NOT EXISTS `calendars` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `event_id` (`event_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Volcado de datos para la tabla `calendars`
 --
 
 INSERT INTO `calendars` (`id`, `descr`, `day`, `hour`, `site_id`, `event_id`) VALUES
-(20, 'hola sy', '2019-01-11', '22:00:00', 6, 48),
-(21, 'asmndkma', '2018-12-21', '23:00:00', 1, 49),
 (22, 'asd', '2018-11-03', '22:00:00', 2, 50),
-(23, 'OTROCALENDARIO', '2018-10-03', '23:00:00', 2, 49);
+(25, 'XQXQXQXXQQX', '2018-03-27', '23:00:00', 2, 51),
+(26, 'OWEHITEBIWEr', '2018-10-17', '21:00:00', 2, 52);
 
 -- --------------------------------------------------------
 
@@ -152,16 +153,16 @@ CREATE TABLE IF NOT EXISTS `gigs` (
   `image_link` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_category_id` (`event_category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
 
 --
 -- Volcado de datos para la tabla `gigs`
 --
 
 INSERT INTO `gigs` (`id`, `event_category_id`, `descr`, `name`, `image_link`) VALUES
-(48, 1, 'una banda re piola', 'Banda Pulse tributo a Pink Floyd', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Sala%20Caras%20y%20Caretas/pulse-inter.jpg'),
-(49, 1, 'le gusta a natu', 'OCONNOR', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/El%20Teatrito/anti-silence-inter.jpg'),
-(50, 1, 'turf asd', 'Turf Gira Odisea', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Trastienda%20san%20telmo/turf-inter.jpg');
+(50, 1, 'turf asd', 'Turf Gira Odisea', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Trastienda%20san%20telmo/turf-inter.jpg'),
+(51, 1, 'ROMEO SANTOS HIPODROMO DE PALERMO', 'TestEvento', 'https://www.daleplayticket.com/Articlemedia/Images/Brands/daleplayticket/intermedia/romeoSegundaInter.jpg'),
+(52, 1, 'TEQUE TEQUE TOCA TOCA ESTA HINCHADA ESTA RE LOCA SOMOS TODOS DIVIDIDOS DIVIDIDOS LAS PELOTAS', 'Divididos 30 años', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Divididos/divididos-graficagenerica-inter.jpg');
 
 -- --------------------------------------------------------
 
@@ -178,17 +179,20 @@ CREATE TABLE IF NOT EXISTS `seats` (
   PRIMARY KEY (`id`),
   KEY `seat_type_id` (`seat_type_id`),
   KEY `calendar_id` (`calendar_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=455 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=661 ;
 
 --
 -- Volcado de datos para la tabla `seats`
 --
 
 INSERT INTO `seats` (`id`, `number`, `price`, `seat_type_id`, `calendar_id`) VALUES
-(451, '1-0', 500, 1, 20),
-(452, '2-0', 1500, 2, 20),
-(453, '1-0', 1500, 1, 21),
-(454, '1-0', 20, 1, 22);
+(454, '1-0', 20, 1, 22),
+(655, '1-0', 50, 1, 25),
+(656, '1-0', 100, 1, 26),
+(657, '1-1', 100, 1, 26),
+(658, '1-2', 100, 1, 26),
+(659, '1-3', 100, 1, 26),
+(660, '1-4', 100, 1, 26);
 
 -- --------------------------------------------------------
 
@@ -237,6 +241,49 @@ INSERT INTO `sites` (`id`, `city`, `province`, `address`, `establishment`, `capa
 (2, 'Mar del Plata', 'Buenos Aires', 'Juan B. Justo 1100', 'Abbey Road', 2000),
 (6, 'TaMasLavadoQUe', 'AY ME QUEME', 'Mexico y 25 de Mayo', 'Los turos de las tores', 25000);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mail` varchar(80) DEFAULT NULL,
+  `password` varchar(300) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `users_ibfk_1` (`role_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `mail`, `password`, `role_id`) VALUES
+(1, 'test@test.test', 'a8f5f167f44f4964e6c998dee827110c', 2),
+(2, 'wtih@rtehtheo.wer', '098f6bcd4621d373cade4e832627b4f6', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_roles`
+--
+
+CREATE TABLE IF NOT EXISTS `user_roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `user_roles`
+--
+
+INSERT INTO `user_roles` (`id`, `name`) VALUES
+(1, 'Usuario'),
+(2, 'Admin');
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -245,27 +292,40 @@ INSERT INTO `sites` (`id`, `city`, `province`, `address`, `establishment`, `capa
 -- Filtros para la tabla `artists`
 --
 ALTER TABLE `artists`
-  ADD CONSTRAINT `artists_ibfk_1` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`);
+  ADD CONSTRAINT `artists_ibfk_1` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `artists_in_calendars`
+--
+ALTER TABLE `artists_in_calendars`
+  ADD CONSTRAINT `artists_in_calendars_ibfk_2` FOREIGN KEY (`id_calendar`) REFERENCES `calendars` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `artists_in_calendars_ibfk_1` FOREIGN KEY (`id_artist`) REFERENCES `artists` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `calendars`
 --
 ALTER TABLE `calendars`
-  ADD CONSTRAINT `calendars_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `sites` (`id`),
-  ADD CONSTRAINT `calendars_ibfk_3` FOREIGN KEY (`event_id`) REFERENCES `gigs` (`id`);
+  ADD CONSTRAINT `calendars_ibfk_3` FOREIGN KEY (`event_id`) REFERENCES `gigs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `calendars_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `gigs`
 --
 ALTER TABLE `gigs`
-  ADD CONSTRAINT `gigs_ibfk_1` FOREIGN KEY (`event_category_id`) REFERENCES `event_categories` (`id`);
+  ADD CONSTRAINT `gigs_ibfk_1` FOREIGN KEY (`event_category_id`) REFERENCES `event_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `seats`
 --
 ALTER TABLE `seats`
-  ADD CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`seat_type_id`) REFERENCES `seat_types` (`id`),
-  ADD CONSTRAINT `seats_ibfk_2` FOREIGN KEY (`calendar_id`) REFERENCES `calendars` (`id`);
+  ADD CONSTRAINT `seats_ibfk_2` FOREIGN KEY (`calendar_id`) REFERENCES `calendars` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`seat_type_id`) REFERENCES `seat_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `user_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
