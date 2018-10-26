@@ -66,6 +66,14 @@ class AdminPanelController {
         }
         
     }
+
+    public function delete_event($id)
+    {
+        // borramos el evento
+        $this->evtdao->delete_by_id($id);
+
+        header("Location: ../../adminpanel");
+    }
 }
 
 ?>

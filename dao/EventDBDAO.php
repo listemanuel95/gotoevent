@@ -76,6 +76,24 @@ class EventDBDAO extends SingletonDAO implements IDAO {
 
     }
 
+    public function delete_by_id($id)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $statement = $conn->prepare("DELETE FROM `gigs` WHERE `id` = $id");
+                $statement->execute();
+  
+                return true;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
     public function delete($instance)
     {
         

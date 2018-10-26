@@ -91,7 +91,7 @@
 										&emsp;<a href="adminpanel/add_calendar/<?php echo $evt->getID(); ?>" title="Agregar Calendario"><i class="far fa-calendar-alt"></i></a>
 									</div>
 									<div class="col-1">
-										&emsp;<a href="#" title="Borrar Evento"><i class="far fa-trash-alt"></i></a>
+										&emsp;<a href="adminpanel/delete_event/<?php echo $evt->getID(); ?>" title="Borrar Evento"><i class="far fa-trash-alt"></i></a>
 									</div>
 								</div>
 							</div>
