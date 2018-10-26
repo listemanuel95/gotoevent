@@ -37,31 +37,37 @@
 		</div>
 		<div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../../assets/img/blurred-image-1.jpg">
 			<ul class="navbar-nav">
-			<li class="nav-item dropdown">
-				<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
-				<i class="fa fa-sign-in-alt design_app"></i>
-				<p>&ensp;LOGIN</p>
-				</a>
-				<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink1">
-				<form class="px-4 py-3">
-					<div class="form-group">
-						<label for="exampleDropdownFormEmail1">Mail</label>
-						<input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+			<?php if(!isset($_SESSION['logged-user'])) { ?>
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
+					<i class="fa fa-sign-in-alt design_app"></i>
+					<p>&ensp;LOGIN</p>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink1">
+					<form class="px-4 py-3">
+						<div class="form-group">
+							<label for="exampleDropdownFormEmail1">Mail</label>
+							<input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+						</div>
+						<div class="form-group">
+							<label for="exampleDropdownFormPassword1">Contraseña</label>
+							<input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+						</div>
+						<div class="form-group text-center">
+							<button type="submit" class="btn btn-primary">Ingresar</button>
+						</div>
+						<p class="text-center">¿No tenés cuenta? <a href="../../register" style="color:orange;">Registrate</a></p>
+					</form>
+					<a class="dropdown-item" target="_blank" href="https://demos.creative-tim.com/now-ui-kit/docs/1.0/getting-started/introduction.html">
+						<i class="fab fa-facebook fa-2x design_bullet-list-67"></i> &ensp;ACA CON FB
+					</a>
 					</div>
-					<div class="form-group">
-						<label for="exampleDropdownFormPassword1">Contraseña</label>
-						<input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-					</div>
-					<div class="form-group text-center">
-						<button type="submit" class="btn btn-primary">Ingresar</button>
-					</div>
-					<p class="text-center">¿No tenés cuenta? <a href="#" style="color:orange;">Registrate</a></p>
-				</form>
-				<a class="dropdown-item" target="_blank" href="https://demos.creative-tim.com/now-ui-kit/docs/1.0/getting-started/introduction.html">
-					<i class="fab fa-facebook fa-2x design_bullet-list-67"></i> &ensp;ACA CON FB
-				</a>
-				</div>
-			</li>
+				</li>
+			<?php } else { ?>
+				<li class="nav-item">
+					Bienvenido, <?php $_SESSION['logged-user']->get_mail(); ?>
+				</li>
+			<?php } ?>
 			</ul>
 		</div>
 		</div>

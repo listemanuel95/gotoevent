@@ -13,7 +13,7 @@ use config\Router 	as Router;
 use config\Request 	as Request;
 
 Autoload::start();
-//session_start();
+session_start();
 Router::redirect(new Request());
 
 ?>
