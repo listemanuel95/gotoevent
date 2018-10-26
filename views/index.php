@@ -70,6 +70,10 @@
 					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown">
 					<i class="fas fau-ser design_app"></i><?php echo $_SESSION['logged-user']->get_mail(); ?>
 					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
+						<?php 
+							if($_SESSION['logged-user']->get_role()->get_name() == 'Admin')
+								echo '<a class="dropdown-item" href="adminPanel">Panel de Administración</a>';
+						?>
 						<a class="dropdown-item" href="logout">Salir</a>
 					</div>
 				</li>

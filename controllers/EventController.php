@@ -63,13 +63,25 @@ class EventController {
     {
         try {
 
-            $categoriasDB = $this->catdao->retrieve_all();
+            // si no es admin hay que patearlo
+            if(isset($_SESSION['logged-user']))
+            {
+                $rol = $_SESSION['logged-user']->get_role()->get_name();
+
+                if($rol == 'Admin')
+                {
+                    $categoriasDB = $this->catdao->retrieve_all();
+                    require(ROOT . '/views/addevent.php');     
+                } else {
+                    header("Location: index");
+                }
+            } else {
+                header("Location: index");
+            }
 
         } catch (\Exception $e) {
             echo '[Controller->Event] ' . $e->getMessage();
         }
-
-        require(ROOT . '/views/addevent.php');
     }
 
     /**
@@ -142,6 +154,9 @@ class EventController {
                         $this->plazasdao->create($plaza);
                     }
                 }
+
+                // volvemos al panel de admin
+                header("Location: ../adminPanel");
 
             } catch (\Exception $e) {
                 echo '[Controller->Event] ' . $e->getMessage();
