@@ -64,8 +64,12 @@
 					</div>
 				</li>
 			<?php } else { ?>
-				<li class="nav-item">
-					Bienvenido, <?php $_SESSION['logged-user']->get_mail(); ?>
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown">
+					<i class="fas fau-ser design_app"></i><?php echo $_SESSION['logged-user']->get_mail(); ?>
+					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
+						<a class="dropdown-item" href="../../logout">Salir</a>
+					</div>
 				</li>
 			<?php } ?>
 			</ul>

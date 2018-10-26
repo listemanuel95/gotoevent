@@ -18,6 +18,8 @@
 	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="./assets/demo/demo.css" rel="stylesheet" />
+
+	<link href="./assets/css/animate.css" rel="stylesheet">
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -44,14 +46,14 @@
 					<p>&ensp;LOGIN</p>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink1">
-					<form class="px-4 py-3">
+					<form action="login" method="POST" class="px-4 py-3">
 						<div class="form-group">
 							<label for="exampleDropdownFormEmail1">Mail</label>
-							<input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+							<input name="mail" type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
 						</div>
 						<div class="form-group">
 							<label for="exampleDropdownFormPassword1">Contraseña</label>
-							<input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+							<input name="pass" type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
 						</div>
 						<div class="form-group text-center">
 							<button type="submit" class="btn btn-primary">Ingresar</button>
@@ -64,8 +66,12 @@
 					</div>
 				</li>
 			<?php } else { ?>
-				<li class="nav-item">
-					Bienvenido, <?php echo $_SESSION['logged-user']->get_mail(); ?>
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown">
+					<i class="fas fau-ser design_app"></i><?php echo $_SESSION['logged-user']->get_mail(); ?>
+					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
+						<a class="dropdown-item" href="logout">Salir</a>
+					</div>
 				</li>
 			<?php } ?>
 			</ul>
@@ -109,6 +115,13 @@
 			<!-- Start first section -->
 			<div class="section section-basic" id="basic-elements">
 				<div class="container">
+
+					<?php 
+						// para mensajes de error, creo un input hidden
+						if(isset($_GET['status']) && $_GET['status'] == 'error') { ?>
+						<input type="hidden" id="login_error">
+					<?php } ?>
+
 					<br><h2>Eventos Destacados</h2>
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
@@ -205,6 +218,7 @@
 	<script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 	<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
 	<script src="./assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="./assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
 	<!--  Google Maps Plugin    -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
@@ -213,7 +227,20 @@
 	<script>
 		$(document).ready(function() {
 		// the body of this function is in assets/js/now-ui-kit.js
-			//nowuiKit.initSliders();
+			
+			if($('#login_error').length)
+			{
+				$.notify ({
+                message: 'Usuario o contraseña inválidos' 
+                }, {
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+                });
+			}
+
 		});
 
 		function scrollToDownload() {
