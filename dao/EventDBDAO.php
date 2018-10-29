@@ -73,7 +73,33 @@ class EventDBDAO extends SingletonDAO implements IDAO {
 
     public function update($instance)
     {
+        if($instance instanceof Event)
+        {
+            $conn = new Connection();
+            $conn = $conn->get_connection();
 
+            if($conn != null)
+            {
+                try {
+                    // aca la category del event ya viene con ID, xq es update
+                    $statement = $conn->prepare("UPDATE `gigs` SET `event_category_id` = :c_id, `descr` = :g_desc, `name` = :g_name, `image_link` = :g_image
+                                                 WHERE `id` = :g_id");
+
+                    $statement->bindValue(':c_id', $instance->get_category()->getID());
+                    $statement->bindValue(':g_desc', $instance->get_desc());
+                    $statement->bindValue(':g_name', $instance->get_name());
+                    $statement->bindValue(':g_image', $instance->get_image_link());
+                    $statement->bindValue(':g_id', $instance->getID());
+                    $statement->execute();
+
+                    return true;
+                } catch (PDOException $e) { // TODO: excepciones mas copadas
+                    echo "ERROR " . $e->getMessage();
+                }
+            }
+        } else {
+            return new \Exception("Error en update Event");
+        }
     }
 
     public function delete_by_id($id)

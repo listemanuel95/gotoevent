@@ -166,6 +166,30 @@ class EventController {
         }
     }
 
+    /**
+     * Método para actualizar eventos (no los calendarios, solamente los datos básicos del evento)
+     */
+    public function update($id = null, $nombre = null, $desc = null, $img = null, $cat = null)
+    {
+        if($id != null && $nombre != null && $desc != null && $img != null && $cat != null)
+        {
+
+            try {
+
+                $cat_con_id = $this->catdao->retrieve(new Category($cat));
+                $evt = new Event($nombre, $desc, $cat_con_id, $img, $id);
+
+                $this->evtdao->update($evt);
+                header("Location: ../adminPanel");
+            } catch (\Exception $e) {
+                echo '[Controller->Event] ' . $e->getMessage();
+            }
+        }
+    }
+
+    /**
+     * Dispara la vista con los detalles de un evento
+     */
     public function details($event_id) 
     {
         $event = $this->evtdao->retrieve_by_id($event_id);
@@ -185,7 +209,6 @@ class EventController {
 
         require(ROOT . '/views/events_by_artist.php');
     }
-
 }
 
 ?>

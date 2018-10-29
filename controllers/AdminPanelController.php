@@ -7,6 +7,7 @@ use dao\SiteDBDAO as SiteDBDAO;
 use dao\ArtistDBDAO as ArtistDBDAO;
 use dao\GenreDBDAO as GenreDBDAO;
 use dao\SeatTypeDBDAO as SeatTypeDBDAO;
+use dao\CategoryDBDAO as CategoryDBDAO;
 
 /**
  * Controladora del panel de administración
@@ -25,6 +26,7 @@ class AdminPanelController {
         $this->artdao = ArtistDBDAO::get_instance();
         $this->gendao = GenreDBDAO::get_instance();
         $this->plazdao = SeatTypeDBDAO::get_instance();
+        $this->catdao = CategoryDBDAO::get_instance();
     }
 
     /**
@@ -46,6 +48,18 @@ class AdminPanelController {
             }
         } else {
             header("Location: index");
+        }
+    }
+
+    public function edit_event($id)
+    {
+        try {
+            $evento = $this->evtdao->retrieve_by_id($id);
+            $categoriasDB = $this->catdao->retrieve_all();
+
+            require(ROOT . '/views/edit_event.php');
+        } catch (\Exception $e) {
+            echo '[Controller->AdminPanel] ' . $e->getMessage();
         }
     }
 
@@ -71,7 +85,6 @@ class AdminPanelController {
     {
         // borramos el evento
         $this->evtdao->delete_by_id($id);
-
         header("Location: ../../adminpanel");
     }
 }

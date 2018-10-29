@@ -3,8 +3,8 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-	<link rel="icon" type="image/png" href="./assets/img/favicon.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" href="../../assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>
 		Mangueras Musmanno Agregar Evento
@@ -15,12 +15,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <!-- CSS Files -->
-	<link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-	<link href="./assets/css/animate.css" rel="stylesheet" />
+	<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+	<link href="../../assets/css/animate.css" rel="stylesheet" />
 
 	<!-- Include the plugin's CSS and JS: -->
-	<link rel="stylesheet" href="./assets/css/bootstrap-multiselect.css" type="text/css"/>
+	<link rel="stylesheet" href="../../assets/css/bootstrap-multiselect.css" type="text/css"/>
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -46,11 +46,11 @@
 
 		<!-- Start header -->
 		<div class="page-header page-header-small clear-filter" filter-color="orange">
-			<div class="page-header-image" data-parallax="true" style="background-image:url('./assets/img/header.jpg');">
+			<div class="page-header-image" data-parallax="true" style="background-image:url('../../assets/img/header.jpg');">
 			</div>
 			<div class="container">
 				<div class="content-center brand">
-				<img class="n-logo" src="./assets/img/now-logo.png" alt="">
+				<img class="n-logo" src="../../assets/img/now-logo.png" alt="">
 				<h1 class="h1-seo">Carga de Eventos</h1>
 			</div>
 			</div>
@@ -67,19 +67,24 @@
 						<div class="col-4 text-center">
 							<h2 class="title">Agregar Evento</h2>
 							
-							<form action="event/add" method="post">
-								<input type="text" class="form-control" style="background-color:white;" placeholder="Nombre de Evento..." name="nombre-evento">
-								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="desc-evento"></textarea>
+							<form action="../../event/update" method="post">
+                                <input type="hidden" value="<?php echo $evento->getID(); ?>" name="id">
+								<input type="text" class="form-control" style="background-color:white;" value="<?php echo $evento->get_name(); ?>" name="nombre-evento">
+								<br><textarea class="form-control" style="background-color:white;" name="desc-evento"><?php echo $evento->get_desc(); ?></textarea>
 								<h5 class="title">Imagen (link) </h5>
-								<br><input type="text" class="form-control" name="image-link">
+								<br><input type="text" class="form-control" value="<?php echo $evento->get_image_link(); ?>" name="image-link">
 								<br><h5 class="title">Categoría <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-category" title="Agregar Categoría"></i></a></h5>
 								<select class="form-control" style="background-color:white;" name="event-category" id="categories-select">
-									<?php foreach($categoriasDB as $categoria) { ?>
-										<option value="<?php echo $categoria->get_name(); ?>"><?php echo $categoria->get_name(); ?></option>
-									<?php } ?>
+									<?php foreach($categoriasDB as $categoria) {
+                                        if($categoria->get_name() == $evento->get_category()->get_name()) { ?>
+                                            <option value="<?php echo $categoria->get_name()?>" selected><?php echo $categoria->get_name()?></option>
+                                        <?php } else { ?>
+                                            <option value="<?php echo $categoria->get_name()?>"><?php echo $categoria->get_name()?></option>
+									    <?php } ?>
+                                    <?php } ?>
 								</select>
 							
-								<br><button type="submit" class="btn btn-primary">Agregar</button> 
+								<br><button type="submit" class="btn btn-primary">Guardar</button> 
 							</form>
 						</div>
 						<div class="col-4"></div>
@@ -140,7 +145,7 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="category/ajax_insert" id="add-category-form">
+				<form action="../../category/ajax_insert" id="add-category-form">
 					<div class="modal-body">
 						<input type="text" class="form-control" placeholder="Nombre..." name="nombre">
 					</div>
@@ -157,23 +162,23 @@
 
 	<!--   Core JS Files   -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
-	<script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-	<script src="./assets/js/pages/add-event.js" type="text/javascript"></script>
+	<script src="../../assets/js/core/popper.min.js" type="text/javascript"></script>
+	<script src="../../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../../assets/js/pages/add-event.js" type="text/javascript"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-	<script src="./assets/js/plugins/bootstrap-switch.js"></script>
+	<script src="../../assets/js/plugins/bootstrap-switch.js"></script>
 	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-	<script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+	<script src="../../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 	<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-	<script src="./assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
-	<script src="./assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="./assets/js/plugins/bootstrap-multiselect.js"></script>
+	<script src="../../assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="../../assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../../assets/js/plugins/bootstrap-multiselect.js"></script>
 	<!--  Plugin for the HourPicker -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 	<!--  Google Maps Plugin    -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
-	<script src="./assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
+	<script src="../../assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
 	<script>
 		function scrollToDownload() {
 			if ($('.section-download').length != 0) {

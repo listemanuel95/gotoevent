@@ -85,7 +85,7 @@
 										&emsp;<?php echo $evt->get_name(); ?>
 									</div>
 									<div class="col-1">
-										&emsp;<a href="#" title="Editar Evento"><i class="fas fa-edit"></i></a>
+										&emsp;<a href="adminpanel/edit_event/<?php echo $evt->getID(); ?>" title="Editar Evento"><i class="fas fa-edit"></i></a>
 									</div>
 									<div class="col-1">
 										&emsp;<a href="adminpanel/add_calendar/<?php echo $evt->getID(); ?>" title="Agregar Calendario"><i class="far fa-calendar-alt"></i></a>
