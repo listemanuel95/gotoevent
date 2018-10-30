@@ -8,7 +8,7 @@ TP Metodología de Sistemas I, Laboratorio IV y Bases de Datos I.
 PHP puro (MVC), HTML5, CSS (SASS) -Bootstrap 4-, JavaScript (jQuery), MySQL (vía [PDO](http://php.net/manual/es/book.pdo.php))
 
 ## Modelo conceptual base
-![Modelo Conceptual](http://campus.mdp.utn.edu.ar/pluginfile.php/18580/mod_resource/content/2/modelo_gotoevent.png)
+![Modelo Conceptual](https://i.imgur.com/x68nj1Z.png)
 
 ## D.E.R
 ![Diagrama Entidad-Relación](https://i.imgur.com/3CxUeDX.png)
@@ -24,7 +24,7 @@ PHP puro (MVC), HTML5, CSS (SASS) -Bootstrap 4-, JavaScript (jQuery), MySQL (ví
 ![Vista de Evento](https://i.imgur.com/9uCajzW.png)
 
 ## Equipo
-### Manuel Liste ([Bone](github.com/listemanuel95))
+### Manuel Liste ([Bone](https://github.com/listemanuel95))
 ### Emanuel D'Urso ([Dunkan](https://github.com/dunkansdk))
 ### Juan Ignacio Borelli ([Nacho](https://github.com/nacho95))
 ### Natalia Brasesco ([Natu](https://github.com/natanga))
