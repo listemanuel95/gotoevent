@@ -7,7 +7,7 @@
 	<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>
-		Mangueras Musmanno Venta de Tickets
+		GoToEvent - Venta de Tickets
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
@@ -26,8 +26,8 @@
 	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
 		<div class="container">
 		<div class="navbar-translate">
-			<a class="navbar-brand" href="index" rel="tooltip" title="Diseñado por los pibes" data-placement="bottom">
-				Mangueras Musmanno Venta de Tickets
+			<a class="navbar-brand" href="index" rel="tooltip" title="Inicio" data-placement="bottom">
+				GoToEvent
 			</a>
 			<button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-bar top-bar"></span>
@@ -78,8 +78,8 @@
 			<div class="container">
 				<div class="content-center brand">
 				<img class="n-logo" src="./assets/img/now-logo.png" alt="">
-				<h1 class="h1-seo">Mangueras Musmanno Venta de Tickets</h1>
-				<h3>VENDEMO TICKE</h3>
+				<h1 class="h1-seo">GoToEvent</h1>
+				<h3>Venta de Tickets para Eventos</h3>
 				</div>
 				<h6 class="category category-absolute">
 				<a href="https://www.github.com/dunkansdk" target="_blank">
