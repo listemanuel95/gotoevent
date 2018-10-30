@@ -32,7 +32,8 @@ class LoginController {
             // guardamos en la sesion al user logueado
             $_SESSION['logged-user'] = $user;
 
-            header("Location: index");
+            // redirigimos a la pagina de la q venia, porque el login está en varias páginas
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         } else {
             header("Location: index?status=error");
         }
