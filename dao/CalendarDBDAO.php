@@ -81,7 +81,8 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
                                                     `C`.`hour` AS `c_hour`, `S`.`id` AS `s_id`, `S`.`city` AS `s_city`,
                                                     `S`.`province` AS `s_province`, `S`.`address` AS `s_address`,
                                                     `S`.`establishment` AS `s_establishment`, `S`.`capacity` AS `s_capacity`
-                                                    FROM `calendars` AS `C` JOIN `sites` AS `S` ON `C`.`site_id` = `S`.`id` WHERE `event_id` = :e_id");
+                                                    FROM `calendars` AS `C` JOIN `sites` AS `S` ON `C`.`site_id` = `S`.`id` WHERE `event_id` = :e_id
+                                                    ORDER BY `C`.`id` ASC");
 
                 $statement->bindValue(':e_id', $event->getID());                           
                 $statement->execute();
@@ -101,7 +102,6 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
                    
                     $array_artistas = array();
 
-                    // ESTO NO ANDA BIEN, HAY QUE ARREGLARLO
                     foreach($artistas as $art)
                     {
                         // busco el genero del artista

@@ -28,7 +28,7 @@
 	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
 		<div class="container">
 			<div class="navbar-translate">
-				<a class="navbar-brand" href="index" rel="tooltip" title="Inicio" data-placement="bottom">
+				<a class="navbar-brand" href="../../index" rel="tooltip" title="Inicio" data-placement="bottom">
 					GoToEvent
 				</a>
 				<button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">

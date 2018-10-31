@@ -26,7 +26,7 @@
 	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
 		<div class="container">
 		<div class="navbar-translate">
-			<a class="navbar-brand" href="index" rel="tooltip" title="Inicio" data-placement="bottom">
+			<a class="navbar-brand" href="../../index" rel="tooltip" title="Inicio" data-placement="bottom">
 				GoToEvent
 			</a>
 			<button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,11 @@
 					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown">
 					<i class="fas fau-ser design_app"></i><?php echo $_SESSION['logged-user']->get_mail(); ?>
 					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
-						<a class="dropdown-item" href="../../logout">Salir</a>
+						<?php 
+							if($_SESSION['logged-user']->get_role()->get_name() == 'Admin')
+								echo '<a class="dropdown-item" href="../../adminPanel"><i class="fas fa-user"></i> Panel de Administración</a>';
+						?>
+						<a class="dropdown-item" href="../../logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
 					</div>
 				</li>
 			<?php } ?>
@@ -117,7 +121,7 @@
 					<div class="row">
 						<?php foreach($events as $evento) { ?>
 							<div class="col-sm-4" style="padding-top:20px;">
-								<div class="hovereffect" style="width: 22rem;">
+								<div class="hovereffect" style="width: 22rem; max-height:140px;">
 									<img class="img-responsive" src="<?php echo $evento->get_image_link(); ?>" alt="<?php echo $evento->get_name(); ?>">
 									<div class="overlay">
 										<h2><?php echo $evento->get_name(); ?></h2>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2018 a las 19:01:24
+-- Tiempo de generación: 31-10-2018 a las 18:19:19
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `artists` (
   `genre_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_genre` (`genre_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Volcado de datos para la tabla `artists`
@@ -46,7 +46,11 @@ INSERT INTO `artists` (`id`, `name`, `genre_id`) VALUES
 (6, 'Turf', 1),
 (7, 'Jennifer Lopez', 2),
 (8, 'Romeo Santos', 3),
-(9, 'Divididos', 1);
+(9, 'Divididos', 1),
+(10, 'Bombita Rodriguez', 1),
+(11, 'Pomelo', 1),
+(12, 'Micky Vainilla', 2),
+(13, 'Quizte Zebazeo', 3);
 
 -- --------------------------------------------------------
 
@@ -68,7 +72,16 @@ CREATE TABLE IF NOT EXISTS `artists_in_calendars` (
 INSERT INTO `artists_in_calendars` (`id_artist`, `id_calendar`) VALUES
 (6, 22),
 (8, 25),
-(9, 26);
+(9, 26),
+(5, 27),
+(11, 27),
+(12, 27),
+(6, 28),
+(11, 28),
+(13, 28),
+(8, 29),
+(9, 29),
+(12, 29);
 
 -- --------------------------------------------------------
 
@@ -86,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `calendars` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `event_id` (`event_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Volcado de datos para la tabla `calendars`
@@ -95,7 +108,10 @@ CREATE TABLE IF NOT EXISTS `calendars` (
 INSERT INTO `calendars` (`id`, `descr`, `day`, `hour`, `site_id`, `event_id`) VALUES
 (22, 'asd', '2018-11-03', '22:00:00', 2, 50),
 (25, 'XQXQXQXXQQX', '2018-03-27', '23:00:00', 2, 51),
-(26, 'OWEHITEBIWEr', '2018-10-17', '21:00:00', 2, 52);
+(26, 'OWEHITEBIWEr', '2018-10-17', '21:00:00', 2, 52),
+(27, 'primera fecha', '2018-11-21', '16:00:00', 6, 53),
+(28, 'segunda fecha', '2018-11-23', '16:00:00', 1, 53),
+(29, 'tercer fecha', '2018-11-25', '16:00:00', 2, 53);
 
 -- --------------------------------------------------------
 
@@ -153,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `gigs` (
   `image_link` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_category_id` (`event_category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
 
 --
 -- Volcado de datos para la tabla `gigs`
@@ -162,7 +178,8 @@ CREATE TABLE IF NOT EXISTS `gigs` (
 INSERT INTO `gigs` (`id`, `event_category_id`, `descr`, `name`, `image_link`) VALUES
 (50, 1, 'turf asd', 'Turf Gira Odisea', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Trastienda%20san%20telmo/turf-inter.jpg'),
 (51, 1, 'ROMEO SANTOS HIPODROMO DE PALERMO', 'TestEvento', 'https://www.daleplayticket.com/Articlemedia/Images/Brands/daleplayticket/intermedia/romeoSegundaInter.jpg'),
-(52, 1, 'TEQUE TEQUE TOCA TOCA ESTA HINCHADA ESTA RE LOCA SOMOS TODOS DIVIDIDOS DIVIDIDOS LAS PELOTAS', 'Divididos 30 años', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Divididos/divididos-graficagenerica-inter.jpg');
+(52, 1, 'TEQUE TEQUE TOCA TOCA ESTA HINCHADA ESTA RE LOCA SOMOS TODOS DIVIDIDOS DIVIDIDOS LAS PELOTAS', 'Divididos 30 años', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Divididos/divididos-graficagenerica-inter.jpg'),
+(53, 2, 'Veni veni veni, no seas puto y veni', 'Mangueras Musmanno Rock Festival', 'https://i.ytimg.com/vi/BvM9vvAja6E/maxresdefault.jpg');
 
 -- --------------------------------------------------------
 
@@ -179,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `seats` (
   PRIMARY KEY (`id`),
   KEY `seat_type_id` (`seat_type_id`),
   KEY `calendar_id` (`calendar_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=661 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=716 ;
 
 --
 -- Volcado de datos para la tabla `seats`
@@ -192,7 +209,62 @@ INSERT INTO `seats` (`id`, `number`, `price`, `seat_type_id`, `calendar_id`) VAL
 (657, '1-1', 100, 1, 26),
 (658, '1-2', 100, 1, 26),
 (659, '1-3', 100, 1, 26),
-(660, '1-4', 100, 1, 26);
+(660, '1-4', 100, 1, 26),
+(661, '1-0', 500, 1, 27),
+(662, '1-1', 500, 1, 27),
+(663, '1-2', 500, 1, 27),
+(664, '1-3', 500, 1, 27),
+(665, '1-4', 500, 1, 27),
+(666, '1-5', 500, 1, 27),
+(667, '1-6', 500, 1, 27),
+(668, '1-7', 500, 1, 27),
+(669, '1-8', 500, 1, 27),
+(670, '1-9', 500, 1, 27),
+(671, '1-0', 500, 1, 28),
+(672, '1-1', 500, 1, 28),
+(673, '1-2', 500, 1, 28),
+(674, '1-3', 500, 1, 28),
+(675, '1-4', 500, 1, 28),
+(676, '1-5', 500, 1, 28),
+(677, '1-6', 500, 1, 28),
+(678, '1-7', 500, 1, 28),
+(679, '1-8', 500, 1, 28),
+(680, '1-9', 500, 1, 28),
+(681, '1-10', 500, 1, 28),
+(682, '1-11', 500, 1, 28),
+(683, '1-12', 500, 1, 28),
+(684, '1-13', 500, 1, 28),
+(685, '1-14', 500, 1, 28),
+(686, '1-15', 500, 1, 28),
+(687, '1-16', 500, 1, 28),
+(688, '1-17', 500, 1, 28),
+(689, '1-18', 500, 1, 28),
+(690, '1-19', 500, 1, 28),
+(691, '1-20', 500, 1, 28),
+(692, '1-21', 500, 1, 28),
+(693, '1-22', 500, 1, 28),
+(694, '1-23', 500, 1, 28),
+(695, '1-24', 500, 1, 28),
+(696, '1-0', 550, 1, 29),
+(697, '1-1', 550, 1, 29),
+(698, '1-2', 550, 1, 29),
+(699, '1-3', 550, 1, 29),
+(700, '1-4', 550, 1, 29),
+(701, '1-5', 550, 1, 29),
+(702, '1-6', 550, 1, 29),
+(703, '1-7', 550, 1, 29),
+(704, '1-8', 550, 1, 29),
+(705, '1-9', 550, 1, 29),
+(706, '1-10', 550, 1, 29),
+(707, '1-11', 550, 1, 29),
+(708, '1-12', 550, 1, 29),
+(709, '1-13', 550, 1, 29),
+(710, '1-14', 550, 1, 29),
+(711, '1-15', 550, 1, 29),
+(712, '1-16', 550, 1, 29),
+(713, '1-17', 550, 1, 29),
+(714, '1-18', 550, 1, 29),
+(715, '1-19', 550, 1, 29);
 
 -- --------------------------------------------------------
 
@@ -254,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `users_ibfk_1` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `users`
@@ -262,7 +334,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `mail`, `password`, `role_id`) VALUES
 (1, 'test@test.test', 'a8f5f167f44f4964e6c998dee827110c', 2),
-(2, 'wtih@rtehtheo.wer', '098f6bcd4621d373cade4e832627b4f6', 1);
+(2, 'wtih@rtehtheo.wer', '098f6bcd4621d373cade4e832627b4f6', 1),
+(3, 'natanga@natu.nat', 'c03f001c5c5341769ecb304e6c669b0f', 1);
 
 -- --------------------------------------------------------
 

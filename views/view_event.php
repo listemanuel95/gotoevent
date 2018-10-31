@@ -18,6 +18,7 @@
 	<link href="../../assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="../../assets/demo/demo.css" rel="stylesheet" />
+	<link href="../../assets/css/animate.css" rel="stylesheet">
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -26,7 +27,7 @@
 	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar" color-on-scroll="400">
 		<div class="container">
 		<div class="navbar-translate">
-			<a class="navbar-brand" href="index" rel="tooltip" title="Inicio" data-placement="bottom">
+			<a class="navbar-brand" href="../../index" rel="tooltip" title="Inicio" data-placement="bottom">
 				GoToEvent
 			</a>
 			<button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +69,11 @@
 					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown">
 					<i class="fas fau-ser design_app"></i><?php echo $_SESSION['logged-user']->get_mail(); ?>
 					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
-						<a class="dropdown-item" href="../../logout">Salir</a>
+						<?php 
+							if($_SESSION['logged-user']->get_role()->get_name() == 'Admin')
+								echo '<a class="dropdown-item" href="../../adminPanel"><i class="fas fa-user"></i> Panel de Administración</a>';
+						?>
+						<a class="dropdown-item" href="../../logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
 					</div>
 				</li>
 			<?php } ?>
@@ -99,10 +104,11 @@
 								<div class="col-10">
 									<?php $hora = explode(":", $calendar->get_time()); ?>
 									<h5>&ensp;<?php echo $calendar->get_date() . ' - ' . $hora[0] . ":" . $hora[1]; ?></h5>
-									<p><b>&ensp;Artistas: 
-									<?php foreach($calendar->get_artists() as $artista) { ?>
-										<a href="../events_by_artist/<?php echo $artista->getID(); ?>" target="_blank"><?php echo $artista->get_name() . ' '; ?></a>
-									<?php } ?></p></b>
+									<p><b>&ensp;Artistas: &emsp;
+										<?php foreach($calendar->get_artists() as $artista) { ?>
+											<a href="../events_by_artist/<?php echo $artista->getID(); ?>" target="_blank"><?php echo $artista->get_name(); ?></a>&emsp;
+										<?php } ?>
+									</p></b>
 									<p><b>&ensp;<?php echo $calendar->get_site()->get_establishment() . " - " . 
 														$calendar->get_site()->get_address() . ", " .
 														$calendar->get_site()->get_city() . ", " .
@@ -111,7 +117,7 @@
 								</div>
 
 								<div class="col-2 text-center">
-									<button class="btn btn-primary btn-comprar" id="<?php echo $calendar->getID(); ?>"><i class="fas fa-shopping-cart"></i>&ensp;Comprar</button>
+									<button class="btn btn-primary <?php if(isset($_SESSION['logged-user'])) echo 'btn-comprar'; else echo 'btn-not-logged'; ?>" id="<?php echo $calendar->getID(); ?>"><i class="fas fa-shopping-cart"></i>&ensp;Comprar</button>
 								</div>
 							</div>
 						</div>
@@ -203,55 +209,12 @@
 	<script src="../../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 	<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
 	<script src="../../assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="../../assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
 	<!--  Google Maps Plugin    -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
 	<script src="../../assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
-	
-	<script>
-		$(document).ready(function() {
-			// the body of this function is in assets/js/now-ui-kit.js
-			//nowuiKit.initSliders();
-
-			$('.btn-comprar').on('click', function() {
-				$('#modal-buy-ticket').modal('show');
-			});
-
-			$('#btn-confirmar').on('click', function() {
-				alert("ESTO TODAVIA NO ESTA HECHO, HAY QUE HACER EL CARRITO Y CHEQUEAR QUE LA CANTIDAD INGRESADA ESTE DISPONIBLE EN LA BD.");
-			});
-
-			$(".number-input").keydown(function (e) {
-				// Allow: backspace, delete, tab, escape, enter and .
-				if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-						// Allow: Ctrl/cmd+A
-					(e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-						// Allow: Ctrl/cmd+C
-					(e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-						// Allow: Ctrl/cmd+X
-					(e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
-						// Allow: home, end, left, right
-					(e.keyCode >= 35 && e.keyCode <= 39)) {
-							// let it happen, don't do anything
-							return;
-				}
-				// Ensure that it is a number and stop the keypress
-				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-					e.preventDefault();
-				}
-			});
-		});
-
-		function scrollToDownload() {
-
-			if ($('.section-download').length != 0) {
-				$("html, body").animate({
-				scrollTop: $('.section-download').offset().top
-				}, 1000);
-			}
-		}
-	</script>
-
+	<script src="../../assets/js/pages/view-event.js" type="text/javascript"></script>
 </body>
 
 </html>

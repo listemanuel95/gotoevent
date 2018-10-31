@@ -18,7 +18,6 @@
 	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="./assets/demo/demo.css" rel="stylesheet" />
-
 	<link href="./assets/css/animate.css" rel="stylesheet">
 </head>
 
@@ -72,9 +71,9 @@
 					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
 						<?php 
 							if($_SESSION['logged-user']->get_role()->get_name() == 'Admin')
-								echo '<a class="dropdown-item" href="adminPanel">Panel de Administración</a>';
+								echo '<a class="dropdown-item" href="adminPanel"><i class="fas fa-user"></i> Panel de Administración</a>';
 						?>
-						<a class="dropdown-item" href="logout">Salir</a>
+						<a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
 					</div>
 				</li>
 			<?php } ?>
@@ -157,7 +156,7 @@
 					<div class="row">
 						<?php foreach($eventosDB as $evento) { ?>
 							<div class="col-sm-4" style="padding-top:20px;">
-								<div class="hovereffect" style="width: 22rem;">
+								<div class="hovereffect" style="width: 22rem; max-height:140px;">
 									<img class="img-responsive" src="<?php echo $evento->get_image_link(); ?>" alt="<?php echo $evento->get_name(); ?>">
 									<div class="overlay">
 										<h2><?php echo $evento->get_name(); ?></h2>
