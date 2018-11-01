@@ -61,6 +61,10 @@ $(document).ready(function() {
                             align: "center"
                         }
                     });
+
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
                 }
 
             }, error: function() {

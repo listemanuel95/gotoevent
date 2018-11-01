@@ -76,6 +76,19 @@
 						<a class="dropdown-item" href="../../logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
 					</div>
 				</li>
+				<li class="nav-item dropdown">
+					<?php 
+						if(isset($_SESSION['logged-user']))
+						{
+							$cant = 0;
+
+							if(isset($_SESSION['gte-cart']))
+								$cant = count($_SESSION['gte-cart']->get_purchase_lines());
+
+							echo '<a class="nav-link" href="../../cart"><span class="badge badge-secondary">'.$cant.'</span>&ensp;<i class="fas fa-shopping-cart"></i></a>';
+						}
+					?>
+				</li>
 			<?php } ?>
 			</ul>
 		</div>
