@@ -160,7 +160,7 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
         if($conn != null)
         {
             try {
-                $statement = $conn->prepare("SELECT `G`.`id` AS `e_id`, `G`.`descr` AS `e_descr`, `G`.`name` AS `e_name`, `G`.`image_link` AS `e_img`, `GC`.`id` AS `c_id`, `GC`.`name` AS `c_name`
+                $statement = $conn->prepare("SELECT DISTINCT `G`.`id` AS `e_id`, `G`.`descr` AS `e_descr`, `G`.`name` AS `e_name`, `G`.`image_link` AS `e_img`, `GC`.`id` AS `c_id`, `GC`.`name` AS `c_name`
                                             FROM `calendars` as `C` JOIN `gigs` AS `G` ON `C`.`event_id` = `G`.`id` JOIN `event_categories` AS `GC` ON `G`.`event_category_id` = `GC`.`id`
                                             JOIN `artists_in_calendars` AS `AC` ON `AC`.`id_calendar` = `C`.`id` WHERE `AC`.`id_artist` = $id");
                 $statement->execute();
