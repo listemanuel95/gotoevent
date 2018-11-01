@@ -133,7 +133,7 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
         {
             try {
                 $id = $calendar->getID();
-                $statement = $conn->prepare("SELECT `S`.`id` AS `s_id`, `S`.`number` AS `s_num`, `S`.`price` AS `s_price`, `ST`.`id` AS `type_id`, `ST`.`type` AS `type_name` 
+                $statement = $conn->prepare("SELECT `S`.`id` AS `s_id`, `S`.`number` AS `s_num`, `S`.`price` AS `s_price`, `S`.`availability` AS `s_ava`, `ST`.`id` AS `type_id`, `ST`.`type` AS `type_name` 
                                             FROM `seats` AS `S` JOIN `seat_types` AS `ST` ON `S`.`seat_type_id` = `ST`.`id` 
                                             WHERE `calendar_id` = $id");
                 $statement->execute();
@@ -142,7 +142,7 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
                 $plazas = array();
 
                 foreach($resultados as $res)
-                    $plazas[] = new Seat($res['s_num'], $res['s_price'], new SeatType($res['type_name'], $res['type_id']), $calendar, $res['s_id']);
+                    $plazas[] = new Seat($res['s_num'], $res['s_price'], new SeatType($res['type_name'], $res['type_id']), $calendar, $res['s_ava'], $res['s_id']);
 
                 return $plazas;
 

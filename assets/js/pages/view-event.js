@@ -42,7 +42,7 @@ $(document).ready(function() {
                 if(data_sanitized.localeCompare("ajax_error") == 0)
                 {
                     $.notify({
-                    message: 'Ocurrió un error' 
+                    message: 'Las plazas solicitadas no estan disponibles' 
                     }, {
                         type: 'danger',
                         placement: {
@@ -51,7 +51,6 @@ $(document).ready(function() {
                         }
                     });
                 } else {
-                    alert(data_sanitized);
 
                     $.notify({
                         message: 'Compra agregada al carrito' 

@@ -14,8 +14,8 @@ class SeatDBDAO extends SingletonDAO implements IDAO {
             $conn = $conn->get_connection();
 
             try {
-                $statement = $conn->prepare("INSERT INTO `seats` (`number`, `price`, `seat_type_id`, `calendar_id`) VALUES (
-                    :number, :price, :s_id, :c_id)");
+                $statement = $conn->prepare("INSERT INTO `seats` (`number`, `price`, `seat_type_id`, `calendar_id`, `availability`) VALUES (
+                    :number, :price, :s_id, :c_id, 0)");
                     
                 $statement->bindValue(':number', $instance->get_number());
                 $statement->bindValue(':price', $instance->get_price());

@@ -8,14 +8,16 @@ class Seat {
     private $number;
     private $price;
     private $type;
+    private $availability;
     private $calendar;
 
-    public function __construct($number, $price, $type, $calendar, $id = null)
+    public function __construct($number, $price, $type, $calendar, $availability, $id = null)
     {
         $this->id = $id;
         $this->number = $number;
         $this->price = $price;
         $this->type = $type;
+        $this->availability = $availability;
         $this->calendar = $calendar;
     }
     
@@ -32,6 +34,11 @@ class Seat {
     public function get_type()
     {
         return $this->type;
+    }
+
+    public function get_availability()
+    {
+        return $this->availability;
     }
 
     public function get_calendar()

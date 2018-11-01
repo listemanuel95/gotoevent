@@ -68,8 +68,26 @@ class CartController {
                 if($calendar != null)
                 {
                     // chequeamos que haya disponibilidad para los asientos solicitados
-                    
+                    $plazas = $this->caldao->retrieve_plazas($calendar);
+                    $cant_plazas = 0;
 
+                    foreach($plazas as $p)
+                    {
+                        if($p->get_type()->getID() == $stype->getID() && $p->get_availability() == 0)
+                        {
+                            $cant_plazas++;
+
+                            if($cant_plazas == $cant)
+                                break;
+                        }    
+                    }
+
+                    if($cant_plazas == $cant)
+                    {
+                        echo 'hay plazas';
+                    } else {
+                        echo 'ajax_error';
+                    }
                 } else {
                     echo 'ajax_error';
                 }
