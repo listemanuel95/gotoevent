@@ -8,31 +8,17 @@ namespace model;
 class PurchaseLine {
 
     private $id;
-    private $seat;
-    private $price;
-    private $cant;
+    private $seats;
 
-    public function __construct($seat, $price, $cant, $id = null)
+    public function __construct($seats, $id = null)
     {
-        $this->seat = $seat;
-        $this->price = $price;
-        $this->cant = $cant;
+        $this->seats = $seats;
         $this->id = $id;
     }
-
-    public function get_seat()
+    
+    public function get_seats()
     {
-        return $this->seat;
-    }
-
-    public function get_price()
-    {
-        return $this->price;
-    }
-
-    public function get_cant()
-    {
-        return $this->cant;
+        return $this->seats;
     }
 
     public function getID()

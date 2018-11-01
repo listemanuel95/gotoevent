@@ -192,7 +192,7 @@
 						<input type="number" name="cantidad" class="form-control number-input" value="1">
 					</div>
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary" id="btn-confirmar">Confirmar</button>
+						<button type="submit" class="btn btn-primary" id="btn-confirmar">Agregar al Carrito</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					</div>
 				</form>

@@ -8,6 +8,7 @@ use dao\CalendarDBDAO as CalendarDBDAO;
 use dao\EventDBDAO as EventDBDAO;
 
 use model\SeatType as SeatType;
+use model\Seat as Seat;
 use model\Purchase as Purchase;
 use model\PurchaseLine as PurchaseLine;
 use model\User as User;
@@ -39,6 +40,26 @@ class CartController {
     }
 
     /**
+     * Muestra la vista del carrito
+     */
+    public function index()
+    {
+        try {
+
+            // si no esta logueado hay que patearlo
+            if(isset($_SESSION['logged-user']))
+            {
+                require(ROOT . '/views/view_cart.php');     
+            } else {
+                header("Location: index");
+            }
+
+        } catch (\Exception $e) {
+            echo '[Controller->Cart] ' . $e->getMessage();
+        }
+    }
+
+    /**
 	 * Crea una línea de compra y la agrega al carrito (en sesión) vía AJAX (jQuery)
      * Si no hay compra en sesión, también tiene que crear la compra, para lo cual
      * necesita datos del usuario (que si llegó hasta acá, está logueado, entonces
@@ -54,6 +75,7 @@ class CartController {
                 $event = $this->evtdao->retrieve_by_id($evt);
                 $calendars = $this->caldao->retrieve_by_event($event); 
                 $calendar = null;
+                $seats = array();
 
                 // agarramos el calendario q nos sirve
                 foreach($calendars as $c)
@@ -77,6 +99,9 @@ class CartController {
                         {
                             $cant_plazas++;
 
+                            // agregamos al arreglo de plazas que va a ir a la linea de compra
+                            $seats[] = new Seat($p->get_number(), $p->get_price(), $p->get_type(), $calendar, 0);
+
                             if($cant_plazas == $cant)
                                 break;
                         }    
@@ -84,7 +109,20 @@ class CartController {
 
                     if($cant_plazas == $cant)
                     {
-                        echo 'hay plazas';
+                        // creamos la linea de compra y guardamos en sesion
+
+                        // primero vemos si existe la sesion, sino la creamos e instanciamos la compra
+                        if(!isset($_SESSION['gte-cart']) && isset($_SESSION['logged-user']))
+                        {
+                            // en el carrito guardamos directamente la compra
+                            $_SESSION['gte-cart'] = new Purchase(date('Y-m-d'), array(), $_SESSION['logged-user']);
+                            echo 'ACA ENTRE???';
+                        }
+
+                        // creamos la linea de compra y la agregamos al carrito
+                        $cart = $_SESSION['gte-cart'];
+                        $cart->add_purchase_line(new PurchaseLine($seats));
+
                     } else {
                         echo 'ajax_error';
                     }
