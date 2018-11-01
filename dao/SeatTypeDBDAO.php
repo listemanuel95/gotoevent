@@ -79,6 +79,28 @@ class SeatTypeDBDAO extends SingletonDAO implements IDAO {
         }    
     }
 
+    public function retrieve_by_name($name)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+
+                $statement = $conn->prepare("SELECT * FROM `seat_types` WHERE `type` = '$name'");
+                $statement->execute();
+
+                $r = $statement->fetch();
+
+                return new SeatType($r['type'], $r['id']);
+
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }    
+    }
+
     public function retrieve_all()
     {
         $conn = new Connection();

@@ -2,8 +2,11 @@ $(document).ready(function() {
     // the body of this function is in assets/js/now-ui-kit.js
     //nowuiKit.initSliders();
 
+    var calendarID;
+
     $('.btn-comprar').on('click', function() {
         $('#modal-buy-ticket').modal('show');
+        calendarID = $(this).attr('id');
     });
 
     $('.btn-not-logged').on('click', function() {
@@ -18,8 +21,64 @@ $(document).ready(function() {
         });
     });
 
-    $('#btn-confirmar').on('click', function() {
-        alert("ESTO TODAVIA NO ESTA HECHO, HAY QUE HACER EL CARRITO Y CHEQUEAR QUE LA CANTIDAD INGRESADA ESTE DISPONIBLE EN LA BD.");
+    $('#buy-tickets-form').submit(function(e) {
+
+        // antes que nada seteamos el valor del hidden a la ID del calendario correspondiente
+        $('#hidden-calendar-id').val(calendarID);
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(),
+            success: function(data)
+            {                
+                // sacamos espacios y saltos de linea para comparar
+                var data_sanitized = data.replace(/ /g,'');
+                data_sanitized = data_sanitized.replace(/\n|\r/g, "");
+
+                if(data_sanitized.localeCompare("ajax_error") == 0)
+                {
+                    $.notify({
+                    message: 'Ocurrió un error' 
+                    }, {
+                        type: 'danger',
+                        placement: {
+                            from: "top",
+                            align: "center"
+                        }
+                    });
+                } else {
+                    alert(data_sanitized);
+
+                    $.notify({
+                        message: 'Compra agregada al carrito' 
+                    }, {
+                        type: 'success',
+                        placement: {
+                            from: "top",
+                            align: "center"
+                        }
+                    });
+                }
+
+            }, error: function() {
+                $.notify({
+                    message: 'Error al conectar' 
+                }, {
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+                });
+            }
+        });
+
+        e.preventDefault(); // para que no se mande el formulario
+        $('#modal-buy-ticket').modal('hide');
     });
 
     $(".number-input").keydown(function (e) {

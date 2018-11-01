@@ -177,9 +177,11 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="" id="buy-tickets-form">
+				<form action="../../cart/ajax_add_purchase_line" id="buy-tickets-form">
 					<div class="modal-body">
 						<label for="seat-type">Tipo de Entrada</label>
+						<input type="hidden" id="hidden-event-id" value="<?php echo $event_id; ?>" name="id-evt">
+						<input type="hidden" id="hidden-calendar-id" value="" name="id-cal">
 						<select class="form-control" style="background-color:white;" name="seat-type">
 							<?php foreach($plaza_types as $plaza_type) { ?>
 								<option value="<?php echo $plaza_type->get_type(); ?>"><?php echo $plaza_type->get_type(); ?></option>

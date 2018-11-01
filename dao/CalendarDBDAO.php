@@ -76,7 +76,6 @@ class CalendarDBDAO extends SingletonDAO implements IDAO {
         if($conn != null)
         {
             try {
-
                 $statement = $conn->prepare("SELECT `C`.`id` AS `c_id`, `C`.`descr` AS `c_descr`, `C`.`day` AS `c_day`,
                                                     `C`.`hour` AS `c_hour`, `S`.`id` AS `s_id`, `S`.`city` AS `s_city`,
                                                     `S`.`province` AS `s_province`, `S`.`address` AS `s_address`,
