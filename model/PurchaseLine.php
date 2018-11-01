@@ -15,6 +15,14 @@ class PurchaseLine {
         $this->seats = $seats;
         $this->id = $id;
     }
+
+    public function get_subtotal()
+    {
+        if(count($this->seats) > 0)
+            return count($this->seats) * $this->seats[0]->get_price();
+    
+        return 0;
+    }
     
     public function get_seats()
     {

@@ -129,10 +129,61 @@
 		<div class="main">
 			<!-- Start first section -->
 			<div class="section section-basic" id="basic-elements">
-				<div class="container text-center">
-                    <h4>Carrito</h4>
-					<?php var_dump($_SESSION['gte-cart']); ?>
-				</div>
+				<div class="container">
+                    <?php if(isset($_SESSION['gte-cart'])) { ?>
+                        <h4>Carrito</h4>
+                            <table id="cart" class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th style="width:60%">Plaza</th>
+                                    <th style="width:10%">Precio</th>
+                                    <th style="width:8%">Cantidad</th>
+                                    <th style="width:22%" class="text-center">Subtotal</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <?php  foreach($_SESSION['gte-cart']->get_purchase_lines() as $line) { ?>
+                                <tr>
+                                    <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h5><?php echo $line->get_seats()[0]->get_calendar()->get_event()->get_name(). ' - ' . $line->get_seats()[0]->get_type()->get_type();; ?></h5>
+                                            Quis aute RANDOM HOLAAiure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td data-th="Price">$ <?php echo $line->get_seats()[0]->get_price(); ?></td>
+                                    <td data-th="Quantity"><?php echo count($line->get_seats()); ?></td>
+                                    <td data-th="Subtotal" class="text-center">$ <?php echo $line->get_subtotal(); ?></td>
+                                </tr>
+                                <?php } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="2" class="hidden-xs"></td>
+                                        <td class="hidden-xs text-center"><strong>Total $ <?php echo $_SESSION['gte-cart']->get_total(); ?></strong></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        
+                        <div class="row">
+                            <div class="col-6">
+                            <button class="btn btn-primary">Volver</button>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col-2"></div>
+                            <div class="col-2 text-center">
+                                <button class="btn btn-primary">Confirmar</button>
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                        <h4> Carrito vacío :( </h4>
+                        <a href="index">Ir al inicio</a>
+                    <?php } ?>
+                </div>
 			</div>
 			<!-- End first section -->
 		</div>

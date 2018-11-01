@@ -47,6 +47,17 @@ class Purchase {
     {
         return $this->date;
     }
+
+    public function get_total()
+    {
+        $total = 0;
+        foreach($this->purchase_lines as $pl)
+        {
+            $total += $pl->get_subtotal();
+        }
+
+        return $total;
+    }
     
 }
 ?>
