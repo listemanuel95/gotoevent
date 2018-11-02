@@ -148,8 +148,8 @@
                                     <td data-th="Product">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h5><?php echo $line->get_seats()[0]->get_calendar()->get_event()->get_name(). ' - ' . $line->get_seats()[0]->get_type()->get_type();; ?></h5>
-                                            Quis aute RANDOM HOLAAiure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.
+                                            <h5><?php echo $line->get_seats()[0]->get_calendar()->get_event()->get_name(). ' - ' . $line->get_seats()[0]->get_type()->get_type(); ?></h5>
+                                            <?php echo $line->get_seats()[0]->get_calendar()->get_desc() ?>
                                         </div>
                                     </div>
                                     </td>
@@ -171,12 +171,12 @@
                         
                         <div class="row">
                             <div class="col-6">
-                            <button class="btn btn-primary">Volver</button>
+                            	<a href="index"><button class="btn btn-primary"><i class="fas fa-undo-alt"></i>&ensp;Seguir Comprando</button></a>
                             </div>
                             <div class="col-2"></div>
                             <div class="col-2"></div>
                             <div class="col-2 text-center">
-                                <button class="btn btn-primary">Confirmar</button>
+                                <a href="#"><button class="btn btn-primary"><i class="fas fa-credit-card"></i>&ensp;Confirmar</button></a>
                             </div>
                         </div>
                     <?php } else { ?>

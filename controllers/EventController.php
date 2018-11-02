@@ -149,7 +149,7 @@ class EventController {
                         $type = $this->plazdao->retrieve_by_id($plazas_id[$j]);
                         $calendar = new Calendar($desc_cal, $fecha, $hora, $cal_lugar, $cal_evento, $array_artistas, $last_id);
         
-                        $plaza = new Seat($number, $precio, $type, $calendar);
+                        $plaza = new Seat($number, $precio, $type, $calendar, 0);
 
                         $this->plazasdao->create($plaza);
                     }
@@ -195,6 +195,22 @@ class EventController {
         $event = $this->evtdao->retrieve_by_id($event_id);
         $calendars = $this->caldao->retrieve_by_event($event);
         $plaza_types = $this->plazdao->retrieve_all();
+        $precios_plazas = array();
+
+        // cargo los precios de las plazas
+        foreach($calendars as $cal)
+        {
+            $id = $cal->getID();
+            $plazas = $this->caldao->retrieve_plazas($cal);
+
+            $i = 0;
+            foreach($plazas as $p)
+            {
+                $i++;
+                $precios_plazas[$id][$i]['type'] = $p->get_type();
+                $precios_plazas[$id][$i]['price'] = $p->get_price();
+            }
+        }
 
         if($event instanceof Event)
             require(ROOT . '/views/view_event.php');

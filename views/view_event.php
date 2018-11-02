@@ -181,37 +181,48 @@
 	<!-- End Wrapper -->
 
 	<!-- MODAL DE COMPRA DE TICKETS -->
-	<div class="modal fade" tabindex="-1" role="dialog" id="modal-buy-ticket">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
+	<?php foreach($calendars as $cal) { ?>
+		<div class="modal fade" tabindex="-1" role="dialog" id="modal-buy-ticket<?php echo $cal->getID(); ?>">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Comprar Entradas</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form action="../../cart/ajax_add_purchase_line" id="buy-tickets-form">
-					<div class="modal-body">
-						<label for="seat-type">Tipo de Entrada</label>
-						<input type="hidden" id="hidden-event-id" value="<?php echo $event_id; ?>" name="id-evt">
-						<input type="hidden" id="hidden-calendar-id" value="" name="id-cal">
-						<select class="form-control" style="background-color:white;" name="seat-type">
-							<?php foreach($plaza_types as $plaza_type) { ?>
-								<option value="<?php echo $plaza_type->get_type(); ?>"><?php echo $plaza_type->get_type(); ?></option>
-							<?php } ?>
-						</select>
+						<h5 class="modal-title">Comprar Entradas</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form action="../../cart/ajax_add_purchase_line" class="buy-tickets-form">
+						<div class="modal-body">
+							<label for="seat-type">Tipo de Entrada</label>
+							<input type="hidden" id="hidden-event-id" value="<?php echo $event_id; ?>" name="id-evt">
+							<!-- Este hidden se setea desde el JS -->
+							<input type="hidden" id="hidden-calendar-id" value="<?php echo $cal->getID(); ?>" name="id-cal">
+							<select class="form-control" style="background-color:white;" name="seat-type">
+								<?php 
+									$tipos_mostrados = array();
+									foreach($precios_plazas[$cal->getID()] as $pl)
+									{
+										if(!in_array($pl['type']->get_type(), $tipos_mostrados))
+										{
+											echo '<option value="'. $pl['type']->get_type() . '">'. $pl['type']->get_type() . ' ($ ' . $pl['price'] . ')</option>';
+											$tipos_mostrados[] = $pl['type']->get_type();
+										}
+									}
+								?>
+							</select>
 
-						<br><label for="cantidad">Cantidad</label>
-						<input type="number" name="cantidad" class="form-control number-input" value="1">
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary" id="btn-confirmar">Agregar al Carrito</button>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					</div>
-				</form>
+							<br><label for="cantidad">Cantidad</label>
+							<input type="number" name="cantidad" class="form-control number-input" value="1">
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary" id="btn-confirmar">Agregar al Carrito</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
+	<?php } ?>
 	<!-- MODAL DE COMPRA DE TICKETS -->
 
 	<!--   Core JS Files   -->

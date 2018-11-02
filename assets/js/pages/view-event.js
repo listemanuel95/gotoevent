@@ -5,8 +5,8 @@ $(document).ready(function() {
     var calendarID;
 
     $('.btn-comprar').on('click', function() {
-        $('#modal-buy-ticket').modal('show');
         calendarID = $(this).attr('id');
+        $('#modal-buy-ticket' + calendarID).modal('show');
     });
 
     $('.btn-not-logged').on('click', function() {
@@ -21,10 +21,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#buy-tickets-form').submit(function(e) {
-
-        // antes que nada seteamos el valor del hidden a la ID del calendario correspondiente
-        $('#hidden-calendar-id').val(calendarID);
+    $('.buy-tickets-form').submit(function(e) {
 
         var form = $(this);
         var url = form.attr('action');
@@ -81,7 +78,7 @@ $(document).ready(function() {
         });
 
         e.preventDefault(); // para que no se mande el formulario
-        $('#modal-buy-ticket').modal('hide');
+        $('#modal-buy-ticket' + calendarID).modal('hide');
     });
 
     $(".number-input").keydown(function (e) {
