@@ -138,33 +138,37 @@
                                     <th style="width:60%">Plaza</th>
                                     <th style="width:10%">Precio</th>
                                     <th style="width:8%">Cantidad</th>
-                                    <th style="width:22%" class="text-center">Subtotal</th>
+                                    <th style="width:12%" class="text-center">Subtotal</th>
+									<th style="width:10%" class="text-center">Acción</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                <?php  foreach($_SESSION['gte-cart']->get_purchase_lines() as $line) { ?>
-                                <tr>
-                                    <td data-th="Product">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h5><?php echo $line->get_seats()[0]->get_calendar()->get_event()->get_name(). ' - ' . $line->get_seats()[0]->get_type()->get_type(); ?></h5>
-                                            <?php echo $line->get_seats()[0]->get_calendar()->get_desc() ?>
-                                        </div>
-                                    </div>
-                                    </td>
-                                    <td data-th="Price">$ <?php echo $line->get_seats()[0]->get_price(); ?></td>
-                                    <td data-th="Quantity"><?php echo count($line->get_seats()); ?></td>
-                                    <td data-th="Subtotal" class="text-center">$ <?php echo $line->get_subtotal(); ?></td>
-                                </tr>
+								<?php for($i = 0; $i < count($_SESSION['gte-cart']->get_purchase_lines()); $i++) { 
+									  		$line = $_SESSION['gte-cart']->get_purchase_lines()[$i];
+								?>
+									<tr>
+										<td data-th="Product">
+										<div class="row">
+											<div class="col-sm-12">
+												<h5><?php echo $line->get_seats()[0]->get_calendar()->get_event()->get_name(). ' - ' . $line->get_seats()[0]->get_type()->get_type(); ?></h5>
+												<?php echo $line->get_seats()[0]->get_calendar()->get_desc() ?>
+											</div>
+										</div>
+										</td>
+										<td data-th="Price">$ <?php echo $line->get_seats()[0]->get_price(); ?></td>
+										<td data-th="Quantity"><?php echo count($line->get_seats()); ?></td>
+										<td data-th="Subtotal" class="text-center">$ <?php echo $line->get_subtotal(); ?></td>
+										<td data-th="Accion" class="text-center"><a href="?delete=<?php echo $i; ?>" title="Eliminar producto"><i class="fas fa-times-circle"></i></a></td>
+									</tr>
                                 <?php } ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td></td>
                                         <td colspan="2" class="hidden-xs"></td>
+										<td></td>
                                         <td class="hidden-xs text-center"><strong>Total $ <?php echo $_SESSION['gte-cart']->get_total(); ?></strong></td>
-                                        <td></td>
                                     </tr>
                                 </tfoot>
                             </table>

@@ -58,6 +58,11 @@ class Purchase {
 
         return $total;
     }
+
+    public function remove_line($index)
+    {
+        unset($this->purchase_lines[$index]);
+    }
     
 }
 ?>

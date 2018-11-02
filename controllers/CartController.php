@@ -49,13 +49,37 @@ class CartController {
             // si no esta logueado hay que patearlo
             if(isset($_SESSION['logged-user']))
             {
-                require(ROOT . '/views/view_cart.php');     
+                // si apretó en borrar, hay que sacar ese elemento del array de la sesión
+                if(isset($_GET['delete']) && isset($_SESSION['gte-cart']))
+                {
+                    $_SESSION['gte-cart']->remove_line($_GET['delete']);
+
+                    if(count($_SESSION['gte-cart']->get_purchase_lines()) == 0)
+                        unset($_SESSION['gte-cart']);
+                }    
+
+                require(ROOT . '/views/view_cart.php');
+                     
             } else {
                 header("Location: index");
             }
 
         } catch (\Exception $e) {
             echo '[Controller->Cart] ' . $e->getMessage();
+        }
+    }
+
+    /**
+     * Confirma la compra, genera los tickets necesarios
+     */
+    public function confirm_purchase()
+    {
+        if(isset($_SESSION['gte-cart']))
+        {
+            var_dump($_SESSION['gte-cart']);
+
+        } else {
+            header("Location: ../index");
         }
     }
 
