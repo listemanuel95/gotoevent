@@ -132,6 +132,13 @@
 				<div class="container">
                     <?php if(isset($_SESSION['gte-cart'])) { ?>
                         <h4>Carrito</h4>
+							<?php 
+								// para mensajes de error, creo un input hidden
+								if(isset($_GET['error']) && $_GET['error'] == '1') { ?>
+								<?php echo $_GET['text']; ?>
+								<input type="hidden" id="cart_error" value="<?php echo $_GET['text']; ?>">
+							<?php } ?>
+
                             <table id="cart" class="table table-hover">
                                 <thead>
                                 <tr>
@@ -180,7 +187,7 @@
                             <div class="col-2"></div>
                             <div class="col-2"></div>
                             <div class="col-2 text-center">
-                                <a href="#"><button class="btn btn-primary"><i class="fas fa-credit-card"></i>&ensp;Confirmar</button></a>
+                                <a href="cart/confirm_purchase"><button class="btn btn-primary"><i class="fas fa-credit-card"></i>&ensp;Confirmar</button></a>
                             </div>
                         </div>
                     <?php } else { ?>
@@ -242,6 +249,7 @@
 	<script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 	<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
 	<script src="./assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="./assets/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
 	<!--  Google Maps Plugin    -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
@@ -250,7 +258,22 @@
 	<script>
 		$(document).ready(function() {
 		// the body of this function is in assets/js/now-ui-kit.js
-			//nowuiKit.initSliders();
+			// falta arreglar esto
+			if($('#cart_error').length)
+			{
+				alert("HOLLLAAA");
+				var text = $('#cart_error').val();
+				$.notify ({
+                	message: text;
+                }, {
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+                });
+			}
+
 		});
 
 		function scrollToDownload() {

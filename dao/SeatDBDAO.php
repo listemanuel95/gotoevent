@@ -38,7 +38,16 @@ class SeatDBDAO extends SingletonDAO implements IDAO {
 
     public function retrieve($instance)
     {
-        if($instance instanceof SeatType)
+
+    }
+
+    /**
+     * Una función más "lightweight" para buscar Seats en la DB; no crea todo el objeto calendario,
+     * sino que sólo devuelve los atributos básicos del Seat
+     */
+    public function retrieve_without_calendar($instance)
+    {
+        if($instance instanceof Seat)
         {
             $conn = new Connection();
             $conn = $conn->get_connection();
@@ -46,8 +55,19 @@ class SeatDBDAO extends SingletonDAO implements IDAO {
             if($conn != null)
             {
                 try {
-                    
+                    $id = $instance->getID();
 
+                    $statement = $conn->prepare("SELECT * FROM `seats` WHERE `id` = $id");
+                    $statement->execute();
+
+                    $res = $statement->fetch();
+
+                    if($res['id'] != null)
+                    {
+                        return new Seat($res['number'], $res['price'], null, null, $res['availability'], $res['id']);
+                    }
+
+                    return false;
                 } catch (PDOException $e) { // TODO: excepciones mas copadas
                     echo "ERROR " . $e->getMessage();
                 }

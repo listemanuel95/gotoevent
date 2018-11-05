@@ -61,7 +61,7 @@ class Purchase {
 
     public function remove_line($index)
     {
-        unset($this->purchase_lines[$index]);
+        array_splice($this->purchase_lines, $index, 1);
     }
     
 }

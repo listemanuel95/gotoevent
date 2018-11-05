@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-11-2018 a las 18:07:57
+-- Tiempo de generación: 05-11-2018 a las 18:58:27
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -184,6 +184,19 @@ INSERT INTO `gigs` (`id`, `event_category_id`, `descr`, `name`, `image_link`) VA
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `invoices`
+--
+
+CREATE TABLE IF NOT EXISTS `invoices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `seats`
 --
 
@@ -206,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `seats` (
 INSERT INTO `seats` (`id`, `number`, `price`, `seat_type_id`, `calendar_id`, `availability`) VALUES
 (454, '1-0', 20, 1, 22, 0),
 (655, '1-0', 50, 1, 25, 0),
-(656, '1-0', 100, 1, 26, 0),
+(656, '1-0', 100, 1, 26, 1),
 (657, '1-1', 100, 1, 26, 0),
 (658, '1-2', 100, 1, 26, 0),
 (659, '1-3', 100, 1, 26, 0),
@@ -317,6 +330,22 @@ INSERT INTO `sites` (`id`, `city`, `province`, `address`, `establishment`, `capa
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tickets`
+--
+
+CREATE TABLE IF NOT EXISTS `tickets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_id` int(11) NOT NULL,
+  `seat_id` int(11) NOT NULL,
+  `qrcode` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `invoice_id` (`invoice_id`),
+  KEY `seat_id` (`seat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -389,11 +418,24 @@ ALTER TABLE `gigs`
   ADD CONSTRAINT `gigs_ibfk_1` FOREIGN KEY (`event_category_id`) REFERENCES `event_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `invoices`
+--
+ALTER TABLE `invoices`
+  ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Filtros para la tabla `seats`
 --
 ALTER TABLE `seats`
   ADD CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`seat_type_id`) REFERENCES `seat_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `seats_ibfk_2` FOREIGN KEY (`calendar_id`) REFERENCES `calendars` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tickets`
+--
+ALTER TABLE `tickets`
+  ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`),
+  ADD CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`);
 
 --
 -- Filtros para la tabla `users`

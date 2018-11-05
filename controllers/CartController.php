@@ -74,13 +74,45 @@ class CartController {
      */
     public function confirm_purchase()
     {
-        if(isset($_SESSION['gte-cart']))
-        {
-            var_dump($_SESSION['gte-cart']);
+        try {
+            if(isset($_SESSION['gte-cart']))
+            {
+                // declaro las variables que voy a usar para el QR
+                $chs = '200x200';
+                $cht = 'qr';
+                $choe = 'UTF-8';
 
-        } else {
-            header("Location: ../index");
+                // chequeo que los seats reservados sigan estando disponibles
+                $purchase = $_SESSION['gte-cart'];
+                $lines = $purchase->get_purchase_lines();
+                
+                foreach($lines as $pl)
+                {
+                    $seats = $pl->get_seats();
+                    foreach($seats as $s)
+                    {
+                        // chequeo que siga con availability 0, sino, se lo compó otro
+                        $new_s = $this->seatdao->retrieve_without_calendar($s);
+
+                        if($new_s instanceof Seat && $new_s->get_availability() == 0)
+                        {
+                            // aca hay que confirmar la venta, crear los ticks con los QR usando la API de google (ver link en la vista confirm_purchase)
+                        } else {
+                            // no existe mas, volvemos a la vista anterior y avisamos al usuario
+                            header("Location: ../cart?error=1&text=La entrada " . $s->get_calendar()->get_event()->get_name() . "(" . $s->get_calendar()->get_desc() . ") - " . $s->get_type()->get_type() . " ya no está disponible. :(");
+                        }
+                    }
+                }
+
+                require(ROOT . '/views/confirm_purchase.php');
+
+            } else {
+                header("Location: ../index");
+            }
+        } catch (\Exception $e) {
+            echo '[Controller->Cart] ' . $e->getMessage();
         }
+        
     }
 
     /**
@@ -124,7 +156,7 @@ class CartController {
                             $cant_plazas++;
 
                             // agregamos al arreglo de plazas que va a ir a la linea de compra
-                            $seats[] = new Seat($p->get_number(), $p->get_price(), $p->get_type(), $calendar, 0);
+                            $seats[] = new Seat($p->get_number(), $p->get_price(), $p->get_type(), $calendar, 0, $p->getID());
 
                             if($cant_plazas == $cant)
                                 break;
@@ -140,7 +172,6 @@ class CartController {
                         {
                             // en el carrito guardamos directamente la compra
                             $_SESSION['gte-cart'] = new Purchase(date('Y-m-d'), array(), $_SESSION['logged-user']);
-                            echo 'ACA ENTRE???';
                         }
 
                         // creamos la linea de compra y la agregamos al carrito
