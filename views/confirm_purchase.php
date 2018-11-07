@@ -97,16 +97,15 @@
 
 	<!-- Start Wrapper -->
 	<div class="wrapper">
-
 		<!-- Start header -->
 		<div class="page-header clear-filter" filter-color="orange">
 			<div class="page-header-image" data-parallax="true" style="background-image:url('../assets/img/header.jpg');">
 			</div>
 			<div class="container">
 				<div class="content-center brand">
-				<img class="n-logo" src="../assets/img/now-logo.png" alt="">
-				<h1 class="h1-seo">GoToEvent</h1>
-				<h3>Venta de Tickets para Eventos</h3>
+					<img class="n-logo" src="../assets/img/now-logo.png" alt="">
+					<h1 class="h1-seo">GoToEvent</h1>
+					<h3>Venta de Tickets para Eventos</h3>
 				</div>
 				<h6 class="category category-absolute">
 				<a href="https://www.github.com/dunkansdk" target="_blank">
@@ -120,7 +119,7 @@
 				</a>&emsp;
 				<a href="https://www.github.com/natanga" target="_blank">
 					<i class="fab fa-github"></i> Natu
-				</a>&emsp;
+				</a>&emsp;</h6>
 			</div>
 		</div>
 		<!-- End header -->
@@ -136,7 +135,7 @@
 						<div class="card">
 							<div class="row">
 								<div class="col-10">
-								<h5>&ensp;<?php echo $ticket->get_seat()->get_calendar()->get_event()->get_name(); ?></h5>
+									<h5>&ensp;<?php echo $ticket->get_seat()->get_calendar()->get_event()->get_name(); ?></h5>
 									<?php $hora = explode(":", $ticket->get_seat()->get_calendar()->get_time()); ?>
 									<h5>&ensp;<?php echo $ticket->get_seat()->get_calendar()->get_date() . ' - ' . $hora[0] . ":" . $hora[1]; ?></h5>
 									<p><b>&ensp;<?php echo $ticket->get_seat()->get_calendar()->get_site()->get_establishment() . " - " . 
@@ -146,7 +145,7 @@
 									<p>&emsp;<?php echo $ticket->get_seat()->get_calendar()->get_desc(); ?></p>
 								</div>
 
-								<div class="col-2 text-center">
+								<div class="col-2">
 									<img src="https://chart.googleapis.com/chart?chs=<?php echo $chs;?>&cht=<?php echo $cht;?>&chl=<?php echo $ticket->get_qrcode();?>&choe=<?php echo $choe; ?>">
 								</div>
 							</div>

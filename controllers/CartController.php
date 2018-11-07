@@ -110,17 +110,24 @@ class CartController {
                             $available = false;
                         }
                     }
+                }
 
-                    if($available)
+                if($available)
+                {
+                    // todos los asientos están disponibles, creo la factura y la guardo en la DB
+                    $invoice = new Invoice($_SESSION['logged-user']); // creamos la factura
+                    // metemos la factura a la base de datos
+                    $inv_id = $this->invdao->create($invoice);
+                    $invoice->setID($inv_id);
+
+                    $tickets = array(); // arreglo de tickets para la factura
+
+                    
+
+                    foreach($lines as $pl)
                     {
-                        // todos los seats estaban disponibles, confirmo la venta, les cambio la availability a 1 y creo los tickets y la factura
-                        $invoice = new Invoice($_SESSION['logged-user']); // creamos la factura
-                        $tickets = array(); // arreglo de tickets para la factura
-
-                        // metemos la factura a la base de datos
-                        $inv_id = $this->invdao->create($invoice);
-                        $invoice->setID($inv_id);
-
+                        $seats = $pl->get_seats();
+                        
                         foreach($seats as $s)
                         {
                             // cambiamos la disponibilidad del seat
@@ -136,14 +143,14 @@ class CartController {
 
                             // metemos el ticket a la base de datos
                             $this->ticdao->create($thicc);
-
-                            // como se confirmó la compra, borramos la sesión del carrito
-                            unset($_SESSION['gte-cart']);
-                            require(ROOT . '/views/confirm_purchase.php');
                         }
                     }
                 }
 
+                // como se confirmó la compra, borramos la sesión del carrito
+                unset($_SESSION['gte-cart']);
+
+                require(ROOT . '/views/confirm_purchase.php');
             } else {
                 header("Location: ../index");
             }
