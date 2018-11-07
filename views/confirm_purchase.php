@@ -37,31 +37,58 @@
 		</div>
 		<div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../assets/img/blurred-image-1.jpg">
 			<ul class="navbar-nav">
-			<li class="nav-item dropdown">
-				<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
-				<i class="fa fa-sign-in-alt design_app"></i>
-				<p>&ensp;LOGIN</p>
-				</a>
-				<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink1">
-				<form action="login" method="POST" class="px-4 py-3">
-					<div class="form-group">
-						<label for="exampleDropdownFormEmail1">Mail</label>
-						<input type="email" name="mail" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+			<?php if(!isset($_SESSION['logged-user'])) { ?>
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
+					<i class="fa fa-sign-in-alt design_app"></i>
+					<p>&ensp;LOGIN</p>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink1">
+					<form action="../login" method="POST" class="px-4 py-3">
+						<div class="form-group">
+							<label for="exampleDropdownFormEmail1">Mail</label>
+							<input name="mail" type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+						</div>
+						<div class="form-group">
+							<label for="exampleDropdownFormPassword1">Contraseña</label>
+							<input name="pass" type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+						</div>
+						<div class="form-group text-center">
+							<button type="submit" class="btn btn-primary">Ingresar</button>
+						</div>
+						<p class="text-center">¿No tenés cuenta? <a href="../register" style="color:orange;">Registrate</a></p>
+					</form>
+					<a class="dropdown-item" target="_blank" href="https://demos.creative-tim.com/now-ui-kit/docs/1.0/getting-started/introduction.html">
+						<i class="fab fa-facebook fa-2x design_bullet-list-67"></i> &ensp;ACA CON FB
+					</a>
 					</div>
-					<div class="form-group">
-						<label for="exampleDropdownFormPassword1">Contraseña</label>
-						<input type="password" name="pass" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+				</li>
+			<?php } else { ?>
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown">
+					<i class="fas fau-ser design_app"></i><?php echo $_SESSION['logged-user']->get_mail(); ?>
+					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
+						<?php 
+							if($_SESSION['logged-user']->get_role()->get_name() == 'Admin')
+								echo '<a class="dropdown-item" href="../adminPanel"><i class="fas fa-user"></i> Panel de Administración</a>';
+						?>
+						<a class="dropdown-item" href="../logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
 					</div>
-					<div class="form-group text-center">
-						<button type="submit" class="btn btn-primary">Ingresar</button>
-					</div>
-					<p class="text-center">¿No tenés cuenta? <a href="#" style="color:orange;">Registrate</a></p>
-				</form>
-				<a class="dropdown-item" target="_blank" href="https://demos.creative-tim.com/now-ui-kit/docs/1.0/getting-started/introduction.html">
-					<i class="fab fa-facebook fa-2x design_bullet-list-67"></i> &ensp;ACA CON FB
-				</a>
-				</div>
-			</li>
+				</li>
+				<li class="nav-item dropdown">
+					<?php 
+						if(isset($_SESSION['logged-user']))
+						{
+							$cant = 0;
+
+							if(isset($_SESSION['gte-cart']))
+								$cant = count($_SESSION['gte-cart']->get_purchase_lines());
+
+							echo '<a class="nav-link" href="../cart"><span class="badge badge-secondary">'.$cant.'</span>&ensp;<i class="fas fa-shopping-cart"></i></a>';
+						}
+					?>
+				</li>
+			<?php } ?>
 			</ul>
 		</div>
 		</div>

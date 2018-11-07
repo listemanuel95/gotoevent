@@ -6,6 +6,8 @@ use dao\SeatDBDAO as SeatDBDAO;
 use dao\SeatTypeDBDAO as SeatTypeDBDAO;
 use dao\CalendarDBDAO as CalendarDBDAO;
 use dao\EventDBDAO as EventDBDAO;
+use dao\InvoiceDBDAO as InvoiceDBDAO;
+use dao\TicketDBDAO as TicketDBDAO;
 
 use model\SeatType as SeatType;
 use model\Seat as Seat;
@@ -29,6 +31,8 @@ class CartController {
     private $stypedao;
     private $caldao;
     private $evtdao;
+    private $invdao;
+    private $ticdao;
 
     /**
      * Constructor para instanciar los DAOs
@@ -39,6 +43,8 @@ class CartController {
         $this->stypedao = SeatTypeDBDAO::get_instance();
         $this->caldao = CalendarDBDAO::get_instance();
         $this->evtdao = EventDBDAO::get_instance();
+        $this->invdao = InvoiceDBDAO::get_instance();
+        $this->ticdao = TicketDBDAO::get_instance();
     }
 
     /**
@@ -111,6 +117,10 @@ class CartController {
                         $invoice = new Invoice($_SESSION['logged-user']); // creamos la factura
                         $tickets = array(); // arreglo de tickets para la factura
 
+                        // metemos la factura a la base de datos
+                        $inv_id = $this->invdao->create($invoice);
+                        $invoice->setID($inv_id);
+
                         foreach($seats as $s)
                         {
                             // cambiamos la disponibilidad del seat
@@ -121,12 +131,18 @@ class CartController {
                             $qr_code = $this->generate_qr_code($s);
 
                             // creamos los tickets
-                            $tickets[] = new Ticket($s, $invoice, $qr_code);
+                            $thicc = new Ticket($s, $invoice, $qr_code);
+                            $tickets[] = $thicc;
+
+                            // metemos el ticket a la base de datos
+                            $this->ticdao->create($thicc);
+
+                            // como se confirmó la compra, borramos la sesión del carrito
+                            unset($_SESSION['gte-cart']);
+                            require(ROOT . '/views/confirm_purchase.php');
                         }
                     }
                 }
-
-                require(ROOT . '/views/confirm_purchase.php');
 
             } else {
                 header("Location: ../index");
