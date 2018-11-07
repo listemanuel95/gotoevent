@@ -102,8 +102,29 @@
 		<div class="main">
 			<!-- Start first section -->
 			<div class="section section-basic" id="basic-elements">
-				<div class="container text-center">
-                    <img src="https://chart.googleapis.com/chart?chs=<?php echo $chs;?>&cht=<?php echo $cht;?>&chl=<?php echo $chl;?>&choe=<?php echo $choe; ?>">
+				<div class="container">
+					<h3>Compra exitosa</h3>
+					<h4>Tickets:</h4>
+					<?php foreach($tickets as $ticket) { ?>
+						<div class="card">
+							<div class="row">
+								<div class="col-10">
+								<h5>&ensp;<?php echo $ticket->get_seat()->get_calendar()->get_event()->get_name(); ?></h5>
+									<?php $hora = explode(":", $ticket->get_seat()->get_calendar()->get_time()); ?>
+									<h5>&ensp;<?php echo $ticket->get_seat()->get_calendar()->get_date() . ' - ' . $hora[0] . ":" . $hora[1]; ?></h5>
+									<p><b>&ensp;<?php echo $ticket->get_seat()->get_calendar()->get_site()->get_establishment() . " - " . 
+														$ticket->get_seat()->get_calendar()->get_site()->get_address() . ", " .
+														$ticket->get_seat()->get_calendar()->get_site()->get_city() . ", " .
+														$ticket->get_seat()->get_calendar()->get_site()->get_province(); ?></b></p>
+									<p>&emsp;<?php echo $ticket->get_seat()->get_calendar()->get_desc(); ?></p>
+								</div>
+
+								<div class="col-2 text-center">
+									<img src="https://chart.googleapis.com/chart?chs=<?php echo $chs;?>&cht=<?php echo $cht;?>&chl=<?php echo $ticket->get_qrcode();?>&choe=<?php echo $choe; ?>">
+								</div>
+							</div>
+						</div>
+					<?php } ?>
 				</div>
 			</div>
 			<!-- End first section -->

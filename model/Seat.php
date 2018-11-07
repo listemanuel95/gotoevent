@@ -21,6 +21,14 @@ class Seat {
         $this->calendar = $calendar;
     }
     
+    public function change_availability()
+    {
+        if($this->availability == 0)
+            $this->availability = 1;
+        else
+            $this->availability = 0;
+    }
+
     public function getID()
     {
         return $this->id;

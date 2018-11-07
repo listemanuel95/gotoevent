@@ -18,6 +18,7 @@
 	<link href="./assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="./assets/demo/demo.css" rel="stylesheet" />
+	<link href="./assets/css/animate.css" rel="stylesheet">
 </head>
 
 <body class="index-page sidebar-collapse">
@@ -130,15 +131,13 @@
 			<!-- Start first section -->
 			<div class="section section-basic" id="basic-elements">
 				<div class="container">
+					<?php 
+						// para mensajes de error, creo un input hidden
+						if(isset($_GET['error']) && $_GET['error'] == '1') { ?>
+							<input type="hidden" id="cart_error" value="<?php echo $_GET['text']; ?>">
+					<?php } ?>
                     <?php if(isset($_SESSION['gte-cart'])) { ?>
                         <h4>Carrito</h4>
-							<?php 
-								// para mensajes de error, creo un input hidden
-								if(isset($_GET['error']) && $_GET['error'] == '1') { ?>
-								<?php echo $_GET['text']; ?>
-								<input type="hidden" id="cart_error" value="<?php echo $_GET['text']; ?>">
-							<?php } ?>
-
                             <table id="cart" class="table table-hover">
                                 <thead>
                                 <tr>
@@ -258,13 +257,11 @@
 	<script>
 		$(document).ready(function() {
 		// the body of this function is in assets/js/now-ui-kit.js
-			// falta arreglar esto
 			if($('#cart_error').length)
 			{
-				alert("HOLLLAAA");
 				var text = $('#cart_error').val();
 				$.notify ({
-                	message: text;
+                	message: text,
                 }, {
                     type: 'danger',
                     placement: {
@@ -275,15 +272,6 @@
 			}
 
 		});
-
-		function scrollToDownload() {
-
-		if ($('.section-download').length != 0) {
-			$("html, body").animate({
-			scrollTop: $('.section-download').offset().top
-			}, 1000);
-		}
-		}
 	</script>
 
 </body>

@@ -82,6 +82,32 @@ class SeatDBDAO extends SingletonDAO implements IDAO {
 
     }
 
+    public function update_availability($instance)
+    {
+        if($instance instanceof Seat)
+        {
+            $conn = new Connection();
+            $conn = $conn->get_connection();
+
+            if($conn != null)
+            {
+                try {
+                    $availability = $instance->get_availability();
+                    $id = $instance->getID();
+
+                    $statement = $conn->prepare("UPDATE `seats` SET `availability` = $availability WHERE `id` = $id");
+                    $statement->execute();
+
+                    return true;
+                } catch (PDOException $e) { // TODO: excepciones mas copadas
+                    echo "ERROR " . $e->getMessage();
+                }
+            }
+        } else {
+            throw new \Exception("Error en retrieve Seat");
+        }
+    }
+
     public function delete($instance)
     {
         

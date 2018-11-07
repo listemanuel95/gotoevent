@@ -17,6 +17,8 @@ use model\Event as Event;
 use model\Artist as Artist;
 use model\Genre as Genre;
 use model\Site as Site;
+use model\Ticket as Ticket;
+use model\Invoice as Invoice;
 
 /**
  * Controladora para el carrito
@@ -75,7 +77,7 @@ class CartController {
     public function confirm_purchase()
     {
         try {
-            if(isset($_SESSION['gte-cart']))
+            if(isset($_SESSION['gte-cart']) && isset($_SESSION['logged-user']))
             {
                 // declaro las variables que voy a usar para el QR
                 $chs = '200x200';
@@ -91,15 +93,35 @@ class CartController {
                     $seats = $pl->get_seats();
                     foreach($seats as $s)
                     {
+                        $available = true;
                         // chequeo que siga con availability 0, sino, se lo compó otro
                         $new_s = $this->seatdao->retrieve_without_calendar($s);
 
-                        if($new_s instanceof Seat && $new_s->get_availability() == 0)
+                        if(!($new_s instanceof Seat) || $new_s->get_availability() != 0)
                         {
-                            // aca hay que confirmar la venta, crear los ticks con los QR usando la API de google (ver link en la vista confirm_purchase)
-                        } else {
                             // no existe mas, volvemos a la vista anterior y avisamos al usuario
                             header("Location: ../cart?error=1&text=La entrada " . $s->get_calendar()->get_event()->get_name() . "(" . $s->get_calendar()->get_desc() . ") - " . $s->get_type()->get_type() . " ya no está disponible. :(");
+                            $available = false;
+                        }
+                    }
+
+                    if($available)
+                    {
+                        // todos los seats estaban disponibles, confirmo la venta, les cambio la availability a 1 y creo los tickets y la factura
+                        $invoice = new Invoice($_SESSION['logged-user']); // creamos la factura
+                        $tickets = array(); // arreglo de tickets para la factura
+
+                        foreach($seats as $s)
+                        {
+                            // cambiamos la disponibilidad del seat
+                            $s->change_availability(); // como la availability era 0, ahora es 1
+                            $this->seatdao->update_availability($s); // actualizamos en la DB
+
+                            // generamos el QR del ticket
+                            $qr_code = $this->generate_qr_code($s);
+
+                            // creamos los tickets
+                            $tickets[] = new Ticket($s, $invoice, $qr_code);
                         }
                     }
                 }
@@ -194,6 +216,21 @@ class CartController {
         }
     }
 
+    /**
+     * FUNCIONES AUXILIARES
+     */
+
+    /**
+     * Genera el código QR para un ticket (en base al asiento que le corresponde).
+     * La data de los códigos QRs es la siguiente: seat.ID-seat.number 
+     */
+    private function generate_qr_code(Seat $seat)
+    {
+        if($seat->getID() != null && $seat->get_number() != null)
+            return $seat->getID() . '-' . $seat->get_number();
+
+        return "qrinvalido";
+    }
 }
 
 ?>
