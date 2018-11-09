@@ -220,9 +220,6 @@ class CartController {
         $mail->from('noreply@gotoevent.com', 'GoToEvent - Venta de Tickets');
         $mail->to($_SESSION['logged-user']->get_mail(), $_SESSION['logged-user']->get_mail());
         $mail->send();
-
-        // enviamos
-        //mail($_SESSION['logged-user']->get_mail(), $titulo, $mensaje, $cabeceras);
     }
 
     /**
