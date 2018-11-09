@@ -122,8 +122,6 @@ class CartController {
 
                     $tickets = array(); // arreglo de tickets para la factura
 
-                    
-
                     foreach($lines as $pl)
                     {
                         $seats = $pl->get_seats();
