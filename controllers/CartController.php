@@ -22,6 +22,8 @@ use model\Site as Site;
 use model\Ticket as Ticket;
 use model\Invoice as Invoice;
 
+use lib\MailSenderController as MailSender;
+
 /**
  * Controladora para el carrito
  */
@@ -168,6 +170,8 @@ class CartController {
      */
     private function send_confirm_mail($tickets)
     {
+
+        // datos para el QR de los tickets
         $chs = '200x200';
         $cht = 'qr';
         $choe = 'UTF-8';
@@ -204,8 +208,21 @@ class CartController {
         $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $cabeceras .= 'From: GoToEvent <no-reply@gotoevent.com>' . "\r\n";
 
+        // usamos la librería de mailing
+        $mail = new MailSender();
+        $mail->host = 'smtp.gmail.com';
+        $mail->user = 'gotoeventtickets@gmail.com';
+        $mail->pass = 'gotoevent123';
+        $mail->port = 465;
+        $mail->security = 'ssl';
+        $mail->subject = $titulo;
+        $mail->message = $mensaje;
+        $mail->from('noreply@gotoevent.com', 'GoToEvent - Venta de Tickets');
+        $mail->to($_SESSION['logged-user']->get_mail(), $_SESSION['logged-user']->get_mail());
+        $mail->send();
+
         // enviamos
-        mail($_SESSION['logged-user']->get_mail(), $titulo, $mensaje, $cabeceras);
+        //mail($_SESSION['logged-user']->get_mail(), $titulo, $mensaje, $cabeceras);
     }
 
     /**
