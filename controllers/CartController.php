@@ -172,7 +172,7 @@ class CartController {
         $cht = 'qr';
         $choe = 'UTF-8';
 
-        // mandamos el mail al usuario con sus tickets
+        // titulo del mail
         $titulo = 'GoToEvent - Comprobante de Compra';
 
         // mensaje
@@ -199,11 +199,12 @@ class CartController {
             </html>
         ';
 
-        // Para enviar un correo HTML, debe establecerse la cabecera Content-type
+        // cabeceras
         $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
         $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $cabeceras .= 'From: GoToEvent <no-reply@gotoevent.com>' . "\r\n";
 
-        // Enviarlo
+        // enviamos
         mail($_SESSION['logged-user']->get_mail(), $titulo, $mensaje, $cabeceras);
     }
 
