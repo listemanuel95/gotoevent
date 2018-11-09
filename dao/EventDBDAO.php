@@ -147,6 +147,102 @@ class EventDBDAO extends SingletonDAO implements IDAO {
     }
 
     /**
+     * Para hacer el filtrado desde el index, buscamos eventos según categoría
+     */
+    public function retrieve_by_category($category)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $statement = $conn->prepare("SELECT DISTINCT `G`.`id` AS `e_id`, `G`.`name` AS `e_name`, `G`.`descr` AS `e_descr`,
+                                                        `C`.`name` AS `c_name`, `G`.`image_link` AS `e_img` FROM `gigs` AS `G` JOIN `event_categories` AS `C` 
+                                                        ON `G`.`event_category_id` = `C`.`id` WHERE `C`.`name` = '$category'");
+                $statement->execute();
+                $evts = $statement->fetchAll();
+
+                $ret = array();
+                foreach($evts as $ev)
+                    $ret[] = new Event($ev['e_name'], $ev['e_descr'], new Category($ev['c_name']), $ev['e_img'], $ev['e_id']);
+
+                return $ret;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
+    /**
+     * Para hacer el filtrado desde el index, buscamos eventos según género
+     */
+    public function retrieve_by_genre($genre)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $statement = $conn->prepare("SELECT DISTINCT `G`.`id` AS `e_id`, `G`.`name` AS `e_name`, `G`.`descr` AS `e_descr`,
+                                                        `C`.`name` AS `c_name`, `G`.`image_link` AS `e_img` 
+                                             FROM `gigs` AS `G` 
+                                             JOIN `event_categories` AS `C` ON `G`.`event_category_id` = `C`.`id`
+                                             JOIN `calendars` AS `CA` ON `CA`.`event_id` = `G`.`id`
+                                             JOIN `artists_in_calendars` AS `AC` ON `AC`.`id_calendar` = `CA`.`id`
+                                             JOIN `artists` AS `A` ON `A`.`id` = `AC`.`id_artist`
+                                             JOIN `genres` AS `GE` ON `GE`.`id` = `A`.`genre_id`
+                                             WHERE `GE`.`genre_name` = '$genre'");
+                $statement->execute();
+                $evts = $statement->fetchAll();
+
+                $ret = array();
+                foreach($evts as $ev)
+                    $ret[] = new Event($ev['e_name'], $ev['e_descr'], new Category($ev['c_name']), $ev['e_img'], $ev['e_id']);
+
+                return $ret;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
+    /**
+     * Para el filtrado desde el index, buscamos evento según categoría y género
+     */
+    public function retrieve_by_genre_and_category($genre, $category)
+    {
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+                $statement = $conn->prepare("SELECT DISTINCT `G`.`id` AS `e_id`, `G`.`name` AS `e_name`, `G`.`descr` AS `e_descr`,
+                                                        `C`.`name` AS `c_name`, `G`.`image_link` AS `e_img` 
+                                             FROM `gigs` AS `G` 
+                                             JOIN `event_categories` AS `C` ON `G`.`event_category_id` = `C`.`id`
+                                             JOIN `calendars` AS `CA` ON `CA`.`event_id` = `G`.`id`
+                                             JOIN `artists_in_calendars` AS `AC` ON `AC`.`id_calendar` = `CA`.`id`
+                                             JOIN `artists` AS `A` ON `A`.`id` = `AC`.`id_artist`
+                                             JOIN `genres` AS `GE` ON `GE`.`id` = `A`.`genre_id`
+                                             WHERE `GE`.`genre_name` = '$genre' AND `C`.`name` = '$category'");
+                $statement->execute();
+                $evts = $statement->fetchAll();
+
+                $ret = array();
+                foreach($evts as $ev)
+                    $ret[] = new Event($ev['e_name'], $ev['e_descr'], new Category($ev['c_name']), $ev['e_img'], $ev['e_id']);
+
+                return $ret;
+            } catch (PDOException $e) { // TODO: excepciones mas copadas
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
+    /**
      * Devuelve los ultimos 3 eventos, porque pintó
      */
     public function retrieve_last()

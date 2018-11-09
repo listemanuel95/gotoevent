@@ -148,13 +148,13 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="carousel-item active">
-							<img class="d-block w-100" src="<?php echo $eventosDB[0]->get_image_link(); ?>" alt="<?php echo $eventosDB[0]->get_name();?>">
+							<img class="d-block w-100" src="<?php echo $destacados[0]->get_image_link(); ?>" alt="<?php echo $destacados[0]->get_name();?>">
 							</div>
 							<div class="carousel-item">
-							<img class="d-block w-100" src="<?php echo $eventosDB[1]->get_image_link(); ?>" alt="<?php echo $eventosDB[1]->get_name();?>">
+							<img class="d-block w-100" src="<?php echo $destacados[1]->get_image_link(); ?>" alt="<?php echo $destacados[1]->get_name();?>">
 							</div>
 							<div class="carousel-item">
-							<img class="d-block w-100" src="<?php echo $eventosDB[2]->get_image_link(); ?>" alt="<?php echo $eventosDB[2]->get_name();?>">
+							<img class="d-block w-100" src="<?php echo $destacados[2]->get_image_link(); ?>" alt="<?php echo $destacados[2]->get_name();?>">
 							</div>
 						</div>
 						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -166,7 +166,40 @@
 							<span class="sr-only">Next</span>
 						</a>
 					</div>
-					<br><h3>Todos los Eventos</h3>
+					<br><br>
+					<div class="row">
+						<div class="col-3">
+							<h3>Todos los Eventos</h3>
+						</div>
+						<div class="col-9">
+							<form action="index" method="POST">
+								<div class="row">
+									<div class="col-2">
+										<h3>Filtrar</h3>
+									</div>
+									<div class="col-4">
+										<select class="form-control" style="background-color:white;" name="genero">
+											<option value="genero" selected>Género</option>
+											<?php foreach($generosDB as $gen) { ?>
+												<option value="<?php echo $gen->get_name(); ?>"><?php echo $gen->get_name(); ?></option>
+											<?php } ?>
+										</select>
+									</div>
+									<div class="col-4">
+										<select class="form-control" value="ASDASD" style="background-color:white;" name="categoria">
+											<option value="categoria" selected>Tipo de Evento</option>
+											<?php foreach($categoriasDB as $cat) { ?>
+												<option value="<?php echo $cat->get_name(); ?>"><?php echo $cat->get_name(); ?></option>
+											<?php } ?>
+										</select>
+									</div>
+									<div class="col-2">
+										<button type="submit" style="margin-top:-3px;" class="btn btn-primary">Buscar</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 					<div class="row">
 						<?php foreach($eventosDB as $evento) { ?>
 							<div class="col-sm-4" style="padding-top:20px;">
