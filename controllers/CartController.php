@@ -148,6 +148,10 @@ class CartController {
                 // como se confirmó la compra, borramos la sesión del carrito
                 unset($_SESSION['gte-cart']);
 
+                // mandamos el mail con los tickets
+                $this->send_confirm_mail($tickets);
+
+                // mostramos la vista
                 require(ROOT . '/views/confirm_purchase.php');
             } else {
                 header("Location: ../index");
@@ -156,6 +160,51 @@ class CartController {
             echo '[Controller->Cart] ' . $e->getMessage();
         }
         
+    }
+
+    /**
+     * Manda el mail de confirmación de compra al usuario
+     * (esto no anda, error en mailserver, ver despues)
+     */
+    private function send_confirm_mail($tickets)
+    {
+        $chs = '200x200';
+        $cht = 'qr';
+        $choe = 'UTF-8';
+
+        // mandamos el mail al usuario con sus tickets
+        $titulo = 'GoToEvent - Comprobante de Compra';
+
+        // mensaje
+        $mensaje = '<html>
+                    <head>
+                    <title>GoToEvent - Venta de Tickets para Eventos</title>
+                    </head>
+                    <body>
+                    <p>Tickets adquiridos</p> ';
+
+        foreach($tickets as $ticket) {
+            $mensaje .= '<h5>&ensp;' . $ticket->get_seat()->get_calendar()->get_event()->get_name() . '</h5>';
+            $hora = explode(":", $ticket->get_seat()->get_calendar()->get_time());
+            $mensaje .= '<h5>&ensp;' . $ticket->get_seat()->get_calendar()->get_date() . ' - ' . $hora[0] . ":" . $hora[1] . '</h5>';
+            $mensaje .= '<p><b>&ensp;' . $ticket->get_seat()->get_calendar()->get_site()->get_establishment() . " - " . 
+                                $ticket->get_seat()->get_calendar()->get_site()->get_address() . ", " .
+                                $ticket->get_seat()->get_calendar()->get_site()->get_city() . ", " .
+                                $ticket->get_seat()->get_calendar()->get_site()->get_province() . '</b></p>';
+            $mensaje .= '<p>&emsp;' . $ticket->get_seat()->get_calendar()->get_desc() . '</p>';
+            $mensaje .= '<img src="https://chart.googleapis.com/chart?chs=' . $chs . '&cht=' . $cht . '&chl=' . $ticket->get_qrcode() . '&choe=' . $choe . '">';
+        }
+
+        $mensaje .= '</body>
+            </html>
+        ';
+
+        // Para enviar un correo HTML, debe establecerse la cabecera Content-type
+        $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+        $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+        // Enviarlo
+        mail($_SESSION['logged-user']->get_mail(), $titulo, $mensaje, $cabeceras);
     }
 
     /**

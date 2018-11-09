@@ -49,9 +49,10 @@ class RegisterController {
     		$rol = $this->roledao->retrieve_role('Usuario');
     		$user = new User($mail, md5($pass), $rol);
 
-    		$this->userdao->create($user);
+    		$id = $this->userdao->create($user);
 
-    		// guardamos en sesion el user ya logueado
+            // guardamos en sesion el user ya logueado
+            $user->setID($id);
     		$_SESSION['logged-user'] = $user;
 
     		header("Location: ../index");

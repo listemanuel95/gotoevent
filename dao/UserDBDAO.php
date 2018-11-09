@@ -24,7 +24,9 @@ class UserDBDAO extends SingletonDAO implements IDAO {
                 $statement->bindValue(':rol', $instance->get_role()->getID());
                 $statement->execute();
 
-                return true;
+                $last_id = $conn->lastInsertID();
+
+                return $last_id;
             } catch (PDOException $e) { // TODO: excepciones mas copadas
                 echo "ERROR " . $e->getMessage();
             }
