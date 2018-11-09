@@ -67,12 +67,13 @@
 			<?php } else { ?>
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown">
-					<i class="fas fau-ser design_app"></i><?php echo $_SESSION['logged-user']->get_mail(); ?>
+					<i class="fas fa-user"></i>&ensp;<?php echo $_SESSION['logged-user']->get_mail(); ?>
 					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
 						<?php 
 							if($_SESSION['logged-user']->get_role()->get_name() == 'Admin')
 								echo '<a class="dropdown-item" href="adminPanel"><i class="fas fa-user"></i> Panel de Administración</a>';
 						?>
+						<a class="dropdown-item" href="tickets"><i class="fas fa-ticket-alt"></i> Mis compras</a>
 						<a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
 					</div>
 				</li>
