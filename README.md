@@ -7,26 +7,26 @@ También hay un panel de administración para los usuarios con rol de administra
 
 ## Ámbito
 ### Procesos del sistema:
-#### Administradores
-- Gestión de Eventos
-- Gestión de Categorías
-- Gestión de Lugares y Establecimientos
-- Gestión de Artistas
-- Gestión de Calendarios
-- Consulta de Totales Vendidos y Remanentes
-- Consulta de Disponibilidad de Plazas de Eventos
-#### Invitados
-- Registro de Usuario
-- Consulta de Eventos
-#### Usuarios
-- Consulta de Eventos
-- Consulta de Precios y Disponibilidades de Plazas de Evento
-- Adhición de Plazas al Carrito
-- Confirmación de Compra (Carrito)
-- Consulta de Historial de Compras
-#### Sistema
-- Generación de Tickets con código QR para compras.
-- Envío de mail de confirmación a los usuarios cuando se realiza una compra.
+* #### Administradores
+** - Gestión de Eventos
+** - Gestión de Categorías
+** - Gestión de Lugares y Establecimientos
+** - Gestión de Artistas
+** - Gestión de Calendarios
+** - Consulta de Totales Vendidos y Remanentes
+** - Consulta de Disponibilidad de Plazas de Eventos
+* #### Invitados
+** - Registro de Usuario
+** - Consulta de Eventos
+* #### Usuarios
+** - Consulta de Eventos
+** - Consulta de Precios y Disponibilidades de Plazas de Evento
+** - Adhición de Plazas al Carrito
+** - Confirmación de Compra (Carrito)
+** - Consulta de Historial de Compras
+* #### Sistema
+** - Generación de Tickets con código QR para compras.
+** - Envío de mail de confirmación a los usuarios cuando se realiza una compra.
 
 ## Tabla de Requisitos Funcionales
 | ID Requisito | Nombre | Descripción | Actor |
