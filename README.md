@@ -13,6 +13,9 @@ PHP puro (MVC), HTML5, CSS (SASS) -Bootstrap 4-, JavaScript (jQuery), MySQL (ví
 ## D.E.R
 ![Diagrama Entidad-Relación](https://i.imgur.com/3CxUeDX.png)
 
+## Diagrama de Casos de Uso
+![Casos de Uso](https://i.imgur.com/5vMOr4z.png)
+
 ## Imágenes
 ### - Index
 ![Index](https://i.imgur.com/tJoBZn9.jpg)
