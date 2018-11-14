@@ -1,20 +1,40 @@
 # GoToEvent
 TP Metodología de Sistemas I, Laboratorio IV y Bases de Datos I.
 
-## Theme
-[Now UI Kit](https://www.creative-tim.com/product/now-ui-kit) (gratuito, [licencia MIT](https://opensource.org/licenses/MIT))
+## Objetivo
 
-## Tecnologías usadas
-PHP puro (MVC), HTML5, CSS (SASS) -Bootstrap 4-, JavaScript (jQuery), MySQL (vía [PDO](http://php.net/manual/es/book.pdo.php))
+## Ámbito
+
+## Tabla de Requisitos Funcionales
+
+## Requisitos No Funcionales
+> Arquitectura de 3 capas (MVC): vistas, modelos y controladoras.
+### Vistas
+#### Todo lo que hace al frontend e interfaz de usuario de la aplicación.
+- HTML5
+- CSS, SASS ([Bootstrap](https://getbootstrap.com/))
+- JavaScript ([jQuery](https://jquery.com/))
+### Modelo
+#### Diagrama de clases de la aplicación. Los modelos son los objetos del sistema.
+- [PHP](http://php.net/) (sin frameworks)
+### Controladoras
+#### Manejan la lógica de la aplicación (modelo de negocios).
+- [PHP](http://php.net/) (sin frameworks)
+### Objetos de Acceso a Datos (DAOs)
+#### Capa auxiliar para la persistencia de información.
+- [MySQL](https://www.mysql.com/) (vía [PDO](http://php.net/manual/es/book.pdo.php))
+
+## Diagrama de Casos de Uso
+![Casos de Uso](https://i.imgur.com/5vMOr4z.png)
 
 ## Modelo conceptual base
 ![Modelo Conceptual](https://i.imgur.com/x68nj1Z.png)
 
+## Theme
+[Now UI Kit](https://www.creative-tim.com/product/now-ui-kit) (gratuito, [licencia MIT](https://opensource.org/licenses/MIT))
+
 ## D.E.R
 ![Diagrama Entidad-Relación](https://i.imgur.com/3CxUeDX.png)
-
-## Diagrama de Casos de Uso
-![Casos de Uso](https://i.imgur.com/5vMOr4z.png)
 
 ## Imágenes
 ### - Index
