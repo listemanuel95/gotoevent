@@ -2,10 +2,36 @@
 TP Metodología de Sistemas I, Laboratorio IV y Bases de Datos I.
 
 ## Objetivo
+El sistema permite a los usuarios comprar tickets para eventos musicales o teatrales a realizarse. Los usuarios deben registrarse para efectuar las compras, caso contrario sólo podrán ver la lista de eventos.
+También hay un panel de administración para los usuarios con rol de administradores, que les permite gestionar los distintos eventos y calendarios, como así los artistas y fechas que corresponden a éstos.
 
 ## Ámbito
+### Procesos del sistema:
+#### Administradores
+- Gestión de Eventos
+- Gestión de Categorías
+- Gestión de Lugares y Establecimientos
+- Gestión de Artistas
+- Gestión de Calendarios
+- Consulta de Totales Vendidos y Remanentes
+- Consulta de Disponibilidad de Plazas de Eventos
+#### Invitados
+- Registro de Usuario
+- Consulta de Eventos
+#### Usuarios
+- Consulta de Eventos
+- Consulta de Precios y Disponibilidades de Plazas de Evento
+- Adhición de Plazas al Carrito
+- Confirmación de Compra (Carrito)
+- Consulta de Historial de Compras
+#### Sistema
+- Generación de Tickets con código QR para compras.
+- Envío de mail de confirmación a los usuarios cuando se realiza una compra.
 
 ## Tabla de Requisitos Funcionales
+| ID Requisito | Nombre | Descripción | Actor |
+|:------------:|:------:|:-----------:|:-----:|
+| RF-001 |  Consulta de Eventos | Todos los usuarios podrán consultar los eventos disponibles en todo momento | Todos |
 
 ## Requisitos No Funcionales
 > Arquitectura de 3 capas (MVC): vistas, modelos y controladoras.
@@ -27,7 +53,7 @@ TP Metodología de Sistemas I, Laboratorio IV y Bases de Datos I.
 ## Diagrama de Casos de Uso
 ![Casos de Uso](https://i.imgur.com/5vMOr4z.png)
 
-## Modelo conceptual base
+## Modelo Conceptual Base
 ![Modelo Conceptual](https://i.imgur.com/x68nj1Z.png)
 
 ## Theme
