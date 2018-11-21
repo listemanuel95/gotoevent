@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\User as User;
 use model\UserRole as UserRole;
 

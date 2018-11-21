@@ -1,6 +1,8 @@
 <?php
 
-namespace dao;
+namespace daolistas;
+
+use interfaces\IDAO as IDAO;
 
 use model\Artist as Artist;
 

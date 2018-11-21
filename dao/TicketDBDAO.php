@@ -2,9 +2,8 @@
 
 namespace dao;
 
-/**
- * Modelos a utilizar
- */
+use interfaces\IDAO as IDAO;
+
 use model\Ticket as Ticket;
 use model\User as User;
 use model\Seat as Seat;
@@ -13,9 +12,6 @@ use model\Site as Site;
 use model\Calendar as Calendar;
 use model\Event as Event;
 
-/**
- * TicketDBDAO: maneja los movimientos en la base de datos con respecto a la tabla `tickets`
- */
 class TicketDBDAO extends SingletonDAO implements IDAO {
 
     public function create($instance)

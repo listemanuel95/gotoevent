@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\Calendar as Calendar;
 use model\Site as Site;
 use model\Seat as Seat;

@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\SeatType as SeatType;
 
 class SeatTypeDBDAO extends SingletonDAO implements IDAO {

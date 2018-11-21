@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\Site as Site;
 
 class SiteDBDAO extends SingletonDAO implements IDAO {

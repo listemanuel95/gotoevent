@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\Category as Category;
 
 class CategoryDBDAO extends SingletonDAO implements IDAO {

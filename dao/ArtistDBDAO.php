@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\Artist as Artist;
 use model\Genre as Genre;
 

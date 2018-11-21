@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\Invoice as Invoice;
 
 class InvoiceDBDAO extends SingletonDAO implements IDAO {

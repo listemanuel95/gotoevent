@@ -26,7 +26,18 @@ class RegisterController {
 
     	// si ya esta logueado lo pateamos
     	if(isset($_SESSION['logged-user']))
-    		header("Location: index");
+            header("Location: index");
+            
+        // si me llegó el "fblogin" por $_GET, logeo el usuario
+        if(isset($_GET['fblogin']))
+        {
+            if(!isset($_SESSION['logged-user']))
+            {
+                $mail = $_GET['fblogin'];
+                $_SESSION['logged-user'] = new User($mail, '', $this->roledao->retrieve_role('Usuario')); // siempre que se loguea x FB el rol es "1" (usuario normal)
+                header("Location: index");
+            }
+        }
     }
 
     /**

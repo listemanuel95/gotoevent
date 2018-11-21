@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\Genre as Genre;
 
 class GenreDBDAO extends singletonDAO implements IDAO {

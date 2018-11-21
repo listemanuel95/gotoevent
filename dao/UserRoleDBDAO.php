@@ -2,6 +2,8 @@
 
 namespace dao;
 
+use interfaces\IDAO as IDAO;
+
 use model\UserRole as UserRole;
 
 class UserRoleDBDAO extends SingletonDAO implements IDAO {

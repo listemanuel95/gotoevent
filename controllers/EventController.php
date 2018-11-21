@@ -26,6 +26,11 @@ use dao\CalendarDBDAO as CalendarDBDAO;
 use model\Genre as Genre;
 use dao\GenreDBDAO as GenreDBDAO;
 
+use model\User as User;
+
+use model\UserRole as UserRole;
+use dao\UserRoleDBDAO as UserRoleDBDAO;
+
 /**
  * Controladora para la creación de eventos. Los eventos se crean en una sola vista, agregándoseles artista, calendario, lugar, fecha y hora.
  * La creación de nuevos artistas, lugares, categorías, etc. se hace en la misma vista (addevent.php) vía peticiones AJAX a los métodos
@@ -40,6 +45,7 @@ class EventController {
     private $evtdao;
     private $caldao;
     private $plazdao;
+    private $roldao;
 
     /**
      * Obtenemos las instancias de los DAOs en el constructor y después las usamos como atributos
@@ -54,6 +60,17 @@ class EventController {
         $this->caldao = CalendarDBDAO::get_instance();
         $this->plazdao = SeatTypeDBDAO::get_instance();
         $this->plazasdao = SeatDBDAO::get_instance();
+        $this->roldao = UserRoleDBDAO::get_instance();
+
+        // si me llegó el "fblogin" por $_GET, logeo el usuario
+        if(isset($_GET['fblogin']))
+        {
+            if(!isset($_SESSION['logged-user']))
+            {
+                $mail = $_GET['fblogin'];
+                $_SESSION['logged-user'] = new User($mail, '', $this->roldao->retrieve_role('Usuario')); // siempre que se loguea x FB el rol es "1" (usuario normal)
+            }
+        }
     }
 
     /**

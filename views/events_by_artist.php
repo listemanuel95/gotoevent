@@ -58,9 +58,10 @@
 						</div>
 						<p class="text-center">¿No tenés cuenta? <a href="../../register" style="color:orange;">Registrate</a></p>
 					</form>
-					<a class="dropdown-item" target="_blank" href="https://demos.creative-tim.com/now-ui-kit/docs/1.0/getting-started/introduction.html">
-						<i class="fab fa-facebook fa-2x design_bullet-list-67"></i> &ensp;ACA CON FB
-					</a>
+					<hr>
+					<fb:login-button class="dropdown-item" length="long" scope="email" onlogin="checkLoginState();">
+						<span style= "margin-right: 10px;">Conectar con Facebook</span>
+					</fb:login-button>
 					</div>
 				</li>
 			<?php } else { ?>
@@ -200,8 +201,8 @@
 	<script src="../../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 	<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
 	<script src="../../assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
-	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	<script src="../../assets/js/plugins/fblogin.js" type="text/javascript"></script>
+
 	<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
 	<script src="../../assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
 	
