@@ -3,7 +3,7 @@
 namespace lib;
 
 /**
- * PHP Simple Mail (SMTP)
+ * Librería adicional para enviar los mails usando el SMTP de Gmail.  Créditos:
  * @author Hamid Samak <hamid@limny.org>
  * @copyright 2016 Hamid Samak
  * @license MIT License
@@ -35,6 +35,7 @@ class MailSenderController {
 	private $from;
 	// recipient(s)
 	private $to = array();
+
 	/**
 	 * set sender
 	 * @param  string $address email address
@@ -47,6 +48,7 @@ class MailSenderController {
 		else
 			$this->from = '"' . $name . '" <' . $address . '>';
 	}
+
 	/**
 	 * set recipients
 	 * @param  string $address email address
@@ -59,6 +61,7 @@ class MailSenderController {
 		else
 			$this->to[] = '"' . $name . '" <' . $address . '>';
 	}
+
 	/**
 	 * send mail
 	 * @return boolean
@@ -114,6 +117,7 @@ class MailSenderController {
 		fclose($socket);
 		return true;
 	}
+	
 	/**
 	 * parse request result and check result with expected code
 	 * @param  resource $socket connection

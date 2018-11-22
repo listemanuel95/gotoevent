@@ -51,6 +51,9 @@ class AdminPanelController {
         }
     }
 
+    /**
+     * Dispara la vista de edición de eventos
+     */
     public function edit_event($id)
     {
         try {
@@ -63,6 +66,9 @@ class AdminPanelController {
         }
     }
 
+    /**
+     * Dispara la vista para agregar calendarios
+     */
     public function add_calendar($id)
     {
         // variables necesarias para la vista
@@ -81,6 +87,9 @@ class AdminPanelController {
         
     }
 
+    /**
+     * Borra el evento y redirecciona al panel
+     */
     public function delete_event($id)
     {
         // borramos el evento

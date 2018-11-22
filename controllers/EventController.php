@@ -34,7 +34,7 @@ use dao\UserRoleDBDAO as UserRoleDBDAO;
 /**
  * Controladora para la creación de eventos. Los eventos se crean en una sola vista, agregándoseles artista, calendario, lugar, fecha y hora.
  * La creación de nuevos artistas, lugares, categorías, etc. se hace en la misma vista (addevent.php) vía peticiones AJAX a los métodos
- * ajax_insert() de las controladoras correspondientes. Se puede ver ésto en los action de los métodos de los Modales para cada caso.
+ * ajax_insert() de las controladoras correspondientes. Se puede ver ésto en los "action" de los formularios de los Modales para cada caso.
  */
 class EventController {
 
@@ -102,7 +102,7 @@ class EventController {
     }
 
     /**
-     * Método encargado de crear un evento. (En cuanto a vistas lo único que tendría que hacer es mostrar un mensaje de éxito y volver al index)
+     * Método encargado de crear un evento.
      */
     public function add($nombre = null, $desc = null, $img = null, $cat = null)
     {
@@ -138,6 +138,9 @@ class EventController {
         }
     }
 
+    /**
+     * Agrega un calendario al evento (siempre, por defecto, al crear un evento obligamos a crear al menos un calendario para ese evento).
+     */
     public function add_calendar($id_evt = null, $fecha = null, $hora = null, $desc_cal = null, $lugar = null, $plazas_id = null, $plazas = null, $plazas_precio = null, $artistas = null)
     {
         if($id_evt != null && $fecha != null && $hora != null && $desc_cal != null && $lugar != null && $plazas_id != null && $plazas != null && $plazas_precio != null && $artistas != null)
@@ -235,6 +238,9 @@ class EventController {
             header("Location: ../index");
     }
 
+    /**
+     * Dispara la vista de los eventos que corresponden a un artista determinado
+     */
     public function events_by_artist($id)
     {
         $events = $this->caldao->retrieve_events_by_artist_id($id);

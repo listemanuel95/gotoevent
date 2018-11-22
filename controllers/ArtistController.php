@@ -9,7 +9,7 @@ use dao\GenreDBDAO as GenreDBDAO;
 use model\Genre as Genre;
 
 /**
- * Controladora usada solamente para insertar artistas vía peticiones AJAX, por eso no tiene método index()
+ * Controladora usada solamente para insertar artistas vía peticiones AJAX, por eso no tiene método index() (no dispara vistas)
  */
 class ArtistController {
 

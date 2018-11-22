@@ -6,7 +6,7 @@ use model\Category as Category;
 use dao\CategoryDBDAO as CategoryDBDAO;
 
 /**
- * Controladora usada solamente para insertar categorías vía peticiones AJAX, por eso no tiene método index()
+ * Controladora usada solamente para insertar categorías vía peticiones AJAX, por eso no tiene método index() (no dispara vistas)
  */
 class CategoryController {
 

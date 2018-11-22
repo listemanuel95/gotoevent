@@ -14,6 +14,9 @@ class LogoutController {
     {
     }
 
+    /**
+     * Elimina el usuario de la sesión (y también, por ende, su carrito -si hubiera-)
+     */
     public function index()
     {
         // borramos la sesión

@@ -6,7 +6,7 @@ use dao\SiteDBDAO as SiteDBDAO;
 use model\Site as Site;
 
 /**
- * Controladora usada solamente para insertar lugares vía peticiones AJAX, por eso no tiene método index()
+ * Controladora usada solamente para insertar lugares vía peticiones AJAX, por eso no tiene método index() (no dispara vistas)
  */
 class SiteController {
 

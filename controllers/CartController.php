@@ -166,7 +166,6 @@ class CartController {
 
     /**
      * Manda el mail de confirmación de compra al usuario
-     * (esto no anda, error en mailserver, ver despues)
      */
     private function send_confirm_mail($tickets)
     {
@@ -316,6 +315,10 @@ class CartController {
 
         return "qrinvalido";
     }
+
+    /**
+     * FIN FUNCIONES AUXILIARES
+     */
 }
 
 ?>
