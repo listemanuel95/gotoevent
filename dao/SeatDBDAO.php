@@ -132,6 +132,52 @@ class SeatDBDAO extends SingletonDAO implements IDAO {
         return null;
     }
 
+    public function retrieve_sold() {
+
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+
+                $statement = $conn->prepare("SELECT E.name, SUM(P.price) as total FROM seats AS P 
+                                            JOIN calendars AS C ON P.calendar_id = C.id 
+                                            JOIN gigs AS E ON E.id = C.event_id
+                                            WHERE availability = 0
+                                            GROUP BY E.id");
+                $statement->execute();
+                
+                return $statement->fetchAll();
+
+            } catch (PDOException $e) {
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
+    public function retrieve_sold_total() {
+
+        $conn = new Connection();
+        $conn = $conn->get_connection();
+
+        if($conn != null)
+        {
+            try {
+
+                $statement = $conn->prepare("SELECT SUM(price) AS total FROM seats WHERE availability = 0");
+                $statement->execute();
+
+                $total = $statement->fetch();
+                
+                return $total['total'];
+
+            } catch (PDOException $e) {
+                echo "ERROR " . $e->getMessage();
+            }
+        }
+    }
+
 }
 
 ?>

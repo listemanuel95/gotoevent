@@ -99,6 +99,13 @@
 					</div>
 				<?php } ?>
 				<a href="event"><button class="btn btn-primary">Cargar Nuevo Evento</button></a>
+				<hr>
+				<h2>Recaudacion por evento: </h2>
+				<?php foreach($total_recaudado as $totalevento) { ?>
+					<?php echo $totalevento['name'] . ": $" . $totalevento['total']; ?><br>
+				<?php } ?>
+				<h3 class="pull-right">Recaudacion total: $<?php echo $total_global; ?></h3>
+				<br><br><br>
 			</div>
 			<!-- End first section -->
 		</div>

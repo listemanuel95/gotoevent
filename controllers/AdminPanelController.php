@@ -8,6 +8,7 @@ use dao\ArtistDBDAO as ArtistDBDAO;
 use dao\GenreDBDAO as GenreDBDAO;
 use dao\SeatTypeDBDAO as SeatTypeDBDAO;
 use dao\CategoryDBDAO as CategoryDBDAO;
+use dao\SeatDBDAO as SeatDBDAO;
 
 /**
  * Controladora del panel de administración
@@ -27,6 +28,7 @@ class AdminPanelController {
         $this->gendao = GenreDBDAO::get_instance();
         $this->plazdao = SeatTypeDBDAO::get_instance();
         $this->catdao = CategoryDBDAO::get_instance();
+        $this->seatdao = SeatDBDAO::get_instance();
     }
 
     /**
@@ -42,6 +44,8 @@ class AdminPanelController {
             if($rol == 'Admin')
             {
                 $eventos = $this->evtdao->retrieve_all();
+                $total_recaudado = $this->seatdao->retrieve_sold();
+                $total_global = $this->seatdao->retrieve_sold_total();
                 require(ROOT . '/views/admin_panel.php');        
             } else {
                 header("Location: index");
