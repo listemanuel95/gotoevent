@@ -141,11 +141,11 @@ class SeatDBDAO extends SingletonDAO implements IDAO {
         {
             try {
 
-                $statement = $conn->prepare("SELECT E.name, SUM(P.price) as total FROM seats AS P 
-                                            JOIN calendars AS C ON P.calendar_id = C.id 
-                                            JOIN gigs AS E ON E.id = C.event_id
-                                            WHERE availability = 0
-                                            GROUP BY E.id");
+                $statement = $conn->prepare("SELECT `E`.`name`, SUM(`P`.`price`) as `total` FROM `seats` AS `P` 
+                                            JOIN `calendars` AS `C` ON `P`.`calendar_id` = `C`.`id` 
+                                            JOIN `gigs` AS `E` ON `E`.`id` = `C`.`event_id`
+                                            WHERE `availability` = 1
+                                            GROUP BY `E`.`id`");
                 $statement->execute();
                 
                 return $statement->fetchAll();
@@ -165,7 +165,7 @@ class SeatDBDAO extends SingletonDAO implements IDAO {
         {
             try {
 
-                $statement = $conn->prepare("SELECT SUM(price) AS total FROM seats WHERE availability = 0");
+                $statement = $conn->prepare("SELECT SUM(`price`) AS `total` FROM `seats` WHERE `availability` = 1");
                 $statement->execute();
 
                 $total = $statement->fetch();

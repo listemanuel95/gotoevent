@@ -252,7 +252,7 @@ function validateCalendarForm(cantPlazas)
     if(!ret)
     {
         $.notify({
-            message: 'Las plazas no pueden superar la capacidad del establecimiento, CAPO' 
+            message: 'Las plazas no pueden superar la capacidad del establecimiento' 
         }, {
             type: 'danger',
             placement: {
