@@ -25,6 +25,9 @@ class TicketsController {
      */
 	public function index()
 	{
+        // variable par ano usar sesiones en las vistas
+        $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+        
 		try {
 
             if(isset($_SESSION['logged-user']))

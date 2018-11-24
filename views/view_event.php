@@ -38,7 +38,7 @@
 		</div>
 		<div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../../assets/img/blurred-image-1.jpg">
 			<ul class="navbar-nav">
-			<?php if(!isset($_SESSION['logged-user'])) { ?>
+			<?php if($logged_user == null) { ?>
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
 					<i class="fa fa-sign-in-alt design_app"></i>
@@ -68,10 +68,10 @@
 			<?php } else { ?>
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown">
-					<i class="fas fa-user"></i>&ensp;<?php echo $_SESSION['logged-user']->get_mail(); ?>
+					<i class="fas fa-user"></i>&ensp;<?php echo $logged_user->get_mail(); ?>
 					<div class="dropdown-menu dropdown-menu-right" style="width:250px;" aria-labelledby="navbarDropdownMenuLink2">
 						<?php 
-							if($_SESSION['logged-user']->get_role()->get_name() == 'Admin')
+							if($logged_user->get_role()->get_name() == 'Admin')
 								echo '<a class="dropdown-item" href="../../adminPanel"><i class="fas fa-user"></i> Panel de Administración</a>';
 						?>
 						<a class="dropdown-item" href="../../tickets"><i class="fas fa-ticket-alt"></i> Mis compras</a>
@@ -80,7 +80,7 @@
 				</li>
 				<li class="nav-item dropdown">
 					<?php 
-						if(isset($_SESSION['logged-user']))
+						if($logged_user != null)
 						{
 							$cant = 0;
 

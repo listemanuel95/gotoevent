@@ -212,6 +212,9 @@ class EventController {
      */
     public function details($event_id) 
     {
+        // variable par ano usar sesiones en las vistas
+        $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+        
         $event = $this->evtdao->retrieve_by_id($event_id);
         $calendars = $this->caldao->retrieve_by_event($event);
         $plaza_types = $this->plazdao->retrieve_all();
@@ -243,6 +246,9 @@ class EventController {
      */
     public function events_by_artist($id)
     {
+        // variable par ano usar sesiones en las vistas
+        $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+
         $events = $this->caldao->retrieve_events_by_artist_id($id);
         $artista = $this->artdao->retrieve_by_id($id);
 

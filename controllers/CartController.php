@@ -54,6 +54,9 @@ class CartController {
      */
     public function index()
     {
+        // variable par ano usar sesiones en las vistas
+        $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+        
         try {
 
             // si no esta logueado hay que patearlo
@@ -84,6 +87,9 @@ class CartController {
      */
     public function confirm_purchase()
     {
+        // variable par ano usar sesiones en las vistas
+        $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+
         try {
             if(isset($_SESSION['gte-cart']) && isset($_SESSION['logged-user']))
             {
@@ -91,7 +97,6 @@ class CartController {
                 $chs = '200x200';
                 $cht = 'qr';
                 $choe = 'UTF-8';
-
                 // chequeo que los seats reservados sigan estando disponibles
                 $purchase = $_SESSION['gte-cart'];
                 $lines = $purchase->get_purchase_lines();

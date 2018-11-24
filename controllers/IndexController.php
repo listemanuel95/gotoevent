@@ -52,6 +52,9 @@ class IndexController {
      */
     public function index($gen = null, $cat = null)
     {
+        // variable par ano usar sesiones en las vistas
+        $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+        
         try {
             $eventosDB = array();
             $categoriasDB = $this->catdao->retrieve_all();
