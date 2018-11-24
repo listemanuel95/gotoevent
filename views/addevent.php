@@ -65,20 +65,18 @@
 					<div class="row">
 						<div class="col-4"></div>
 						<div class="col-4 text-center">
-							<h2 class="title">Agregar Evento</h2>
-							
-							<form action="event/add" method="post">
+							<h2 class="title">Agregar Evento</h2>							
+							<form action="event/add" method="post" enctype="multipart/form-data">
 								<input type="text" class="form-control" style="background-color:white;" placeholder="Nombre de Evento..." name="nombre-evento">
 								<br><textarea class="form-control" style="background-color:white;" placeholder="Descripcion..." name="desc-evento"></textarea>
-								<h5 class="title">Imagen (link) </h5>
-								<br><input type="text" class="form-control" name="image-link">
 								<br><h5 class="title">Categoría <a href="javascript:void(0)"><i class="fas fa-plus" style="color:green;" id="add-category" title="Agregar Categoría"></i></a></h5>
 								<select class="form-control" style="background-color:white;" name="event-category" id="categories-select">
 									<?php foreach($categoriasDB as $categoria) { ?>
 										<option value="<?php echo $categoria->get_name(); ?>"><?php echo $categoria->get_name(); ?></option>
 									<?php } ?>
-								</select>
-							
+								</select>	
+								<h5 class="title">Imagen</h5>	
+								<br><input id="file" type="file" class="form-control" name="file">					
 								<br><button type="submit" class="btn btn-primary">Agregar</button> 
 							</form>
 						</div>

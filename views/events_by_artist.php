@@ -137,10 +137,10 @@
 						<?php foreach($events as $evento) { ?>
 							<div class="col-sm-4" style="padding-top:20px;">
 								<div class="hovereffect" style="width: 22rem; max-height:140px;">
-									<img class="img-responsive" src="<?php echo $evento->get_image_link(); ?>" alt="<?php echo $evento->get_name(); ?>">
+									<img class="img-responsive" src="../../<?php echo $evento->get_image_link(); ?>" alt="<?php echo $evento->get_name(); ?>">
 									<div class="overlay">
 										<h2><?php echo $evento->get_name(); ?></h2>
-										<a href="event/details/<?php echo $evento->getID(); ?>" class="info">Ver evento</a>
+										<a href="../../event/details/<?php echo $evento->getID(); ?>" class="info">Ver evento</a>
 									</div>
 								</div>
 							</div>

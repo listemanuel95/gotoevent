@@ -101,7 +101,7 @@
 	<!-- Start Wrapper -->
 	<div class="wrapper">
 
-		<img src="<?php echo $event->get_image_link(); ?>" style="width:100%;">
+		<img src="../../<?php echo $event->get_image_link(); ?>" style="width:100%;">
 
 		<!-- Start Main -->
 		<div class="main">

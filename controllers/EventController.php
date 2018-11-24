@@ -104,9 +104,9 @@ class EventController {
     /**
      * Método encargado de crear un evento.
      */
-    public function add($nombre = null, $desc = null, $img = null, $cat = null)
+    public function add($nombre = null, $desc = null, $cat = null)
     {
-        if($nombre != null && $desc != null && $img != null && $cat != null)
+        if($nombre != null && $desc != null && $cat != null)
         {
             // aca me llegan todos los datos, puedo cargar el evento en la BD
             try {
@@ -114,8 +114,18 @@ class EventController {
                 $cat_aux = new Category($cat); 
                 $cat_objeto = $this->catdao->retrieve($cat_aux);
 
+                if (!empty($_FILES['file']['name'])) {
+                    $file = $_FILES['file'];            
+                } else {
+                    $file = null;
+                }
+
+                var_dump($file);
+
+                $path = $this->uploadfile($file, 'images');
+
                 // guardamos el evento
-                $evento_a_guardar = new Event($nombre, $desc, $cat_objeto, $img);
+                $evento_a_guardar = new Event($nombre, $desc, $cat_objeto, $path);
                 $this->evtdao->create($evento_a_guardar);
 
                 // hago el retrieve para que me de la ID
@@ -249,12 +259,55 @@ class EventController {
     {
         // variable par ano usar sesiones en las vistas
         $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+        $gte_cart = isset($_SESSION['gte-cart']) ? $_SESSION['gte-cart'] : null;
 
         $events = $this->caldao->retrieve_events_by_artist_id($id);
         $artista = $this->artdao->retrieve_by_id($id);
 
         require(ROOT . '/views/events_by_artist.php');
     }
+
+    private function uploadfile($file, $folder) {
+
+        $path = null;
+        $folders_Array = array("images", "documents");
+ 
+        if (is_array($file) && !empty($file)) {
+ 
+            if (in_array($folder, $folders_Array)) {
+                $folderPath = ROOT . 'assets/' . $folder . '/';
+ 
+                if (!file_exists($folderPath)) {
+                    mkdir($folderPath);
+                }
+ 
+                if ($file['name']) {
+                    $fileTypes_Array = array('png', 'jpg', 'pdf', 'gif');
+                    $fileSize = 5000000;
+                    $fileName = $file['name'];
+ 
+                    $filePath = $folderPath . $fileName;
+ 
+                    $fileType = pathinfo($filePath, PATHINFO_EXTENSION);
+ 
+                    if (in_array($fileType, $fileTypes_Array)) {
+ 
+                        if ($file['size'] < $fileSize) {
+ 
+                            if (move_uploaded_file($file["tmp_name"], $filePath)) {
+                                $path = ROOT . 'assets/' . $folder . '/' . $fileName;
+ 
+                            } else throw new \Exception("Error al mover el archivo.");
+                        } else throw new \Exception("Error, excede el peso admitido.");
+                    } else throw new \Exception("Error, no se admite este formato.");
+                } else throw new \Exception("Error, nombre invalido.");
+            } else throw new \Exception("Error, la carpeta destino no es correcta.");
+        } else throw new \Exception("Error, la variable no es un archivo.");
+ 
+        return $path;
+
+    }
+
 }
 
 ?>

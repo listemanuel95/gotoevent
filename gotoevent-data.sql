@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2018 a las 05:30:02
--- Versión del servidor: 10.1.35-MariaDB
--- Versión de PHP: 7.1.21
+-- Tiempo de generación: 24-11-2018 a las 23:27:00
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -180,11 +180,11 @@ CREATE TABLE `gigs` (
 --
 
 INSERT INTO `gigs` (`id`, `event_category_id`, `descr`, `name`, `image_link`) VALUES
-(50, 1, 'turf asd', 'Turf Gira Odisea', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Trastienda%20san%20telmo/turf-inter.jpg'),
-(51, 1, 'ROMEO SANTOS HIPODROMO DE PALERMO', 'TestEvento', 'https://www.daleplayticket.com/Articlemedia/Images/Brands/daleplayticket/intermedia/romeoSegundaInter.jpg'),
-(52, 1, 'TEQUE TEQUE TOCA TOCA ESTA HINCHADA ESTA RE LOCA SOMOS TODOS DIVIDIDOS DIVIDIDOS LAS PELOTAS', 'Divididos 30 años', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Divididos/divididos-graficagenerica-inter.jpg'),
-(53, 2, 'Veni veni veni, no seas puto y veni', 'Mangueras Musmanno Rock Festival', 'https://i.ytimg.com/vi/BvM9vvAja6E/maxresdefault.jpg'),
-(54, 1, 'Descripción de Evento Obligatoria', 'Massacre', 'https://www.tuentrada.com/Articlemedia/Images/TuEntrada/mas_info/Trastienda%20san%20telmo/massacreDic18.jpg');
+(50, 1, 'turf asd', 'Turf Gira Odisea', 'assets/images/turf-inter.jpg'),
+(51, 1, 'ROMEO SANTOS HIPODROMO DE PALERMO', 'TestEvento', 'assets/images/romeoSegundaInter.jpg'),
+(52, 1, 'TEQUE TEQUE TOCA TOCA ESTA HINCHADA ESTA RE LOCA SOMOS TODOS DIVIDIDOS DIVIDIDOS LAS PELOTAS', 'Divididos 30 años', 'assets/images/divididos-graficagenerica-inter.jpg'),
+(53, 2, 'Veni veni veni, no seas puto y veni', 'Mangueras Musmanno Rock Festival', 'assets/images/maxresdefault.jpg'),
+(54, 1, 'Descripción de Evento Obligatoria', 'Massacre', 'assets/images/massacreDic18.jpg');
 
 -- --------------------------------------------------------
 
