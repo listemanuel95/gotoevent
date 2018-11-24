@@ -56,6 +56,7 @@ class CartController {
     {
         // variable par ano usar sesiones en las vistas
         $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+        $gte_cart = isset($_SESSION['gte-cart']) ? $_SESSION['gte-cart'] : null;
         
         try {
 
@@ -89,6 +90,7 @@ class CartController {
     {
         // variable par ano usar sesiones en las vistas
         $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+        $gte_cart = isset($_SESSION['gte-cart']) ? $_SESSION['gte-cart'] : null;
 
         try {
             if(isset($_SESSION['gte-cart']) && isset($_SESSION['logged-user']))

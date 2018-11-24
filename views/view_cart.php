@@ -83,8 +83,8 @@
 						{
 							$cant = 0;
 
-							if(isset($_SESSION['gte-cart']))
-								$cant = count($_SESSION['gte-cart']->get_purchase_lines());
+							if($gte_cart != null)
+								$cant = count($gte_cart->get_purchase_lines());
 
 							echo '<a class="nav-link" href="#"><span class="badge badge-secondary" id="cart-span">'.$cant.'</span>&ensp;<i class="fas fa-shopping-cart"></i></a>';
 						}
@@ -137,7 +137,7 @@
 						if(isset($_GET['error']) && $_GET['error'] == '1') { ?>
 							<input type="hidden" id="cart_error" value="<?php echo $_GET['text']; ?>">
 					<?php } ?>
-                    <?php if(isset($_SESSION['gte-cart'])) { ?>
+                    <?php if($gte_cart != null) { ?>
                         <h4>Carrito</h4>
                             <table id="cart" class="table table-hover">
                                 <thead>
@@ -151,8 +151,8 @@
                                 </thead>
 
                                 <tbody>
-								<?php for($i = 0; $i < count($_SESSION['gte-cart']->get_purchase_lines()); $i++) { 
-									  		$line = $_SESSION['gte-cart']->get_purchase_lines()[$i];
+								<?php for($i = 0; $i < count($gte_cart->get_purchase_lines()); $i++) { 
+									  		$line = $gte_cart->get_purchase_lines()[$i];
 								?>
 									<tr>
 										<td data-th="Product">
@@ -175,7 +175,7 @@
                                         <td></td>
                                         <td colspan="2" class="hidden-xs"></td>
 										<td></td>
-                                        <td class="hidden-xs text-center"><strong>Total $ <?php echo $_SESSION['gte-cart']->get_total(); ?></strong></td>
+                                        <td class="hidden-xs text-center"><strong>Total $ <?php echo $gte_cart->get_total(); ?></strong></td>
                                     </tr>
                                 </tfoot>
                             </table>

@@ -214,6 +214,7 @@ class EventController {
     {
         // variable par ano usar sesiones en las vistas
         $logged_user = isset($_SESSION['logged-user']) ? $_SESSION['logged-user'] : null;
+        $gte_cart = isset($_SESSION['gte-cart']) ? $_SESSION['gte-cart'] : null;
         
         $event = $this->evtdao->retrieve_by_id($event_id);
         $calendars = $this->caldao->retrieve_by_event($event);
